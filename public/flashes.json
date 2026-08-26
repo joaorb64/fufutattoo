@@ -1,0 +1,243 @@
+{
+  "bode": {
+    "name": {
+      "pt": "Bode",
+      "en": "Goat"
+    },
+    "tags": [
+      {
+        "pt": "cor",
+        "en": "color"
+      },
+      {
+        "pt": "animal",
+        "en": "animal"
+      },
+      {
+        "pt": "astrologia",
+        "en": "astrology"
+      }
+    ],
+    "price": 50,
+    "size_min": [
+      5,
+      3
+    ],
+    "size_max": [
+      10,
+      6
+    ],
+    "images": [
+      {
+        "original": "/flashes/bode/1.png",
+        "watermarked": "/flashes_processed/bode/1.png",
+        "thumbnail": "/flashes_processed/bode/thumb_1.png"
+      },
+      {
+        "original": "/flashes/bode/2.png",
+        "watermarked": "/flashes_processed/bode/2.png",
+        "thumbnail": "/flashes_processed/bode/thumb_2.png"
+      }
+    ]
+  },
+  "doctor": {
+    "name": {
+      "pt": "Dr Dumau",
+      "en": "Dr Dumau"
+    },
+    "tags": [
+      {
+        "pt": "tag1",
+        "en": "tag1"
+      },
+      {
+        "pt": "tag2",
+        "en": "tag2"
+      },
+      {
+        "pt": "tag3",
+        "en": "tag3"
+      }
+    ],
+    "price": 50,
+    "size_min": [
+      8,
+      10
+    ],
+    "images": [
+      {
+        "original": "/flashes/doctor/doctor.png",
+        "watermarked": "/flashes_processed/doctor/doctor.png",
+        "thumbnail": "/flashes_processed/doctor/thumb_doctor.png"
+      }
+    ]
+  },
+  "hand_flower": {
+    "name": {
+      "pt": "Mao com fro",
+      "en": "Hand with fro"
+    },
+    "tags": [
+      {
+        "pt": "flor",
+        "en": "flower"
+      }
+    ],
+    "price": 50,
+    "images": [
+      {
+        "original": "/flashes/hand_flower/hand_flower.png",
+        "watermarked": "/flashes_processed/hand_flower/hand_flower.png",
+        "thumbnail": "/flashes_processed/hand_flower/thumb_hand_flower.png"
+      }
+    ]
+  },
+  "pato": {
+    "name": {
+      "pt": "Pato",
+      "en": "Duck"
+    },
+    "tags": [
+      {
+        "pt": "animal",
+        "en": "animal"
+      }
+    ],
+    "price": 100,
+    "images": [
+      {
+        "original": "/flashes/pato/pato1.png",
+        "watermarked": "/flashes_processed/pato/pato1.png",
+        "thumbnail": "/flashes_processed/pato/thumb_pato1.png"
+      },
+      {
+        "original": "/flashes/pato/pato2.png",
+        "watermarked": "/flashes_processed/pato/pato2.png",
+        "thumbnail": "/flashes_processed/pato/thumb_pato2.png"
+      }
+    ]
+  },
+  "peixe": {
+    "name": {
+      "pt": "Peixes",
+      "en": "Fish"
+    },
+    "tags": [
+      {
+        "pt": "cor",
+        "en": "color"
+      },
+      {
+        "pt": "peixe",
+        "en": "fish"
+      },
+      {
+        "pt": "animal",
+        "en": "animal"
+      }
+    ],
+    "price": 50,
+    "size_min": 10,
+    "images": [
+      {
+        "original": "/flashes/peixe/peixes.png",
+        "watermarked": "/flashes_processed/peixe/peixes.png",
+        "thumbnail": "/flashes_processed/peixe/thumb_peixes.png"
+      },
+      {
+        "original": "/flashes/peixe/peixes2.png",
+        "watermarked": "/flashes_processed/peixe/peixes2.png",
+        "thumbnail": "/flashes_processed/peixe/thumb_peixes2.png"
+      }
+    ]
+  },
+  "peixe2": {
+    "name": {
+      "pt": "Peixes 2",
+      "en": "Pisces 2"
+    },
+    "tags": [
+      {
+        "pt": "peixe",
+        "en": "fish"
+      },
+      {
+        "pt": "animal",
+        "en": "animal"
+      }
+    ],
+    "price": 20,
+    "images": [
+      {
+        "original": "/flashes/peixe2/peixes.png",
+        "watermarked": "/flashes_processed/peixe2/peixes.png",
+        "thumbnail": "/flashes_processed/peixe2/thumb_peixes.png"
+      }
+    ]
+  },
+  "pote": {
+    "name": {
+      "pt": "Pote",
+      "en": "Pot"
+    },
+    "tags": [
+      {
+        "pt": "grecia",
+        "en": "greece"
+      }
+    ],
+    "price": 50,
+    "images": [
+      {
+        "original": "/flashes/pote/pote.png",
+        "watermarked": "/flashes_processed/pote/pote.png",
+        "thumbnail": "/flashes_processed/pote/thumb_pote.png"
+      }
+    ]
+  },
+  "tsuru": {
+    "name": {
+      "pt": "Tsuru",
+      "en": "Tsuru"
+    },
+    "tags": [
+      {
+        "pt": "cor",
+        "en": "color"
+      },
+      {
+        "pt": "animal",
+        "en": "animal"
+      },
+      {
+        "pt": "ásia",
+        "en": "asia"
+      },
+      {
+        "pt": "pássaro",
+        "en": "bird"
+      }
+    ],
+    "price": 70,
+    "size_min": [
+      6,
+      10
+    ],
+    "size_max": [
+      8,
+      14
+    ],
+    "images": [
+      {
+        "original": "/flashes/tsuru/tsuru1.png",
+        "watermarked": "/flashes_processed/tsuru/tsuru1.png",
+        "thumbnail": "/flashes_processed/tsuru/thumb_tsuru1.png"
+      },
+      {
+        "original": "/flashes/tsuru/tsuru2.png",
+        "watermarked": "/flashes_processed/tsuru/tsuru2.png",
+        "thumbnail": "/flashes_processed/tsuru/thumb_tsuru2.png"
+      }
+    ]
+  }
+}

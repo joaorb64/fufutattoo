@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "BohoSans";
+  src: url("assets/fonts/BohoSans.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-bebas: "BohoSans", sans-serif;
+  --font-inter: "Inter", sans-serif;
+}
+
+.font-\[BohoSans\] {
+  text-transform: uppercase;
+}
+
+body {
+  @apply text-zinc-900;
+  background-color: #ffeedc;
+  font-family: 'Lora', serif;
+  overflow-x: hidden;
+}
+
+@keyframes polaroidDeal {
+  0% {
+    transform: translateX(120%) rotate(var(--card-initial-rotate, 0deg));
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(-4px) rotate(var(--card-final-rotate, 0deg));
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0) rotate(var(--card-final-rotate, 0deg));
+    opacity: 1;
+  }
+}
+
+@keyframes cardEdgeSplash {
+  0% {
+    transform: translateX(140%) rotate(var(--card-rotate, 0deg));
+    opacity: 0;
+  }
+  18% {
+    transform: translateX(4%) rotate(var(--card-rotate, 0deg));
+    opacity: 0.9;
+  }
+  80% {
+    transform: translateX(0%) rotate(calc(var(--card-rotate, 0deg) + 1deg));
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateX(140%) rotate(calc(var(--card-rotate, 0deg) + 10deg));
+    opacity: 0;
+  }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 22s linear infinite;
+}
+
+/* Hides scrollbar track while keeping scroll functionality */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pointer-events-none .animate-reduce {
+    animation: none !important;
+  }
+}

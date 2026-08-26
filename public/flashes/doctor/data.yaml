@@ -1,0 +1,4 @@
+name: "Dr Dumau"
+tags: ["tag1", "tag2", "tag3"]
+price: 50
+size_min: [8, 10]

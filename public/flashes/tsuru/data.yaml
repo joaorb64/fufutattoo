@@ -1,0 +1,5 @@
+name: "Tsuru"
+tags: ["cor", "animal", "ásia", "pássaro"]
+price: 70.0
+size_min: [6, 10]
+size_max: [8, 14]

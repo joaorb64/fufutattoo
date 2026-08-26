@@ -1,0 +1,5 @@
+name: "Bode"
+tags: ["cor", "animal", "astrologia"]
+price: 50
+size_min: [5, 3]
+size_max: [10, 6]
