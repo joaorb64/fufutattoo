@@ -1,8 +1,0 @@
-- antes de abrir o site, opção de lingua
-- topbar: opção da pagina atual destacada
-- imagens: padding para setas e bolinhas não cobrirem a imagem
-
-icones pra instagram, zap, email na topbar
-email, zap na pagina principal
-
-pagina do flash: link pra whatsapp com mensagem pré-escrita com o nome/id do flash

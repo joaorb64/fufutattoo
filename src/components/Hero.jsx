@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import heroImg from "../pages/aboutme/mini.jpeg";
+import SplashImage from "./SplashImage";
+import heroImg from "../assets/images/mainpage.webp";
+import ratImg from "../assets/images/rat.webp";
 import {
   INSTAGRAM_URL,
   INSTAGRAM_HANDLE,
@@ -14,7 +16,7 @@ const HeroButton = (props) => {
       className="group flex bg-[#ffeedcD0] rounded-2xl px-4 py-1 md:bg-none md:px-0 md:py-0 md:rounded-none uppercase font-medium"
       to={props.to}
     >
-      <div className="bg-red-800 w-0 group-hover:w-1 mr-2 invisible group-hover:visible"></div>
+      <div className="bg-home-accent w-0 group-hover:w-1 mr-2 invisible group-hover:visible"></div>
       {props.children}
     </NavLink>
   );
@@ -24,99 +26,153 @@ export default function Hero() {
   const { t } = useTranslation();
 
   return (
-    <section className="min-h-dvh grid md:grid-cols-2 absolute top-0 overflow-hidden content-center">
-      {/* Image col */}
-      <div className="flex items-center justify-center h-0 md:h-dvh">
-        <img
-          src={heroImg}
-          alt="Tattooing"
-          className="h-dvh w-screen md:w-2/3 object-cover fixed md:relative top-0"
-        />
-      </div>
+    <section className="min-h-dvh w-full grid md:grid-cols-[1fr_1fr] lg:grid-cols-[11fr_9fr] xl:grid-cols-[3fr_2fr] absolute top-0 overflow-hidden content-center">
+      {/* ── Mobile: splash photo floats behind; title/nav/footer float above ── */}
+      <div className="md:hidden relative w-full h-dvh flex flex-col justify-between">
+        {/* Splash photo — floating background, bigger than the screen, doesn't
+            affect the layout of the content around it */}
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 h-full flex items-center justify-center pointer-events-none"
+          style={{ width: "122vw" }}
+        >
+          <SplashImage
+            src={heroImg}
+            alt="Tattooing"
+            accentColor="#BF5E5E"
+            className="w-full"
+            objectPosition="50% 15%"
+          />
+        </div>
 
-      {/* Text col */}
-      <div className="flex flex-col justify-between md:justify-center items-start z-50 h-dvh w-screen md:w-auto">
-        <div className="w-full py-4 md:py-0 px-8 md:px-16 bg-[#ffeedcD0]">
-          <h1 className="text-red-800 text-8xl md:text-9xl font-bold tracking-widest font-[BohoSans]">
-            FLAVIA
+        <div className="relative w-full py-4 px-8 bg-[#ffeedcD0]">
+          <img
+            src={ratImg}
+            alt=""
+            aria-hidden
+            className="absolute top-3 right-4 w-28 rotate-6 pointer-events-none select-none"
+          />
+          <h1 className="text-home-accent text-6xl sm:text-8xl font-bold tracking-widest font-[BohoSans]">
+            FUFU
           </h1>
-          <p className="md:mt-1 text-zinc-800 uppercase text-4xl md:text-5xl tracking-wider font-[BohoSans]">
+          <p className="text-zinc-800 uppercase text-4xl tracking-wider font-[BohoSans]">
             {t("hero.artist")}
           </p>
-          <p className="md:mt-1 max-w-md text-zinc-600 uppercase font-[BohoSans] text-2xl md:text-3xl tracking-wider">
+          <p className="max-w-md text-zinc-600 uppercase font-[BohoSans] text-2xl tracking-wider">
             {t("hero.location")}
           </p>
         </div>
 
-        {/* Bottom block — nav links + socials, pushed to bottom by justify-between */}
-        <div className="w-full">
-          <div className="px-4 md:px-16">
-            <ul className="w-full md:mt-12 font-[BohoSans] text-5xl flex flex-col gap-2 md:gap-4 tracking-[0.05em] items-end md:items-start">
+        <div className="relative w-full">
+          <div className="px-4">
+            <ul className="w-full font-[BohoSans] text-5xl flex flex-col gap-2 tracking-[0.05em] items-end">
               <HeroButton to={"/about"}>{t("hero.about")}</HeroButton>
               <HeroButton to={"/info"}>{t("hero.info")}</HeroButton>
               <HeroButton to={"/studio"}>{t("hero.studio")}</HeroButton>
               <HeroButton to="/flashes">{t("hero.flashes")}</HeroButton>
             </ul>
-
-            {/* Desktop: column with icon + text */}
-            <div className="hidden md:flex md:mt-8 flex-col gap-2">
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-red-800 hover:text-red-900 transition-colors"
-              >
-                <div className="mask-[url(instagram.svg)] bg-red-800 w-7 h-7 shrink-0" />
-                <span className="tracking-wider text-lg">
-                  {INSTAGRAM_HANDLE}
-                </span>
-              </a>
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-red-800 hover:text-red-900 transition-colors"
-              >
-                <div className="mask-[url(whatsapp.svg)] bg-red-800 w-7 h-7 shrink-0" />
-                <span className="tracking-wider text-lg">+351 915 204 911</span>
-              </a>
-              <a
-                href={`mailto:${EMAIL}`}
-                className="flex items-center gap-2 text-red-800 hover:text-red-900 transition-colors"
-              >
-                <div className="mask-[url(email.svg)] bg-red-800 w-7 h-7 shrink-0" />
-                <span className="tracking-wider text-lg">{EMAIL}</span>
-              </a>
-            </div>
           </div>
 
-          {/* Mobile: icon-only row with cream background */}
-          <div className="md:hidden w-full bg-[#ffeedcD0] flex justify-center gap-8 py-3 mt-3">
+          <div className="w-full bg-[#ffeedcD0] flex justify-center gap-8 py-3 mt-3">
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-home-accent hover:text-home-accent-dark transition-colors"
+          >
+            <div className="mask-[url(instagram.svg)] bg-home-accent w-7 h-7" />
+          </a>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-home-accent hover:text-home-accent-dark transition-colors"
+          >
+            <div className="mask-[url(whatsapp.svg)] bg-home-accent w-7 h-7" />
+          </a>
+          <a
+            href={`mailto:${EMAIL}`}
+            className="text-home-accent hover:text-home-accent-dark transition-colors"
+          >
+            <div className="mask-[url(email.svg)] bg-home-accent w-7 h-7" />
+          </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop: splash-shaped photo */}
+      <div className="hidden md:flex items-center justify-center h-dvh min-w-0 px-4 lg:px-8 xl:px-12">
+        <div className="min-w-0" style={{ width: "min(100%, 85dvh)" }}>
+          <SplashImage
+            src={heroImg}
+            alt="Tattooing"
+            accentColor="#BF5E5E"
+            className="w-full"
+            objectPosition="50% 15%"
+          />
+        </div>
+      </div>
+
+      {/* Desktop: text col */}
+      <div className="hidden md:flex flex-col justify-center items-start z-50 h-dvh min-w-0">
+        <div className="w-full px-6 lg:px-10 xl:px-16 bg-[#ffeedcD0]">
+          <h1 className="text-home-accent text-7xl lg:text-8xl xl:text-9xl font-bold tracking-widest font-[BohoSans]">
+            FUFU
+          </h1>
+          <p className="mt-1 text-zinc-800 uppercase text-2xl lg:text-4xl xl:text-5xl tracking-wider font-[BohoSans]">
+            {t("hero.artist")}
+          </p>
+          <p className="mt-1 max-w-md text-zinc-600 uppercase font-[BohoSans] text-lg lg:text-2xl xl:text-3xl tracking-wider">
+            {t("hero.location")}
+          </p>
+        </div>
+
+        {/* Nav links + socials */}
+        <div className="w-full px-6 lg:px-10 xl:px-16">
+          <ul className="w-full mt-12 font-[BohoSans] text-2xl lg:text-4xl xl:text-5xl flex flex-col gap-2 md:gap-4 tracking-[0.05em] items-start">
+            <HeroButton to={"/about"}>{t("hero.about")}</HeroButton>
+            <HeroButton to={"/info"}>{t("hero.info")}</HeroButton>
+            <HeroButton to={"/studio"}>{t("hero.studio")}</HeroButton>
+            <HeroButton to="/flashes">{t("hero.flashes")}</HeroButton>
+          </ul>
+
+          <div className="flex mt-8 flex-col gap-2">
             <a
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-red-800 hover:text-red-900 transition-colors"
+              className="flex items-center gap-2 text-home-accent hover:text-home-accent-dark transition-colors"
             >
-              <div className="mask-[url(instagram.svg)] bg-red-800 w-7 h-7" />
+              <div className="mask-[url(instagram.svg)] bg-home-accent w-7 h-7 shrink-0" />
+              <span className="tracking-wider text-lg">
+                {INSTAGRAM_HANDLE}
+              </span>
             </a>
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-red-800 hover:text-red-900 transition-colors"
+              className="flex items-center gap-2 text-home-accent hover:text-home-accent-dark transition-colors"
             >
-              <div className="mask-[url(whatsapp.svg)] bg-red-800 w-7 h-7" />
+              <div className="mask-[url(whatsapp.svg)] bg-home-accent w-7 h-7 shrink-0" />
+              <span className="tracking-wider text-lg">+351 915 204 911</span>
             </a>
             <a
               href={`mailto:${EMAIL}`}
-              className="text-red-800 hover:text-red-900 transition-colors"
+              className="flex items-center gap-2 text-home-accent hover:text-home-accent-dark transition-colors"
             >
-              <div className="mask-[url(email.svg)] bg-red-800 w-7 h-7" />
+              <div className="mask-[url(email.svg)] bg-home-accent w-7 h-7 shrink-0" />
+              <span className="tracking-wider text-lg">{EMAIL}</span>
             </a>
           </div>
         </div>
       </div>
+
+      <img
+        src={ratImg}
+        alt=""
+        aria-hidden
+        className="hidden md:block absolute bottom-6 right-6 w-32 lg:w-48 xl:w-56 rotate-6 pointer-events-none select-none z-40"
+      />
     </section>
   );
 }

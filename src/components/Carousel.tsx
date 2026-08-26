@@ -75,7 +75,7 @@ export default function Carousel(props: {
     <button
       onClick={onClick}
       aria-label={label}
-      className="shrink-0 px-2 py-2 cursor-pointer text-red-800 hover:text-red-600 transition-colors"
+      className="shrink-0 px-2 py-2 cursor-pointer text-brand hover:text-teal-600 transition-colors"
     >
       {children}
     </button>
@@ -128,7 +128,7 @@ export default function Carousel(props: {
                 onIndexChange?.(dot);
               }}
               aria-label={`Go to image ${dot + 1}`}
-              className={`w-2 h-2 shadow rounded-full transition-transform cursor-pointer ${dot === index ? "bg-red-700 scale-125" : "bg-zinc-400"}`}
+              className={`w-2 h-2 shadow rounded-full transition-transform cursor-pointer ${dot === index ? "bg-teal-700 scale-125" : "bg-zinc-400"}`}
             />
           ))}
         </div>

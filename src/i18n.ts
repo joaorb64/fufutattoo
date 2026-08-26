@@ -20,7 +20,7 @@ const resources = {
       },
       hero: {
         artist: "Tattoo Artist & Painter",
-        location: "Lisbon, Portugal",
+        location: "Madrid, Spain",
         about: "About me",
         info: "Prep & Care",
         studio: "Studio",
@@ -29,7 +29,7 @@ const resources = {
       aboutme: {
         title: "About me",
         paragraphs: [
-          "Hi! I'm Flávia, but you can call me Fu 🙂 I'm Brazilian and live in Lisbon for 4 years. I've always loved drawing and painting and, for 2 years, I've been living the long-time dream of doing it on skin.",
+          "Hi! I'm Flávia, but you can call me Fu 🙂 I'm Brazilian and live in Madrid for 4 years. I've always loved drawing and painting and, for 2 years, I've been living the long-time dream of doing it on skin.",
           "In tattooing, I've chosen to be a versatile artist because my heart is big and I love many things. Instead of having a fixed style, I work loosely with characteristics that attract me aesthetically: a lot of black, spots of color and white, strategic shading, and variation in line thickness.",
           "My main influences are American traditional (old school), neo-traditional, illustrative, and engraving. I also love designing fully colored pieces, lettering and simple fine line projects. My favorite themes are nature — animals, plants, florals, landscapes — and fantasy — mythology, circus, horror, fairy tales, etc. But I'm open to any idea!",
           "I don't work with realism, dotwork, tribal, watercolor or geometric.",
@@ -93,7 +93,8 @@ const resources = {
         tags: "Tags",
         maybeAlsoLike: "You may also like",
         bookWhatsapp: "Chat about this flash",
-        whatsappMessage: "Hi! I saw the flash '{{name}}' (id: {{id}}) and I'd like to know more about it 🙂",
+        whatsappMessage:
+          "Hi! I saw the flash '{{name}}' (id: {{id}}) and I'd like to know more about it 🙂",
       },
     },
   },
@@ -114,7 +115,7 @@ const resources = {
       },
       hero: {
         artist: "Tatuadora e Pintora",
-        location: "Lisboa, Portugal",
+        location: "Madrid, Espanha",
         about: "Sobre mim",
         info: "Sessão e Cuidados",
         studio: "O Estúdio",
@@ -123,7 +124,7 @@ const resources = {
       aboutme: {
         title: "Sobre mim",
         paragraphs: [
-          "Oi! Sou a Flávia, mas pode me chamar de Fu 🙂 Sou brasileira e vivo em Lisboa há 4 anos. Sempre amei desenhar e pintar e, há 2 anos, estou vivendo o sonho muito antigo de fazê-lo em pele.",
+          "Oi! Sou a Flávia, mas pode me chamar de Fu 🙂 Sou brasileira e vivo em Madrid há 4 anos. Sempre amei desenhar e pintar e, há 2 anos, estou vivendo o sonho muito antigo de fazê-lo em pele.",
           "Na tatuagem, escolhi ser uma artista versátil, porque meu coração é grande e eu amo muitas coisas. Em vez de ter um estilo fixo, trabalho de maneira mais solta com características que me atraem esteticamente: bastante preto, pontos de cor e de branco, sombreados estratégicos e variação de espessura de traço.",
           "Minhas principais influências são o estilo tradicional americano (old school), o neotradicional, o ilustrativo e a gravura. Também adoro fazer projetos 100% coloridos, textos e projetos mais simples em fineline. Meus temas favoritos são a natureza em geral — bichos, plantas, florais, paisagens — e a fantasia — mitologia, circo, terror, contos de fadas, etc. Mas estou aberta a discutir qualquer ideia!",
           "Não trabalho com realismo, pontilhismo, tribal, aquarela ou geométrico.",
@@ -187,7 +188,8 @@ const resources = {
         tags: "Tags",
         maybeAlsoLike: "Você também pode gostar",
         bookWhatsapp: "Conversar sobre este flash",
-        whatsappMessage: "Oi! Vi o flash '{{name}}' (id: {{id}}) e gostaria de saber mais 🙂",
+        whatsappMessage:
+          "Oi! Vi o flash '{{name}}' (id: {{id}}) e gostaria de saber mais 🙂",
       },
     },
   },

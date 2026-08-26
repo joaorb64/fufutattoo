@@ -10,12 +10,12 @@ const Tag = (props: {
   const { i18n } = useTranslation();
   const locale = i18n.language.startsWith("pt") ? "pt" : "en";
   const base =
-    "px-2 rounded-md font-bold text-sm place-self-center cursor-pointer py-[0.10rem] shrink-0 whitespace-nowrap";
+    "px-2.5 rounded-full font-bold text-sm place-self-center cursor-pointer py-[0.10rem] shrink-0 whitespace-nowrap transition-transform hover:scale-110";
   const bg = props.light
     ? "bg-amber-100 text-zinc-900"
     : props.selected
-      ? "bg-red-500 text-white"
-      : "bg-red-700 text-amber-50";
+      ? "bg-teal-600 text-white"
+      : "bg-[#C9449E] text-white";
   return (
     <div className={`${base} ${bg}`} onClick={props.onClick}>
       {props.tag[locale] || props.tag.en || props.tag.pt}

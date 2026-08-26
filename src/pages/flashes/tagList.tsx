@@ -30,7 +30,7 @@ const TagList = (props: {
         {props.onClear && selected.length > 0 && (
           <button
             onClick={props.onClear}
-            className="text-sm text-red-900 underline font-bold cursor-pointer"
+            className="text-sm text-brand-dark underline font-bold cursor-pointer"
           >
             {locale === "pt" ? "Limpar" : "Clear"}
           </button>

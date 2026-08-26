@@ -7,16 +7,18 @@ const FlashItem = (props: { flash: any; flashId: string }) => {
   const images = props.flash.images || [];
   const navigate = useNavigate();
 
-  const src = images[0]?.watermarked ?? images[0]?.thumbnail ?? images[0]?.original ?? "";
-  const flashName = props.flash.name[locale] || props.flash.name.en || props.flash.name.pt;
+  const src =
+    images[0]?.watermarked ?? images[0]?.thumbnail ?? images[0]?.original ?? "";
+  const flashName =
+    props.flash.name[locale] || props.flash.name.en || props.flash.name.pt;
 
   return (
     <div
-      className="cursor-pointer group transition-colors duration-300 rounded-sm hover:bg-[#cbbcac]"
+      className="cursor-pointer group bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 p-3 pb-4"
       onClick={() => navigate(`/flashes/${props.flashId}`)}
     >
       {/* Full image, no crop */}
-      <div className="bg-white aspect-square overflow-hidden transition-colors duration-300 group-hover:bg-[#cbbcac]">
+      <div className="aspect-square overflow-hidden">
         {src ? (
           <img
             src={src}
@@ -30,12 +32,14 @@ const FlashItem = (props: { flash: any; flashId: string }) => {
         )}
       </div>
 
-      {/* Info always visible */}
-      <div className="pt-1 pb-2 px-3 flex items-baseline justify-between gap-2">
-        <p className="font-[BohoSans] text-2xl tracking-wide uppercase leading-tight truncate font-bold">
+      {/* Polaroid caption */}
+      <div className="pt-3 flex items-baseline justify-between gap-2">
+        <p className="font-[BohoSans] text-3xl tracking-wide uppercase leading-tight truncate font-medium">
           {flashName}
         </p>
-        <p className="font-[BohoSans] text-xl text-zinc-900 shrink-0 font-bold">€{props.flash.price}</p>
+        <p className="font-[BohoSans] text-2xl text-zinc-900 shrink-0 font-medium">
+          €{props.flash.price}
+        </p>
       </div>
     </div>
   );

@@ -138,7 +138,7 @@ export default function Flashes() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t("flashes.searchPlaceholder")}
-            className="pl-10 pr-10 py-2 rounded-full w-full focus:outline-none focus:ring border-gray-200 focus:border-red-600 border-2 bg-white"
+            className="pl-10 pr-10 py-2 rounded-full w-full focus:outline-none focus:ring border-gray-200 focus:border-teal-600 border-2 bg-white"
           />
           {search && (
             <button

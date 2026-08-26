@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand: #59adab;
+  --color-brand-dark: #478a88;
+  --color-home-accent: #2b7c6e;
+  --color-home-accent-dark: #23665a;
+}
+
 @font-face {
   font-family: "BohoSans";
   src: url("assets/fonts/BohoSans.ttf") format("truetype");
@@ -8,19 +15,16 @@
   font-display: swap;
 }
 
-:root {
-  --font-bebas: "BohoSans", sans-serif;
-  --font-inter: "Inter", sans-serif;
-}
-
 .font-\[BohoSans\] {
   text-transform: uppercase;
+  -webkit-text-stroke: 0.9px currentColor;
+  text-stroke: 0.9px currentColor;
 }
 
 body {
   @apply text-zinc-900;
   background-color: #ffeedc;
-  font-family: 'Lora', serif;
+  font-family: 'Quicksand', sans-serif;
   overflow-x: hidden;
 }
 

@@ -40,7 +40,7 @@ export default function Footer() {
   if (location.pathname === "/") return null;
 
   return (
-    <footer className="fixed bottom-0 inset-x-0 z-50 bg-red-800 text-white shadow-[0_-2px_8px_rgba(0,0,0,0.15)]" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
+    <footer className="fixed bottom-0 inset-x-0 z-50 bg-brand text-white shadow-[0_-2px_8px_rgba(0,0,0,0.15)]" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
       <div className="flex items-center justify-center px-4 py-4 sm:py-2.5 gap-8 sm:gap-10">
         <FooterLink href={INSTAGRAM_URL} icon="instagram.svg">
           {INSTAGRAM_HANDLE}

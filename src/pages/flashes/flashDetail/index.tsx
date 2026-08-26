@@ -93,7 +93,7 @@ const FlashDetail = () => {
     <div className="min-h-screen p-4 w-full">
       <button
         onClick={() => navigate("/flashes")}
-        className="mb-4 hover:text-red-800 font-bold flex items-center gap-2 cursor-pointer"
+        className="mb-4 hover:text-brand font-bold flex items-center gap-2 cursor-pointer"
       >
         {t("flashes.backButton")}
       </button>
@@ -126,7 +126,7 @@ const FlashDetail = () => {
                       aria-current={i === imageIndex}
                       className={`w-24 rounded-lg border-2 transition-all bg-white ${
                         i === imageIndex
-                          ? "border-red-600 shadow-lg ring-2 ring-red-700"
+                          ? "border-teal-600 shadow-lg ring-2 ring-teal-700"
                           : "border-gray-300 hover:border-zinc-200"
                       }`}
                     >
@@ -169,14 +169,14 @@ const FlashDetail = () => {
               </h2>
               <div className="inline-block">
                 <div
-                  className="grid gap-x-2 gap-y-2 text-sm"
+                  className="grid gap-x-2 gap-y-2 text-base"
                   style={{ gridTemplateColumns: "60px 1fr 1fr" }}
                 >
                   <div></div>
-                  <div className="text-zinc-600 text-xs uppercase tracking-wide text-center">
+                  <div className="text-zinc-600 text-sm uppercase tracking-wide text-center">
                     {t("flashes.centimeters", "Centimeters")}
                   </div>
-                  <div className="text-zinc-600 text-xs uppercase tracking-wide text-center">
+                  <div className="text-zinc-600 text-sm uppercase tracking-wide text-center">
                     {t("flashes.inches", "Inches")}
                   </div>
 
@@ -214,14 +214,14 @@ const FlashDetail = () => {
 
                   {flash.size_recommended && (
                     <>
-                      <div className="text-red-600 font-semibold">
+                      <div className="text-teal-600 font-semibold">
                         {t("flashes.sizeRec", "Rec.")}
                       </div>
-                      <div className="text-right font-semibold text-red-600">
+                      <div className="text-right font-semibold text-teal-600">
                         {flash.size_recommended[0].toFixed(2)} ×{" "}
                         {flash.size_recommended[1].toFixed(2)}
                       </div>
-                      <div className="text-right font-semibold text-red-600">
+                      <div className="text-right font-semibold text-teal-600">
                         {cmToInches(flash.size_recommended[0])} ×{" "}
                         {cmToInches(flash.size_recommended[1])}
                       </div>
@@ -232,7 +232,9 @@ const FlashDetail = () => {
             </div>
           )}
 
-          <p className="text-4xl font-bold">€{flash.price}</p>
+          <p className="text-4xl font-[BohoSans] tracking-wide">
+            €{flash.price}
+          </p>
 
           {flash.tags && flash.tags.length > 0 && (
             <div>
@@ -249,9 +251,13 @@ const FlashDetail = () => {
             href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-full px-6 py-3 transition-colors"
+            className="self-start flex items-center justify-center gap-3 bg-[#5B8355] hover:bg-[#4d6f48] text-white font-semibold rounded-full px-6 py-4 transition-colors"
           >
-            <img src="/whatsapp.svg" alt="" className="w-6 h-6 shrink-0 brightness-0 invert" />
+            <img
+              src="/whatsapp.svg"
+              alt=""
+              className="w-6 h-6 shrink-0 brightness-0 invert"
+            />
             {t("flashes.bookWhatsapp")}
           </a>
         </div>
