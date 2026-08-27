@@ -2,13 +2,13 @@
     "name": "fufutattoo",
     "short_name": "fufutattoo",
     "description": "Tattoo Artist",
-    "start_url": "/",
+    "start_url": ".",
     "display": "standalone",
     "background_color": "#ffeedc",
     "theme_color": "#59adab",
     "icons": [
         {
-            "src": "/favicon.svg",
+            "src": "favicon.svg",
             "sizes": "any",
             "type": "image/svg+xml"
         }

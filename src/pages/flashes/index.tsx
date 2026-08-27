@@ -18,7 +18,7 @@ export default function Flashes() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   useEffect(() => {
-    fetch("/flashes.json")
+    fetch(`${import.meta.env.BASE_URL}flashes.json`)
       .then((res) => res.json())
       .then(async (data) => {
         setFlashes(data);

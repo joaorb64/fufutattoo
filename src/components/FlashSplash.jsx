@@ -24,7 +24,7 @@ export default function FlashSplash() {
   const [revealId, setRevealId] = useState(0);
 
   useEffect(() => {
-    fetch("/flashes.json")
+    fetch(`${import.meta.env.BASE_URL}flashes.json`)
       .then((res) => res.json())
       .then((data) => {
         const list = Object.entries(data)

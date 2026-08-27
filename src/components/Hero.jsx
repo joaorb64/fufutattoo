@@ -10,6 +10,20 @@ import {
   EMAIL,
 } from "../config";
 
+const MaskIcon = ({ src, className = "" }) => (
+  <div
+    className={`bg-home-accent ${className}`}
+    style={{
+      WebkitMaskImage: `url(${import.meta.env.BASE_URL}${src})`,
+      maskImage: `url(${import.meta.env.BASE_URL}${src})`,
+      WebkitMaskSize: "contain",
+      maskSize: "contain",
+      WebkitMaskRepeat: "no-repeat",
+      maskRepeat: "no-repeat",
+    }}
+  />
+);
+
 const HeroButton = (props) => {
   return (
     <NavLink
@@ -79,7 +93,7 @@ export default function Hero() {
             rel="noopener noreferrer"
             className="text-home-accent hover:text-home-accent-dark transition-colors"
           >
-            <div className="mask-[url(instagram.svg)] bg-home-accent w-7 h-7" />
+            <MaskIcon src="instagram.svg" className="w-7 h-7" />
           </a>
           <a
             href={WHATSAPP_URL}
@@ -87,13 +101,13 @@ export default function Hero() {
             rel="noopener noreferrer"
             className="text-home-accent hover:text-home-accent-dark transition-colors"
           >
-            <div className="mask-[url(whatsapp.svg)] bg-home-accent w-7 h-7" />
+            <MaskIcon src="whatsapp.svg" className="w-7 h-7" />
           </a>
           <a
             href={`mailto:${EMAIL}`}
             className="text-home-accent hover:text-home-accent-dark transition-colors"
           >
-            <div className="mask-[url(email.svg)] bg-home-accent w-7 h-7" />
+            <MaskIcon src="email.svg" className="w-7 h-7" />
           </a>
           </div>
         </div>
@@ -142,7 +156,7 @@ export default function Hero() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-home-accent hover:text-home-accent-dark transition-colors"
             >
-              <div className="mask-[url(instagram.svg)] bg-home-accent w-7 h-7 shrink-0" />
+              <MaskIcon src="instagram.svg" className="w-7 h-7 shrink-0" />
               <span className="tracking-wider text-lg">
                 {INSTAGRAM_HANDLE}
               </span>
@@ -153,14 +167,14 @@ export default function Hero() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-home-accent hover:text-home-accent-dark transition-colors"
             >
-              <div className="mask-[url(whatsapp.svg)] bg-home-accent w-7 h-7 shrink-0" />
+              <MaskIcon src="whatsapp.svg" className="w-7 h-7 shrink-0" />
               <span className="tracking-wider text-lg">+351 915 204 911</span>
             </a>
             <a
               href={`mailto:${EMAIL}`}
               className="flex items-center gap-2 text-home-accent hover:text-home-accent-dark transition-colors"
             >
-              <div className="mask-[url(email.svg)] bg-home-accent w-7 h-7 shrink-0" />
+              <MaskIcon src="email.svg" className="w-7 h-7 shrink-0" />
               <span className="tracking-wider text-lg">{EMAIL}</span>
             </a>
           </div>

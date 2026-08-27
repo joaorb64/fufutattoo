@@ -5,8 +5,8 @@ const MaskIcon = ({ src }: { src: string }) => (
   <div
     className="bg-current shrink-0 w-5 h-5 sm:w-4 sm:h-4"
     style={{
-      maskImage: `url(${src})`,
-      WebkitMaskImage: `url(${src})`,
+      maskImage: `url(${import.meta.env.BASE_URL}${src})`,
+      WebkitMaskImage: `url(${import.meta.env.BASE_URL}${src})`,
       maskSize: "contain",
       WebkitMaskSize: "contain",
       maskRepeat: "no-repeat",

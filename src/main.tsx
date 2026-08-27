@@ -12,38 +12,41 @@ import Information from "./pages/information/index.js";
 import Studio from "./pages/studio/index.js";
 import LanguageSplash, { hasChosenLanguage } from "./components/LanguageSplash";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      {
-        path: "/",
-        element: <Hero />,
-      },
-      {
-        path: "/flashes",
-        element: <Flashes />,
-      },
-      {
-        path: "/flashes/:flashId",
-        element: <FlashDetail />,
-      },
-      {
-        path: "/about",
-        element: <AboutMe />,
-      },
-      {
-        path: "/info",
-        element: <Information />,
-      },
-      {
-        path: "/studio",
-        element: <Studio />,
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <App />,
+      children: [
+        {
+          path: "/",
+          element: <Hero />,
+        },
+        {
+          path: "/flashes",
+          element: <Flashes />,
+        },
+        {
+          path: "/flashes/:flashId",
+          element: <FlashDetail />,
+        },
+        {
+          path: "/about",
+          element: <AboutMe />,
+        },
+        {
+          path: "/info",
+          element: <Information />,
+        },
+        {
+          path: "/studio",
+          element: <Studio />,
+        },
+      ],
+    },
+  ],
+  { basename: import.meta.env.BASE_URL },
+);
 
 function Root() {
   const [langChosen, setLangChosen] = useState(hasChosenLanguage);

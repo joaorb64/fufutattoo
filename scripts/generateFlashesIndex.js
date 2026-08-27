@@ -13,6 +13,10 @@ const watermarkText = ""; // texto da watermark
 const watermarkFraction = 0.04; // tamanho proporcional da fonte
 const thumbnailWidth = 200; // largura do thumbnail
 
+// Matches the base path used by vite.config.ts, so image URLs in
+// flashes.json resolve correctly whether built locally or on GitHub Pages.
+const base = process.env.GITHUB_ACTIONS ? "/fufutattoo" : "";
+
 if (!fs.existsSync(outputImagesDir)) fs.mkdirSync(outputImagesDir);
 
 function createTextSVG(width, height, text, fontSize) {
@@ -123,9 +127,9 @@ async function generateFlashesJson() {
         await createThumbnail(watermarkedPath, thumbPath);
 
         imageData.push({
-          original: `/flashes/${folder.name}/${img}`,
-          watermarked: `/flashes_processed/${folder.name}/${img}`,
-          thumbnail: `/flashes_processed/${folder.name}/thumb_${img}`,
+          original: `${base}/flashes/${folder.name}/${img}`,
+          watermarked: `${base}/flashes_processed/${folder.name}/${img}`,
+          thumbnail: `${base}/flashes_processed/${folder.name}/thumb_${img}`,
         });
       }
 

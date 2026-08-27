@@ -19,7 +19,7 @@ const FlashDetail = () => {
   const cmToInches = (cm: number) => (cm / 2.54).toFixed(2);
 
   useEffect(() => {
-    fetch("/flashes.json")
+    fetch(`${import.meta.env.BASE_URL}flashes.json`)
       .then((res) => res.json())
       .then((data) => {
         const foundFlash = data[flashId!];
@@ -254,7 +254,7 @@ const FlashDetail = () => {
             className="self-start flex items-center justify-center gap-3 bg-[#5B8355] hover:bg-[#4d6f48] text-white font-semibold rounded-full px-6 py-4 transition-colors"
           >
             <img
-              src="/whatsapp.svg"
+              src={`${import.meta.env.BASE_URL}whatsapp.svg`}
               alt=""
               className="w-6 h-6 shrink-0 brightness-0 invert"
             />
