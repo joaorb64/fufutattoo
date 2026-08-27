@@ -41,6 +41,12 @@ export default function LanguageSplash({ onDone }: { onDone: () => void }) {
         >
           English
         </button>
+        <button
+          onClick={() => select("es")}
+          className="px-8 py-3 border-2 border-brand text-brand rounded-full text-xl font-[BohoSans] tracking-wider hover:bg-brand/10 transition-colors cursor-pointer"
+        >
+          Español
+        </button>
       </div>
     </div>
   );

@@ -1,3 +1,15 @@
-name: "Pato"
-tags: ["animal"]
+name: Pato
+tags:
+  - animal
 price: 100
+translations:
+  en:
+    name: Duck
+    tags:
+      - animal
+    _sourceHash: ad20e3edbec9bfd3
+  es:
+    name: Pato
+    tags:
+      - animal
+    _sourceHash: ad20e3edbec9bfd3

@@ -1,4 +1,22 @@
-name: "Peixes"
-tags: ["cor", "peixe", "animal"]
+name: Peixes
+tags:
+  - cor
+  - peixe
+  - animal
 price: 50
 size_min: 10
+translations:
+  en:
+    name: Fish
+    tags:
+      - color
+      - fish
+      - animal
+    _sourceHash: f2233a910a2982b4
+  es:
+    name: Pez
+    tags:
+      - color
+      - pez
+      - animal
+    _sourceHash: f2233a910a2982b4

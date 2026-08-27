@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { SUPPORTED_LANGS, LANG_LABELS, resolveLocale } from "../i18n";
 
 const TopBar = () => {
   const { t, i18n } = useTranslation();
@@ -19,22 +20,18 @@ const TopBar = () => {
   ];
 
   const LangSwitcher = ({ className = "" }: { className?: string }) => (
-    <div className={`flex items-center gap-2 font-[Quicksand] ${className}`}>
-      <button
-        onClick={() => i18n.changeLanguage("pt")}
-        className={`px-2 py-1 border border-white rounded hover:bg-white/20 text-white text-sm cursor-pointer ${i18n.language.startsWith("pt") ? "bg-white/30 font-bold" : ""}`}
-        aria-label="Português"
-      >
-        PT
-      </button>
-      <button
-        onClick={() => i18n.changeLanguage("en")}
-        className={`px-2 py-1 border border-white rounded hover:bg-white/20 text-white text-sm cursor-pointer ${i18n.language.startsWith("en") ? "bg-white/30 font-bold" : ""}`}
-        aria-label="English"
-      >
-        EN
-      </button>
-    </div>
+    <select
+      value={resolveLocale(i18n.language)}
+      onChange={(e) => i18n.changeLanguage(e.target.value)}
+      className={`bg-white/10 border border-white rounded px-2 py-1 text-white text-sm font-[Quicksand] cursor-pointer focus:outline-none focus:ring-1 focus:ring-white ${className}`}
+      aria-label={t("topbar.language")}
+    >
+      {SUPPORTED_LANGS.map((lang) => (
+        <option key={lang} value={lang} className="text-zinc-900">
+          {LANG_LABELS[lang]}
+        </option>
+      ))}
+    </select>
   );
 
   return (

@@ -5,10 +5,11 @@ import Tag from "../tag";
 import Carousel from "../../../components/Carousel";
 import FlashItem from "../flashItem";
 import { WHATSAPP_URL } from "../../../config";
+import { resolveLocale } from "../../../i18n";
 
 const FlashDetail = () => {
   const { t, i18n } = useTranslation();
-  const locale = i18n.language.startsWith("pt") ? "pt" : "en";
+  const locale = resolveLocale(i18n.language);
   const { flashId } = useParams<{ flashId: string }>();
   const navigate = useNavigate();
   const [flash, setFlash] = useState<any>(null);
@@ -31,7 +32,7 @@ const FlashDetail = () => {
               return (
                 id !== flashId &&
                 flash.tags?.some((tag: any) =>
-                  foundFlash.tags?.some((t: any) => t.en === tag.en),
+                  foundFlash.tags?.some((t: any) => t.pt === tag.pt),
                 )
               );
             })
@@ -158,7 +159,11 @@ const FlashDetail = () => {
           {flash.description && (
             <div>
               <h2 className="text-xl font-bold">{t("flashes.description")}</h2>
-              <p className="leading-relaxed">{flash.description}</p>
+              <p className="leading-relaxed">
+                {flash.description[locale] ||
+                  flash.description.en ||
+                  flash.description.pt}
+              </p>
             </div>
           )}
 
@@ -264,7 +269,7 @@ const FlashDetail = () => {
       </div>
 
       {similarFlashes.length > 0 && (
-        <div className="mt-16 border-t pt-12 max-w-6xl mx-auto">
+        <div className="mt-16 border-t-3 border-dashed border-[#C9449E]/40 pt-12 max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold mb-4">
             {t("flashes.maybeAlsoLike")}
           </h2>

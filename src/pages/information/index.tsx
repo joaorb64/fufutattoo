@@ -30,9 +30,17 @@ const Information = () => {
               className="hidden md:block w-40 lg:w-56 shrink-0 select-none"
             />
             <div className="flex-1 min-w-0">
-              <h2 className="text-5xl mb-4 font-[BohoSans]">
-                {t("information.before")}
-              </h2>
+              <div className="relative inline-block mb-4">
+                <img
+                  src={spacecatImg}
+                  alt=""
+                  aria-hidden
+                  className="md:hidden absolute top-1/2 -translate-y-1/2 -right-20 w-16 pointer-events-none select-none"
+                />
+                <h2 className="relative text-5xl font-[BohoSans]">
+                  {t("information.before")}
+                </h2>
+              </div>
               <div className="flex flex-col gap-4">
                 <p>
                   <span className="font-bold text-xl">
@@ -66,9 +74,17 @@ const Information = () => {
               className="hidden md:block w-40 lg:w-56 shrink-0 select-none"
             />
             <div className="flex-1 min-w-0">
-              <h2 className="text-5xl mb-4 font-[BohoSans]">
-                {t("information.during")}
-              </h2>
+              <div className="relative inline-block mb-4">
+                <img
+                  src={duckImg}
+                  alt=""
+                  aria-hidden
+                  className="md:hidden absolute top-1/2 -translate-y-1/2 -right-20 w-16 pointer-events-none select-none"
+                />
+                <h2 className="relative text-5xl font-[BohoSans]">
+                  {t("information.during")}
+                </h2>
+              </div>
               <div className="flex flex-col gap-4">
                 {duringParagraphs.map((paragraph, idx) => (
                   <p key={idx}>{paragraph}</p>
@@ -87,9 +103,17 @@ const Information = () => {
               className="hidden md:block w-40 lg:w-56 shrink-0 select-none"
             />
             <div className="flex-1 min-w-0">
-              <h2 className="text-5xl mb-4 font-[BohoSans]">
-                {t("information.after")}
-              </h2>
+              <div className="relative inline-block mb-4">
+                <img
+                  src={squirrelImg}
+                  alt=""
+                  aria-hidden
+                  className="md:hidden absolute top-1/2 -translate-y-1/2 -right-20 w-16 pointer-events-none select-none"
+                />
+                <h2 className="relative text-5xl font-[BohoSans]">
+                  {t("information.after")}
+                </h2>
+              </div>
               <div className="flex flex-col gap-4">
                 <h3 className="text-4xl mt-6 font-[BohoSans]">
                   {t("information.otherCare")}

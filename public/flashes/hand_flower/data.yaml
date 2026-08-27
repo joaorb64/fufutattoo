@@ -1,3 +1,15 @@
-name: "Mao com fro"
-tags: ["flor"]
+name: Mao com fro
+tags:
+  - flor
 price: 50
+translations:
+  en:
+    name: Hand with fro
+    tags:
+      - flower
+    _sourceHash: 201255cc1ce5a090
+  es:
+    name: Mano con fro
+    tags:
+      - flor
+    _sourceHash: 201255cc1ce5a090

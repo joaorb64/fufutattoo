@@ -2,6 +2,28 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
+// Languages the site's own UI (and per-flash content) is available in.
+// Autonyms — each language's own name for itself, never translated — used
+// by the language switcher and the first-visit language splash.
+export const SUPPORTED_LANGS = ["pt", "en", "es"] as const;
+export type SupportedLang = (typeof SUPPORTED_LANGS)[number];
+export const LANG_LABELS: Record<SupportedLang, string> = {
+  pt: "Português",
+  en: "English",
+  es: "Español",
+};
+
+// Resolves an i18next language tag (e.g. "en-US") to one of our supported
+// locale codes, falling back to Portuguese. Centralizes what used to be a
+// duplicated `i18n.language.startsWith("pt") ? "pt" : "en"` ternary across
+// several components.
+export function resolveLocale(language: string): SupportedLang {
+  const short = language.slice(0, 2).toLowerCase();
+  return (SUPPORTED_LANGS as readonly string[]).includes(short)
+    ? (short as SupportedLang)
+    : "pt";
+}
+
 const resources = {
   en: {
     translation: {
@@ -95,6 +117,11 @@ const resources = {
         bookWhatsapp: "Chat about this flash",
         whatsappMessage:
           "Hi! I saw the flash '{{name}}' (id: {{id}}) and I'd like to know more about it 🙂",
+        loading: "Loading...",
+        notFound: "Flash not found.",
+        clearTags: "Clear",
+        moreTags: "▼ more tags",
+        fewerTags: "▲ fewer tags",
       },
     },
   },
@@ -190,6 +217,111 @@ const resources = {
         bookWhatsapp: "Conversar sobre este flash",
         whatsappMessage:
           "Oi! Vi o flash '{{name}}' (id: {{id}}) e gostaria de saber mais 🙂",
+        loading: "Carregando...",
+        notFound: "Flash não encontrado.",
+        clearTags: "Limpar",
+        moreTags: "▼ mais tags",
+        fewerTags: "▲ menos tags",
+      },
+    },
+  },
+  es: {
+    translation: {
+      nav: {
+        home: "Inicio",
+        about: "Sobre mí",
+        flashes: "Flashbook",
+        info: "Preparación y Cuidados",
+        studio: "Estudio",
+      },
+      topbar: {
+        title: "FUFU TATTOO",
+        openMenu: "Abrir menú",
+        closeMenu: "Cerrar menú",
+        language: "Idioma",
+      },
+      hero: {
+        artist: "Tatuadora y Pintora",
+        location: "Madrid, España",
+        about: "Sobre mí",
+        info: "Preparación y Cuidados",
+        studio: "Estudio",
+        flashes: "Flashbook",
+      },
+      aboutme: {
+        title: "Sobre mí",
+        paragraphs: [
+          "¡Hola! Soy Flávia, pero puedes llamarme Fu 🙂 Soy brasileña y vivo en Madrid desde hace 4 años. Siempre amé dibujar y pintar y, desde hace 2 años, estoy viviendo el sueño de hacerlo en la piel.",
+          "En el tatuaje, elegí ser una artista versátil, porque mi corazón es grande y amo muchas cosas. En lugar de tener un estilo fijo, trabajo de forma más libre con características que me atraen estéticamente: mucho negro, puntos de color y blanco, sombreados estratégicos y variación en el grosor del trazo.",
+          "Mis principales influencias son el estilo tradicional americano (old school), el neotradicional, el ilustrativo y el grabado. También me encanta hacer proyectos totalmente a color, letras y proyectos más simples de fine line. Mis temas favoritos son la naturaleza en general — animales, plantas, flores, paisajes — y la fantasía — mitología, circo, terror, cuentos de hadas, etc. ¡Pero estoy abierta a discutir cualquier idea!",
+          "No trabajo con realismo, puntillismo, tribal, acuarela ni geométrico.",
+          "Para conocer mi trabajo, revisa mi portfolio y mi flashbook, y siéntete libre de contactarme por cualquier canal. :)",
+        ],
+      },
+      information: {
+        title: "Preparación y Cuidados",
+        before: "Antes de la sesión",
+        remarkings: "Reprogramaciones",
+        beforeText:
+          "Si necesitas reprogramar, avisa con la mayor antelación posible o al menos 48h antes. No trabajo con depósitos, así que cuento con tu compromiso y sentido común.",
+        preCare: "Cuidados pre-tatuaje",
+        preCareText:
+          "En los días previos a la sesión, hidrata la zona a diario, bebe mucha agua, evita el sol directo y usa protector solar. Evita el alcohol 24h antes de la sesión.",
+        yourSkin: "Tu piel",
+        skinText:
+          "No puedo tatuar piel que esté lastimada, quemada por el sol o con cualquier anormalidad. ¡Si notas algo, avísame!",
+        during: "El día de la sesión",
+        duringParagraphs: [
+          "Duerme bien y come adecuadamente. Trae snacks, agua y distracciones. Puedes traer un acompañante.",
+          "Todos los materiales son profesionales y esterilizados. El tatuaje no se hace con prisa; agenda un día tranquilo.",
+          "No tengas miedo de sugerir cambios en el diseño o la colocación del stencil. Esto no te convierte en un cliente difícil; tu confianza es esencial antes de empezar.",
+          "En Vira Lata, a veces tenemos a nuestro perro mayor Gringo en las áreas comunes. Si tienes alergias o preocupaciones, avísame por favor.",
+        ],
+        after: "Después de la sesión",
+        afterParagraphs: [
+          "Al final de la sesión, aplico second skin para proteger tu tatuaje. Cámbiala después de 24h y mantenla otras 48h.",
+          "Al cambiar la second skin, limpia el tatuaje con jabón neutro y seca suavemente. Mantén esta rutina durante la cicatrización.",
+          "Aplica pomada con moderación una vez que el tatuaje esté seco y descamando. Evita el exceso.",
+          "Resiste la tentación de rascar o arrancar las costras; es malo para la cicatrización.",
+          "En la primera semana, evita actividades que estiren la zona tatuada, el sudor y la fricción. Evita el sol directo y la inmersión durante dos semanas.",
+          "Puedes comer y beber con normalidad, pero evita excesos y presta atención a alergias o antecedentes de mala cicatrización.",
+          "Los retoques pueden ser necesarios y suelen ser gratuitos, con una pequeña contribución de 5€ para material si no se hace otro tatuaje en la misma sesión.",
+          "¡Los comentarios son muy bienvenidos! Comparte tu experiencia y proceso de cicatrización para que pueda mejorar el servicio y el espacio.",
+        ],
+        otherCare: "Otros cuidados",
+      },
+      studio: {
+        title: "Estudio",
+        paragraph1:
+          "Tatúo en Vira Lata 🐶, un colectivo de artistas y estudio de tatuajes en el centro de Lisboa, Penha de França. El espacio es relajado, acogedor y está bien equipado para sesiones seguras y cómodas.",
+        paragraph2:
+          "El estudio es de fácil acceso: 15 minutos a pie desde la estación de Arroios (línea verde), con varias líneas de autobús cerca.",
+      },
+      flashes: {
+        title: "Flashbook",
+        searchPlaceholder: "Buscar flashes",
+        total: "{{count}} flashes",
+        filterByTag: "Filtrar por etiqueta:",
+        noImage: "Sin imagen",
+        backButton: "← Volver",
+        description: "Descripción",
+        recommendedSize: "Tamaño recomendado",
+        centimeters: "Centímetros",
+        inches: "Pulgadas",
+        sizeMin: "Mín",
+        sizeMax: "Máx",
+        sizeRec: "Rec.",
+        option: "Opción {{number}}",
+        tags: "Etiquetas",
+        maybeAlsoLike: "También te puede gustar",
+        bookWhatsapp: "Hablar sobre este flash",
+        whatsappMessage:
+          "¡Hola! Vi el flash '{{name}}' (id: {{id}}) y me gustaría saber más 🙂",
+        loading: "Cargando...",
+        notFound: "Flash no encontrado.",
+        clearTags: "Limpiar",
+        moreTags: "▼ más etiquetas",
+        fewerTags: "▲ menos etiquetas",
       },
     },
   },

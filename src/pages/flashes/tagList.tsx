@@ -3,20 +3,19 @@ import { useTranslation } from "react-i18next";
 import Tag from "./tag";
 
 type TagData = {
-  tag: { pt: string; en: string };
+  tag: Record<string, string>;
   count: number;
 };
 
 const TagList = (props: {
   tags: Record<string, TagData>;
   selectedTags?: string[];
-  onToggle?: (tag: { pt: string; en: string }) => void;
+  onToggle?: (tag: Record<string, string>) => void;
   onClear?: () => void;
 }) => {
   const selected = props.selectedTags || [];
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
-  const locale = i18n.language.startsWith("pt") ? "pt" : "en";
 
   const tagValues = Object.values(props.tags);
 
@@ -32,7 +31,7 @@ const TagList = (props: {
             onClick={props.onClear}
             className="text-sm text-brand-dark underline font-bold cursor-pointer"
           >
-            {locale === "pt" ? "Limpar" : "Clear"}
+            {t("flashes.clearTags")}
           </button>
         )}
       </div>
@@ -42,8 +41,7 @@ const TagList = (props: {
         <div className="flex items-center gap-x-1">
           <div className="flex flex-wrap gap-x-1 gap-y-1 overflow-hidden max-h-6 flex-1 min-w-0">
             {tagValues.map((tag, i) => {
-              const isSelected =
-                selected.includes(tag.tag.en) || selected.includes(tag.tag.pt);
+              const isSelected = selected.includes(tag.tag.pt);
               return (
                 <Tag
                   key={i}
@@ -59,15 +57,14 @@ const TagList = (props: {
             onClick={() => setExpanded(true)}
             className="text-xs text-zinc-500 hover:text-zinc-800 transition-colors cursor-pointer shrink-0"
           >
-            {locale === "pt" ? "▼ mais tags" : "▼ more tags"}
+            {t("flashes.moreTags")}
           </button>
         </div>
       ) : (
         <div className="flex flex-col gap-1.5">
           <div className="flex flex-wrap gap-1">
             {tagValues.map((tag, i) => {
-              const isSelected =
-                selected.includes(tag.tag.en) || selected.includes(tag.tag.pt);
+              const isSelected = selected.includes(tag.tag.pt);
               return (
                 <Tag
                   key={i}
@@ -83,7 +80,7 @@ const TagList = (props: {
             onClick={() => setExpanded(false)}
             className="text-xs text-zinc-500 hover:text-zinc-800 transition-colors cursor-pointer self-start"
           >
-            {locale === "pt" ? "▲ menos tags" : "▲ fewer tags"}
+            {t("flashes.fewerTags")}
           </button>
         </div>
       )}

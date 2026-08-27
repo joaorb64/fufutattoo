@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import crypto from "crypto";
 import sharp from "sharp";
 import yaml from "js-yaml";
 import translatte from "translatte";
@@ -12,6 +13,10 @@ const outputImagesDir = path.resolve("public/flashes_processed");
 const watermarkText = ""; // texto da watermark
 const watermarkFraction = 0.04; // tamanho proporcional da fonte
 const thumbnailWidth = 200; // largura do thumbnail
+
+// Languages generated from the Portuguese source. To add another one, just
+// add its code here (must be a code translatte's languages.js recognizes).
+const TARGET_LANGS = ["en", "es"];
 
 // Matches the base path used by vite.config.ts, so image URLs in
 // flashes.json resolve correctly whether built locally or on GitHub Pages.
@@ -50,6 +55,108 @@ async function createThumbnail(inputPath, outputPath, width = thumbnailWidth) {
   await sharp(inputPath).resize({ width }).toFile(outputPath);
 }
 
+// --- Translation caching ---------------------------------------------------
+//
+// Source `data.yaml` files hold plain Portuguese text only. Machine
+// translations for each TARGET_LANGS entry are cached back into the same
+// file under `translations.<lang>`, gated by a hash of the Portuguese
+// content: as long as the hash still matches, we reuse the cached text
+// instead of calling translatte again. This means editing a flash's price
+// or images doesn't retranslate anything, and editing the name/tags/
+// description only retranslates the languages affected.
+//
+// To hand-correct a bad translation, edit `translations.<lang>.name` (or
+// `.tags`/`.description`) directly in the yaml and add `locked: true` to
+// that language block — a locked block is never touched by this script
+// again, no matter what changes on the Portuguese side.
+
+function sourceHash(data) {
+  const material = JSON.stringify([
+    data.name ?? "",
+    data.tags ?? [],
+    data.description ?? "",
+  ]);
+  return crypto.createHash("sha1").update(material).digest("hex").slice(0, 16);
+}
+
+async function translateText(text, lang) {
+  try {
+    const result = await translatte(text, { from: "pt", to: lang });
+    return result.text;
+  } catch (e) {
+    console.log(e);
+    return text; // fall back to the Portuguese source rather than leaving it blank
+  }
+}
+
+async function translateFlash(data) {
+  const hash = sourceHash(data);
+  const translations = data.translations || {};
+
+  for (const lang of TARGET_LANGS) {
+    const existing = translations[lang];
+    if (existing?.locked) continue; // whole-block manual override — never touch
+    if (existing?._sourceHash === hash) continue; // cache hit — nothing to do
+
+    // `name_locked`/`description_locked` pin just that one field (e.g. set by
+    // the flash editor) while everything else — including tags — still
+    // translates and re-caches normally.
+    const name = existing?.name_locked
+      ? existing.name
+      : await translateText(data.name, lang);
+
+    const tags = [];
+    for (const tag of data.tags ?? []) {
+      tags.push(await translateText(tag, lang));
+    }
+
+    const description = data.description
+      ? existing?.description_locked
+        ? existing.description
+        : await translateText(data.description, lang)
+      : undefined;
+
+    translations[lang] = {
+      name,
+      tags,
+      ...(description ? { description } : {}),
+      ...(existing?.name_locked ? { name_locked: true } : {}),
+      ...(existing?.description_locked ? { description_locked: true } : {}),
+      _sourceHash: hash,
+    };
+  }
+
+  data.translations = translations;
+  return data;
+}
+
+function localizedName(data) {
+  const out = { pt: data.name };
+  for (const lang of TARGET_LANGS) {
+    out[lang] = data.translations?.[lang]?.name ?? data.name;
+  }
+  return out;
+}
+
+function localizedTags(data) {
+  return (data.tags ?? []).map((tag, i) => {
+    const out = { pt: tag.toLowerCase() };
+    for (const lang of TARGET_LANGS) {
+      out[lang] = (data.translations?.[lang]?.tags?.[i] ?? tag).toLowerCase();
+    }
+    return out;
+  });
+}
+
+function localizedDescription(data) {
+  if (!data.description) return undefined;
+  const out = { pt: data.description };
+  for (const lang of TARGET_LANGS) {
+    out[lang] = data.translations?.[lang]?.description ?? data.description;
+  }
+  return out;
+}
+
 async function generateFlashesJson() {
   console.log(
     `[${new Date().toLocaleTimeString()}] Gerando flashes.json e imagens...`,
@@ -66,50 +173,20 @@ async function generateFlashesJson() {
       const files = fs.readdirSync(folderPath);
 
       const yamlFile = files.find((f) => f.endsWith(".yaml"));
+      if (!yamlFile) continue;
 
-      let data = {};
+      const yamlPath = path.join(folderPath, yamlFile);
+      const originalYamlText = fs.readFileSync(yamlPath, "utf-8");
+      const data = yaml.load(originalYamlText) || {};
 
-      if (yamlFile) {
-        const yamlText = fs.readFileSync(
-          path.join(folderPath, yamlFile),
-          "utf-8",
-        );
-        data = yaml.load(yamlText);
+      await translateFlash(data);
+
+      // Only touch the file on disk if the cache actually changed something
+      // (avoids re-triggering --watch on our own write for no reason).
+      const newYamlText = yaml.dump(data);
+      if (newYamlText !== originalYamlText) {
+        fs.writeFileSync(yamlPath, newYamlText);
       }
-
-      let newTags = [];
-
-      for (const tag of data.tags) {
-        let newTag = {
-          pt: tag.toLowerCase(),
-        };
-
-        let translated = newTag.pt;
-
-        try {
-          translated = await translatte(tag, { from: "pt", to: "en" });
-          translated = translated.text;
-        } catch (e) {
-          console.log(e);
-        }
-        const text = translated.toLowerCase();
-        newTag.en = text;
-
-        newTags.push(newTag);
-      }
-
-      data.tags = newTags;
-
-      const nameStruct = {
-        pt: data.name,
-      };
-
-      try {
-        const nameEn = await translatte(data.name, { from: "pt", to: "en" });
-        nameStruct.en = nameEn.text;
-      } catch (e) {}
-
-      data.name = nameStruct;
 
       const images = files.filter((f) => /\.(jpe?g|png)$/i.test(f));
       const processedFolder = path.join(outputImagesDir, folder.name);
@@ -134,7 +211,13 @@ async function generateFlashesJson() {
       }
 
       flashes[folder.name] = {
-        ...data,
+        name: localizedName(data),
+        tags: localizedTags(data),
+        description: localizedDescription(data),
+        price: data.price,
+        size_min: data.size_min,
+        size_max: data.size_max,
+        size_recommended: data.size_recommended,
         images: imageData,
       };
 

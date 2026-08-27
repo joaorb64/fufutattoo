@@ -2,20 +2,24 @@
   "bode": {
     "name": {
       "pt": "Bode",
-      "en": "Goat"
+      "en": "Goat",
+      "es": "Cabra"
     },
     "tags": [
       {
         "pt": "cor",
-        "en": "color"
+        "en": "color",
+        "es": "color"
       },
       {
         "pt": "animal",
-        "en": "animal"
+        "en": "animal",
+        "es": "animal"
       },
       {
         "pt": "astrologia",
-        "en": "astrology"
+        "en": "astrology",
+        "es": "astrología"
       }
     ],
     "price": 50,
@@ -43,20 +47,24 @@
   "doctor": {
     "name": {
       "pt": "Dr Dumau",
-      "en": "Dr Dumau"
+      "en": "Dr Dumau",
+      "es": "Dr. Dumau"
     },
     "tags": [
       {
         "pt": "tag1",
-        "en": "tag1"
+        "en": "tag1",
+        "es": "etiqueta1"
       },
       {
         "pt": "tag2",
-        "en": "tag2"
+        "en": "tag2",
+        "es": "etiqueta2"
       },
       {
         "pt": "tag3",
-        "en": "tag3"
+        "en": "tag3",
+        "es": "etiqueta3"
       }
     ],
     "price": 50,
@@ -75,12 +83,14 @@
   "hand_flower": {
     "name": {
       "pt": "Mao com fro",
-      "en": "Hand with fro"
+      "en": "Hand with fro",
+      "es": "Mano con fro"
     },
     "tags": [
       {
         "pt": "flor",
-        "en": "flower"
+        "en": "flower",
+        "es": "flor"
       }
     ],
     "price": 50,
@@ -95,12 +105,14 @@
   "pato": {
     "name": {
       "pt": "Pato",
-      "en": "Duck"
+      "en": "Duck",
+      "es": "Pato"
     },
     "tags": [
       {
         "pt": "animal",
-        "en": "animal"
+        "en": "animal",
+        "es": "animal"
       }
     ],
     "price": 100,
@@ -120,20 +132,24 @@
   "peixe": {
     "name": {
       "pt": "Peixes",
-      "en": "Fish"
+      "en": "Fish",
+      "es": "Pez"
     },
     "tags": [
       {
         "pt": "cor",
-        "en": "color"
+        "en": "color",
+        "es": "color"
       },
       {
         "pt": "peixe",
-        "en": "fish"
+        "en": "fish",
+        "es": "pez"
       },
       {
         "pt": "animal",
-        "en": "animal"
+        "en": "animal",
+        "es": "animal"
       }
     ],
     "price": 50,
@@ -154,16 +170,19 @@
   "peixe2": {
     "name": {
       "pt": "Peixes 2",
-      "en": "Pisces 2"
+      "en": "Pisces 2",
+      "es": "Piscis 2"
     },
     "tags": [
       {
         "pt": "peixe",
-        "en": "fish"
+        "en": "fish",
+        "es": "pez"
       },
       {
         "pt": "animal",
-        "en": "animal"
+        "en": "animal",
+        "es": "animal"
       }
     ],
     "price": 20,
@@ -178,12 +197,14 @@
   "pote": {
     "name": {
       "pt": "Pote",
-      "en": "Pot"
+      "en": "Pot",
+      "es": "Olla"
     },
     "tags": [
       {
         "pt": "grecia",
-        "en": "greece"
+        "en": "greece",
+        "es": "grecia"
       }
     ],
     "price": 50,
@@ -198,24 +219,29 @@
   "tsuru": {
     "name": {
       "pt": "Tsuru",
-      "en": "Tsuru"
+      "en": "Tsuru",
+      "es": "Tsuru"
     },
     "tags": [
       {
         "pt": "cor",
-        "en": "color"
+        "en": "color",
+        "es": "color"
       },
       {
         "pt": "animal",
-        "en": "animal"
+        "en": "animal",
+        "es": "animal"
       },
       {
         "pt": "ásia",
-        "en": "asia"
+        "en": "asia",
+        "es": "asia"
       },
       {
         "pt": "pássaro",
-        "en": "bird"
+        "en": "bird",
+        "es": "pájaro"
       }
     ],
     "price": 70,

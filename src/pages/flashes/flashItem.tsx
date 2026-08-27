@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { resolveLocale } from "../../i18n";
 
 const FlashItem = (props: { flash: any; flashId: string }) => {
   const { t, i18n } = useTranslation();
-  const locale = i18n.language.startsWith("pt") ? "pt" : "en";
+  const locale = resolveLocale(i18n.language);
   const images = props.flash.images || [];
   const navigate = useNavigate();
 

@@ -1,15 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import Fuse from "fuse.js";
 import FlashList from "./flashList";
 import TagList from "./tagList";
+import { resolveLocale } from "../../i18n";
 
 export default function Flashes() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = resolveLocale(i18n.language);
   type FlashType = {
-    name: { pt?: string; en?: string };
-    tags: { pt: string; en: string }[];
+    name: Record<string, string>;
+    tags: Record<string, string>[];
     images?: string[];
-    description?: string;
+    description?: Record<string, string>;
     price?: number;
   };
 
@@ -26,20 +29,20 @@ export default function Flashes() {
   }, []);
 
   const allTags = useMemo(() => {
-    const tagsObj: Record<
-      string,
-      { tag: { pt: string; en: string }; count: number }
-    > = {};
+    // Keyed by the Portuguese text (the canonical, human-authored source of
+    // truth) rather than a machine-translated field, so a tag's identity
+    // stays stable regardless of translation output.
+    const tagsObj: Record<string, { tag: Record<string, string>; count: number }> = {};
 
     Object.values(flashes).forEach((flash) => {
       flash.tags.forEach((tag) => {
-        if (!tagsObj.hasOwnProperty(tag.en)) {
-          tagsObj[tag.en] = {
+        if (!tagsObj.hasOwnProperty(tag.pt)) {
+          tagsObj[tag.pt] = {
             tag,
             count: 1,
           };
         } else {
-          tagsObj[tag.en].count += 1;
+          tagsObj[tag.pt].count += 1;
         }
       });
     });
@@ -47,20 +50,11 @@ export default function Flashes() {
     const sortedTags = Object.keys(tagsObj)
       .sort((a, b) => tagsObj[b].count - tagsObj[a].count)
       .reduce(
-        (
-          Obj: Record<
-            string,
-            { tag: { pt: string; en: string }; count: number }
-          >,
-          key,
-        ) => {
+        (Obj: Record<string, { tag: Record<string, string>; count: number }>, key) => {
           Obj[key] = tagsObj[key];
           return Obj;
         },
-        {} as Record<
-          string,
-          { tag: { pt: string; en: string }; count: number }
-        >,
+        {} as Record<string, { tag: Record<string, string>; count: number }>,
       );
 
     return sortedTags;
@@ -75,35 +69,60 @@ export default function Flashes() {
     [flashes],
   );
 
+  // Fuzzy, weighted search across every language regardless of the active UI
+  // locale — e.g. a Portuguese speaker typing "cookie" instead of "biscoito"
+  // should still find the flash. Ranked so the current-language name matters
+  // most, then the current-language tags, then the name in other languages,
+  // then tags in other languages.
+  const searchItems = useMemo(
+    () =>
+      allFlashesArray.map((f) => {
+        const langs = Object.keys(f.name ?? {});
+        const otherLangs = langs.filter((l) => l !== locale);
+        return {
+          flash: f,
+          nameCurrent: f.name?.[locale] ?? "",
+          tagsCurrent: f.tags.map((tag) => tag[locale] ?? tag.pt ?? ""),
+          nameOther: otherLangs.map((l) => f.name?.[l] ?? ""),
+          tagsOther: f.tags.flatMap((tag) => otherLangs.map((l) => tag[l] ?? "")),
+          descAll: Object.values(f.description ?? {}),
+        };
+      }),
+    [allFlashesArray, locale],
+  );
+
+  const fuse = useMemo(
+    () =>
+      new Fuse(searchItems, {
+        keys: [
+          { name: "nameCurrent", weight: 0.4 },
+          { name: "tagsCurrent", weight: 0.3 },
+          { name: "nameOther", weight: 0.2 },
+          { name: "tagsOther", weight: 0.1 },
+          { name: "descAll", weight: 0.05 },
+        ],
+        threshold: 0.4,
+        ignoreLocation: true,
+      }),
+    [searchItems],
+  );
+
   const filteredFlashes = useMemo(() => {
-    const q = search.trim().toLowerCase();
+    const q = search.trim();
+    const base = q ? fuse.search(q).map((r) => r.item.flash) : allFlashesArray;
 
-    return allFlashesArray.filter((f: FlashType) => {
-      const namePt = f.name.pt?.toLowerCase() ?? "";
-      const nameEn = f.name.en?.toLowerCase() ?? "";
-      const tagsPt = f.tags.map((tag) => tag.pt.toLowerCase()).join(" ");
-      const tagsEn = f.tags.map((tag) => tag.en.toLowerCase()).join(" ");
-      const desc = f.description?.toLowerCase() ?? "";
-
-      const matchesSearch =
-        !q ||
-        [namePt, nameEn, tagsPt, tagsEn, desc].some((value) =>
-          value.includes(q),
-        );
-
+    return base.filter((f: FlashType) => {
       const matchesTags =
         selectedTags.length === 0 ||
         selectedTags.every((selectedTag) =>
-          f.tags.some(
-            (tag) => tag.pt === selectedTag || tag.en === selectedTag,
-          ),
+          f.tags.some((tag) => Object.values(tag).includes(selectedTag)),
         );
 
-      return matchesSearch && matchesTags;
+      return matchesTags;
     });
-  }, [allFlashesArray, search, selectedTags]);
+  }, [allFlashesArray, fuse, search, selectedTags]);
 
-  const toggleTag = (tag: { pt: string; en: string }) => {
+  const toggleTag = (tag: Record<string, string>) => {
     setSelectedTags((prev) =>
       prev.includes(tag.pt)
         ? prev.filter((t) => t !== tag.pt)

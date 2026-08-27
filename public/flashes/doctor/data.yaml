@@ -1,4 +1,24 @@
-name: "Dr Dumau"
-tags: ["tag1", "tag2", "tag3"]
+name: Dr Dumau
+tags:
+  - tag1
+  - tag2
+  - tag3
 price: 50
-size_min: [8, 10]
+size_min:
+  - 8
+  - 10
+translations:
+  en:
+    name: Dr Dumau
+    tags:
+      - tag1
+      - tag2
+      - tag3
+    _sourceHash: 4f1130fae86cf251
+  es:
+    name: Dr. Dumau
+    tags:
+      - etiqueta1
+      - etiqueta2
+      - etiqueta3
+    _sourceHash: 4f1130fae86cf251
