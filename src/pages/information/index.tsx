@@ -27,7 +27,7 @@ const Information = () => {
               src={spacecatImg}
               alt=""
               aria-hidden
-              className="hidden md:block w-40 lg:w-56 shrink-0 select-none"
+              className="hidden md:block w-40 h-40 lg:w-56 lg:h-56 object-contain shrink-0 select-none"
             />
             <div className="flex-1 min-w-0">
               <div className="relative inline-block mb-4">
@@ -71,7 +71,7 @@ const Information = () => {
               src={duckImg}
               alt=""
               aria-hidden
-              className="hidden md:block w-40 lg:w-56 shrink-0 select-none"
+              className="hidden md:block w-40 h-40 lg:w-56 lg:h-56 object-contain shrink-0 select-none"
             />
             <div className="flex-1 min-w-0">
               <div className="relative inline-block mb-4">
@@ -100,7 +100,7 @@ const Information = () => {
               src={squirrelImg}
               alt=""
               aria-hidden
-              className="hidden md:block w-40 lg:w-56 shrink-0 select-none"
+              className="hidden md:block w-40 h-40 lg:w-56 lg:h-56 object-contain shrink-0 select-none"
             />
             <div className="flex-1 min-w-0">
               <div className="relative inline-block mb-4">
