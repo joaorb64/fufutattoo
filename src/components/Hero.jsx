@@ -71,7 +71,7 @@ export default function Hero() {
           <p className="text-zinc-800 uppercase text-4xl tracking-wider font-[BohoSans]">
             {t("hero.artist")}
           </p>
-          <p className="max-w-md text-zinc-600 uppercase font-[BohoSans] text-2xl tracking-wider">
+          <p className="max-w-md text-zinc-600 uppercase font-[BohoSans] text-3xl tracking-wider">
             {t("hero.location")}
           </p>
         </div>
@@ -135,7 +135,7 @@ export default function Hero() {
           <p className="mt-1 text-zinc-800 uppercase text-2xl lg:text-4xl xl:text-5xl tracking-wider font-[BohoSans]">
             {t("hero.artist")}
           </p>
-          <p className="mt-1 max-w-md text-zinc-600 uppercase font-[BohoSans] text-lg lg:text-2xl xl:text-3xl tracking-wider">
+          <p className="mt-1 max-w-md text-zinc-600 uppercase font-[BohoSans] text-xl lg:text-3xl xl:text-4xl tracking-wider">
             {t("hero.location")}
           </p>
         </div>

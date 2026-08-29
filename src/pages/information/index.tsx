@@ -21,7 +21,7 @@ const Information = () => {
       </div>
 
       <div className="flex flex-col">
-        <div className="w-screen bg-[#FFEEDC] py-12 -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden">
+        <div className="w-screen bg-[#9DB2DB] py-12 -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden">
           <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl flex items-center gap-8">
             <img
               src={spacecatImg}
@@ -65,7 +65,7 @@ const Information = () => {
           </div>
         </div>
 
-        <div className="w-screen bg-[#CD8585] py-12 -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden">
+        <div className="w-screen bg-[#DF9F9F] py-12 -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden">
           <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl flex flex-row-reverse items-center gap-8">
             <img
               src={duckImg}
@@ -94,7 +94,7 @@ const Information = () => {
           </div>
         </div>
 
-        <div className="w-screen bg-[#E0CE8B] py-12 -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden">
+        <div className="w-screen bg-[#F0E0A2] py-12 -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden">
           <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl flex items-center gap-8">
             <img
               src={squirrelImg}

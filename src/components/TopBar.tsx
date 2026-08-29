@@ -37,7 +37,10 @@ const TopBar = () => {
   return (
     <>
       {/* Mobile topbar */}
-      <header className="fixed sm:hidden inset-x-0 top-0 z-50 bg-brand text-white shadow-lg">
+      <header
+        className="fixed sm:hidden inset-x-0 top-0 z-50 bg-brand text-white shadow-lg"
+        style={{ WebkitTextStroke: "0.4px currentColor" }}
+      >
         <div className="flex items-center justify-between px-4 py-3">
           <Link to="/" className="font-[BohoSans] text-3xl tracking-widest hover:text-teal-200 transition-colors">
             {t("topbar.title")}
@@ -67,7 +70,10 @@ const TopBar = () => {
       </header>
 
       {/* Desktop nav — brand left, links centered, language switcher right */}
-      <nav className="fixed w-full top-0 left-0 z-50 py-4 bg-brand text-white shadow-lg hidden sm:flex items-center justify-center gap-3 md:gap-4 lg:gap-8 xl:gap-12 font-[BohoSans] text-lg md:text-xl lg:text-2xl xl:text-3xl tracking-wider">
+      <nav
+        className="fixed w-full top-0 left-0 z-50 py-4 bg-brand text-white shadow-lg hidden sm:flex items-center justify-center gap-3 md:gap-4 lg:gap-8 xl:gap-12 font-[BohoSans] text-lg md:text-xl lg:text-2xl xl:text-3xl tracking-wider"
+        style={{ WebkitTextStroke: "0.4px currentColor" }}
+      >
         <Link to="/" className="absolute left-4 text-xl md:text-xl lg:text-2xl xl:text-3xl tracking-widest hover:text-teal-200 transition-colors">
           {t("topbar.title")}
         </Link>
@@ -81,7 +87,7 @@ const TopBar = () => {
                 `group relative ${isActive ? "opacity-80" : ""}`
               }
             >
-              <div className="px-3 md:px-4 lg:px-5 xl:px-6 bg-linear-to-r from-pink-200 via-amber-100 to-teal-200 rounded-full text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-brand shadow-md hover:shadow-lg transition-shadow duration-300 hover:scale-110 transform">
+              <div className="px-3 md:px-4 lg:px-5 xl:px-6 bg-linear-to-r from-pink-200 via-amber-100 to-teal-200 rounded-full text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-zinc-900 shadow-md hover:shadow-lg transition-shadow duration-300 hover:scale-110 transform">
                 {t(key)}
               </div>
             </NavLink>

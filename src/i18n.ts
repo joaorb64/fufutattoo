@@ -41,7 +41,7 @@ const resources = {
         language: "Language",
       },
       hero: {
-        artist: "Tattoo Artist & Painter",
+        artist: "Tattoos, Illustrations and Painting",
         location: "Madrid, Spain",
         about: "About me",
         info: "Prep & Care",
@@ -51,11 +51,10 @@ const resources = {
       aboutme: {
         title: "About me",
         paragraphs: [
-          "Hi! I'm Flávia, but you can call me Fu 🙂 I'm Brazilian and live in Madrid for 4 years. I've always loved drawing and painting and, for 2 years, I've been living the long-time dream of doing it on skin.",
-          "In tattooing, I've chosen to be a versatile artist because my heart is big and I love many things. Instead of having a fixed style, I work loosely with characteristics that attract me aesthetically: a lot of black, spots of color and white, strategic shading, and variation in line thickness.",
-          "My main influences are American traditional (old school), neo-traditional, illustrative, and engraving. I also love designing fully colored pieces, lettering and simple fine line projects. My favorite themes are nature — animals, plants, florals, landscapes — and fantasy — mythology, circus, horror, fairy tales, etc. But I'm open to any idea!",
-          "I don't work with realism, dotwork, tribal, watercolor or geometric.",
-          "To see my work, check out my portfolio and flashbook, and feel free to contact me through any channel. :)",
+          "Hi! I'm Flávia, but you can call me Fufu 🙂 Originally from Brazil, I spent four years in Lisbon and am now based in Madrid. I've always loved drawing and painting, and for the past three years, I've been living the dream of doing it professionally!",
+          "My work flows naturally around the themes and techniques that inspire me. I love creating designs that are expressive and illustrative yet cozy and tender—pieces that bring a touch of enchantment, warmth, and whimsy to your daily life. While my favorite themes are flora, fauna, and fantasy, I'm always open to new ideas. I tattoo in both color and black & gray.",
+          "Through my art, I aim to remind us of the wonderful, lush, magical world outside, helping people fall in love with nature and reconnect with the healing power of human imagination.",
+          "Check out my Instagram, flashbook, and shop to explore my latest work. If you're looking for a tattoo or a commissioned painting or illustration, feel free to reach out through any channel!",
         ],
       },
       information: {
@@ -141,7 +140,7 @@ const resources = {
         language: "Idioma",
       },
       hero: {
-        artist: "Tatuadora e Pintora",
+        artist: "Tatuagens, Ilustrações e Pintura",
         location: "Madrid, Espanha",
         about: "Sobre mim",
         info: "Sessão e Cuidados",
@@ -151,11 +150,10 @@ const resources = {
       aboutme: {
         title: "Sobre mim",
         paragraphs: [
-          "Oi! Sou a Flávia, mas pode me chamar de Fu 🙂 Sou brasileira e vivo em Madrid há 4 anos. Sempre amei desenhar e pintar e, há 2 anos, estou vivendo o sonho muito antigo de fazê-lo em pele.",
-          "Na tatuagem, escolhi ser uma artista versátil, porque meu coração é grande e eu amo muitas coisas. Em vez de ter um estilo fixo, trabalho de maneira mais solta com características que me atraem esteticamente: bastante preto, pontos de cor e de branco, sombreados estratégicos e variação de espessura de traço.",
-          "Minhas principais influências são o estilo tradicional americano (old school), o neotradicional, o ilustrativo e a gravura. Também adoro fazer projetos 100% coloridos, textos e projetos mais simples em fineline. Meus temas favoritos são a natureza em geral — bichos, plantas, florais, paisagens — e a fantasia — mitologia, circo, terror, contos de fadas, etc. Mas estou aberta a discutir qualquer ideia!",
-          "Não trabalho com realismo, pontilhismo, tribal, aquarela ou geométrico.",
-          "Para conhecer o meu trabalho, confira o meu portfolio e o meu flashbook e esteja à vontade para entrar em contato por qualquer canal. :)",
+          "Oi! Sou a Flávia, mas pode me chamar de Fufu 🙂 Originalmente do Brasil, morei quatro anos em Lisboa e agora estou baseada em Madrid. Sempre amei desenhar e pintar, e nos últimos três anos, estou vivendo o sonho de fazer isso profissionalmente!",
+          "Meu trabalho flui naturalmente ao redor dos temas e técnicas que me inspiram. Adoro criar desenhos expressivos e ilustrativos, mas também aconchegantes e ternos — peças que trazem um toque de encantamento, calor e magia para o seu dia a dia. Meus temas favoritos são flora, fauna e fantasia, mas estou sempre aberta a novas ideias. Tatuo tanto em cores quanto em preto e cinza.",
+          "Através da minha arte, busco lembrar do mundo maravilhoso, exuberante e mágico lá fora, ajudando as pessoas a se apaixonarem pela natureza e a se reconectarem com o poder curativo da imaginação humana.",
+          "Confira meu Instagram, flashbook e loja para ver meus trabalhos mais recentes. Se você está procurando uma tatuagem ou uma pintura ou ilustração sob encomenda, sinta-se à vontade para entrar em contato por qualquer canal!",
         ],
       },
       information: {
@@ -241,7 +239,7 @@ const resources = {
         language: "Idioma",
       },
       hero: {
-        artist: "Tatuadora y Pintora",
+        artist: "Tatuajes, Ilustraciones y Pintura",
         location: "Madrid, España",
         about: "Sobre mí",
         info: "Preparación y Cuidados",
@@ -251,11 +249,10 @@ const resources = {
       aboutme: {
         title: "Sobre mí",
         paragraphs: [
-          "¡Hola! Soy Flávia, pero puedes llamarme Fu 🙂 Soy brasileña y vivo en Madrid desde hace 4 años. Siempre amé dibujar y pintar y, desde hace 2 años, estoy viviendo el sueño de hacerlo en la piel.",
-          "En el tatuaje, elegí ser una artista versátil, porque mi corazón es grande y amo muchas cosas. En lugar de tener un estilo fijo, trabajo de forma más libre con características que me atraen estéticamente: mucho negro, puntos de color y blanco, sombreados estratégicos y variación en el grosor del trazo.",
-          "Mis principales influencias son el estilo tradicional americano (old school), el neotradicional, el ilustrativo y el grabado. También me encanta hacer proyectos totalmente a color, letras y proyectos más simples de fine line. Mis temas favoritos son la naturaleza en general — animales, plantas, flores, paisajes — y la fantasía — mitología, circo, terror, cuentos de hadas, etc. ¡Pero estoy abierta a discutir cualquier idea!",
-          "No trabajo con realismo, puntillismo, tribal, acuarela ni geométrico.",
-          "Para conocer mi trabajo, revisa mi portfolio y mi flashbook, y siéntete libre de contactarme por cualquier canal. :)",
+          "¡Hola! Soy Flávia, pero puedes llamarme Fufu 🙂 Originaria de Brasil, viví cuatro años en Lisboa y ahora estoy basada en Madrid. Siempre amé dibujar y pintar, y en los últimos tres años, estoy viviendo el sueño de hacerlo profesionalmente.",
+          "Mi trabajo fluye naturalmente alrededor de los temas y técnicas que me inspiran. Me encanta crear diseños expresivos e ilustrativos, pero a la vez acogedores y tiernos — piezas que traen un toque de encanto, calidez y magia a tu día a día. Mis temas favoritos son la flora, la fauna y la fantasía, pero siempre estoy abierta a nuevas ideas. Tatúo tanto a color como en blanco y negro.",
+          "A través de mi arte, busco recordarnos el mundo maravilloso, exuberante y mágico de afuera, ayudando a las personas a enamorarse de la naturaleza y a reconectar con el poder sanador de la imaginación humana.",
+          "Echa un vistazo a mi Instagram, flashbook y tienda para ver mis trabajos más recientes. Si buscas un tatuaje o una pintura o ilustración por encargo, ¡no dudes en contactarme por cualquier canal!",
         ],
       },
       information: {
