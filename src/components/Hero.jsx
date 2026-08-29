@@ -58,7 +58,7 @@ export default function Hero() {
           />
         </div>
 
-        <div className="relative w-full py-4 px-8 bg-[#ffeedcD0]">
+        <div className="relative w-full py-4 pl-8 pr-32 bg-[#ffeedcD0]">
           <img
             src={ratImg}
             alt=""
