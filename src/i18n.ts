@@ -31,7 +31,7 @@ const resources = {
         home: "Home",
         about: "About me",
         flashes: "Flashbook",
-        info: "Prep & Care",
+        info: "Session & Care",
         studio: "Studio",
       },
       topbar: {
@@ -44,7 +44,7 @@ const resources = {
         artist: "Tattoos, Illustrations and Painting",
         location: "Madrid, Spain",
         about: "About me",
-        info: "Prep & Care",
+        info: "Session & Care",
         studio: "Studio",
         flashes: "Flashbook",
       },
@@ -58,7 +58,7 @@ const resources = {
         ],
       },
       information: {
-        title: "Prep & Care",
+        title: "Session & Care",
         before: "Before session",
         remarkings: "Rescheduling",
         beforeText:
@@ -229,7 +229,7 @@ const resources = {
         home: "Inicio",
         about: "Sobre mí",
         flashes: "Flashbook",
-        info: "Preparación y Cuidados",
+        info: "Sesión y Cuidados",
         studio: "Estudio",
       },
       topbar: {
@@ -242,7 +242,7 @@ const resources = {
         artist: "Tatuajes, Ilustraciones y Pintura",
         location: "Madrid, España",
         about: "Sobre mí",
-        info: "Preparación y Cuidados",
+        info: "Sesión y Cuidados",
         studio: "Estudio",
         flashes: "Flashbook",
       },
@@ -256,7 +256,7 @@ const resources = {
         ],
       },
       information: {
-        title: "Preparación y Cuidados",
+        title: "Sesión y Cuidados",
         before: "Antes de la sesión",
         remarkings: "Reprogramaciones",
         beforeText:
