@@ -41,7 +41,7 @@ const resources = {
         language: "Language",
       },
       hero: {
-        artist: "Tattoos, Illustrations and Painting",
+        artist: "Tattoo Artist & Painter",
         location: "Madrid, Spain",
         about: "About me",
         info: "Session & Care",
@@ -140,7 +140,7 @@ const resources = {
         language: "Idioma",
       },
       hero: {
-        artist: "Tatuagens, Ilustrações e Pintura",
+        artist: "Tatuadora e Pintora",
         location: "Madrid, Espanha",
         about: "Sobre mim",
         info: "Sessão e Cuidados",
@@ -239,7 +239,7 @@ const resources = {
         language: "Idioma",
       },
       hero: {
-        artist: "Tatuajes, Ilustraciones y Pintura",
+        artist: "Tatuadora y Pintora",
         location: "Madrid, España",
         about: "Sobre mí",
         info: "Sesión y Cuidados",
