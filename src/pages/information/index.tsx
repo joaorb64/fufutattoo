@@ -51,15 +51,7 @@ const Section = ({
         className={`hidden md:block ${imageClassName} object-contain shrink-0 select-none`}
       />
       <div className="flex-1 min-w-0">
-        <div className="relative inline-block mb-4">
-          <img
-            src={image}
-            alt=""
-            aria-hidden
-            className="md:hidden absolute top-1/2 -translate-y-1/2 -right-16 h-16 w-16 object-contain pointer-events-none select-none"
-          />
-          <h2 className="relative text-5xl font-[BohoSans]">{heading}</h2>
-        </div>
+        <h2 className="text-5xl font-[BohoSans] mb-4">{heading}</h2>
         <div className="flex flex-col gap-4 text-lg">
           {paragraphs.map((paragraph, idx) => (
             <p key={idx}>
