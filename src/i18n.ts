@@ -113,7 +113,7 @@ const resources = {
         maybeAlsoLike: "You may also like",
         bookWhatsapp: "Chat about this flash",
         whatsappMessage:
-          "Hi! I saw the flash '{{name}}' (id: {{id}}) and I'd like to know more about it 🙂",
+          "Hi! I'd like to know more about the flash '{{name}}': {{url}} 😊",
         loading: "Loading...",
         notFound: "Flash not found.",
         clearTags: "Clear",
@@ -211,7 +211,7 @@ const resources = {
         maybeAlsoLike: "Você também pode gostar",
         bookWhatsapp: "Conversar sobre este flash",
         whatsappMessage:
-          "Oi! Vi o flash '{{name}}' (id: {{id}}) e gostaria de saber mais 🙂",
+          "Oi! Gostaria de saber mais sobre o flash '{{name}}': {{url}} 😊",
         loading: "Carregando...",
         notFound: "Flash não encontrado.",
         clearTags: "Limpar",
@@ -309,7 +309,7 @@ const resources = {
         maybeAlsoLike: "También te puede gustar",
         bookWhatsapp: "Hablar sobre este flash",
         whatsappMessage:
-          "¡Hola! Vi el flash '{{name}}' (id: {{id}}) y me gustaría saber más 🙂",
+          "¡Hola! Me gustaría saber más sobre el flash '{{name}}': {{url}} 😊",
         loading: "Cargando...",
         notFound: "Flash no encontrado.",
         clearTags: "Limpiar",

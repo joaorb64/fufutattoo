@@ -86,9 +86,13 @@ const FlashDetail = () => {
 
   const images = flash.images || [];
   const flashName = flash.name[locale] || flash.name.en || flash.name.pt;
+  const flashUrl =
+    typeof window !== "undefined"
+      ? window.location.origin + window.location.pathname
+      : "";
   const whatsappMessage = t("flashes.whatsappMessage", {
     name: flashName,
-    id: flashId,
+    url: flashUrl,
   });
   const whatsappHref = `${WHATSAPP_URL}?text=${encodeURIComponent(whatsappMessage)}`;
 
