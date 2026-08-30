@@ -25,7 +25,7 @@ export default function LanguageSplash({ onDone }: { onDone: () => void }) {
       </h1>
 
       <p className="text-zinc-500 font-[BohoSans] text-xl md:text-2xl tracking-wider text-center">
-        Tattoo Artist &amp; Painter · Madrid
+        Tattoo and Painting · Madrid
       </p>
 
       <div className="flex gap-4 mt-4">

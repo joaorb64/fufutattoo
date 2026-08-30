@@ -41,7 +41,7 @@ const resources = {
         language: "Language",
       },
       hero: {
-        artist: "Tattoo Artist & Painter",
+        artist: "Tattoo and Painting",
         location: "Madrid, Spain",
         about: "About me",
         info: "Session & Care",
