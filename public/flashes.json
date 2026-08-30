@@ -267,6 +267,49 @@
       }
     ]
   },
+  "melro": {
+    "name": {
+      "pt": "Melro",
+      "en": "Blackbird",
+      "es": "Mirlo"
+    },
+    "tags": [
+      {
+        "pt": "pássaro",
+        "en": [
+          "bird"
+        ],
+        "es": [
+          "pájaro"
+        ]
+      },
+      {
+        "pt": "florestinha",
+        "en": [
+          "forest friend"
+        ],
+        "es": [
+          "bosquecito"
+        ]
+      }
+    ],
+    "price": 150,
+    "size_min": [
+      6.5,
+      7
+    ],
+    "size_max": [
+      8.5,
+      9
+    ],
+    "images": [
+      {
+        "original": "/flashes/melro/1.png",
+        "watermarked": "/flashes_processed/melro/1.png",
+        "thumbnail": "/flashes_processed/melro/thumb_1.png"
+      }
+    ]
+  },
   "passaro_da_noite": {
     "name": {
       "pt": "Pássaro da noite",

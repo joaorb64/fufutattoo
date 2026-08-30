@@ -13,3 +13,7 @@ translations:
   en:
     name: Blackbird
     name_locked: true
+    _sourceHash: df486b6ab2f4c355
+  es:
+    name: Mirlo
+    _sourceHash: df486b6ab2f4c355
