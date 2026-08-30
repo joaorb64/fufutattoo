@@ -9,3 +9,10 @@ size_min:
 size_max:
   - 9
   - 9
+translations:
+  en:
+    name: picnic (black and gray)
+    _sourceHash: 73fcea105d429546
+  es:
+    name: picnic (negro y gris)
+    _sourceHash: 73fcea105d429546
