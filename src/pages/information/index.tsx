@@ -3,8 +3,26 @@ import spacecatImg from "../../assets/images/spacecat.webp";
 import duckImg from "../../assets/images/duck.webp";
 import squirrelImg from "../../assets/images/squirrel.webp";
 
+// Renders **bold** spans inside an otherwise plain string.
+const RichText = ({ text }: { text: string }) => (
+  <>
+    {text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+      part.startsWith("**") && part.endsWith("**") ? (
+        <strong key={i} className="font-semibold">
+          {part.slice(2, -2)}
+        </strong>
+      ) : (
+        part
+      ),
+    )}
+  </>
+);
+
 const Information = () => {
   const { t } = useTranslation();
+  const reschedulingPoints = t("information.rescheduling.points", {
+    returnObjects: true,
+  }) as string[];
   const duringParagraphs = t("information.duringParagraphs", {
     returnObjects: true,
   }) as string[];
@@ -42,23 +60,35 @@ const Information = () => {
                 </h2>
               </div>
               <div className="flex flex-col gap-4">
-                <p>
-                  <span className="font-bold text-xl">
-                    {t("information.remarkings")}
-                  </span>{" "}
-                  {t("information.beforeText")}
-                </p>
+                <div className="rounded-3xl bg-white/80 border border-white shadow-sm p-5 sm:p-6">
+                  <h3 className="font-[BohoSans] text-3xl mb-3 flex items-center gap-2">
+                    <span aria-hidden>🗓️</span>
+                    {t("information.rescheduling.heading")}
+                  </h3>
+                  <ul className="flex flex-col gap-2.5">
+                    {reschedulingPoints.map((point, idx) => (
+                      <li key={idx} className="flex gap-2.5">
+                        <span aria-hidden className="shrink-0">
+                          🐾
+                        </span>
+                        <span>
+                          <RichText text={point} />
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
                 <p>
                   <span className="font-bold text-xl">
                     {t("information.preCare")}
                   </span>{" "}
-                  {t("information.preCareText")}
+                  <RichText text={t("information.preCareText")} />
                 </p>
                 <p>
                   <span className="font-bold text-xl">
                     {t("information.yourSkin")}
                   </span>{" "}
-                  {t("information.skinText")}
+                  <RichText text={t("information.skinText")} />
                 </p>
               </div>
             </div>
@@ -87,7 +117,9 @@ const Information = () => {
               </div>
               <div className="flex flex-col gap-4">
                 {duringParagraphs.map((paragraph, idx) => (
-                  <p key={idx}>{paragraph}</p>
+                  <p key={idx}>
+                    <RichText text={paragraph} />
+                  </p>
                 ))}
               </div>
             </div>
@@ -115,11 +147,10 @@ const Information = () => {
                 </h2>
               </div>
               <div className="flex flex-col gap-4">
-                <h3 className="text-4xl mt-6 font-[BohoSans]">
-                  {t("information.otherCare")}
-                </h3>
                 {afterParagraphs.map((paragraph, idx) => (
-                  <p key={idx}>{paragraph}</p>
+                  <p key={idx}>
+                    <RichText text={paragraph} />
+                  </p>
                 ))}
               </div>
             </div>

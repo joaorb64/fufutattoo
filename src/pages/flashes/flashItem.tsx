@@ -39,7 +39,7 @@ const FlashItem = (props: { flash: any; flashId: string }) => {
           {flashName}
         </p>
         <p className="shrink-0 text-right leading-tight">
-          <span className="block font-[BohoSans] text-xs text-zinc-500 lowercase tracking-wide">
+          <span className="block text-xs text-zinc-500 lowercase tracking-wide">
             {t("flashes.priceFrom")}
           </span>
           <span className="font-[BohoSans] text-2xl text-zinc-900 font-medium">
