@@ -9,3 +9,10 @@ size_min:
 size_max:
   - 9
   - 9
+translations:
+  en:
+    name: picnic (colorful)
+    _sourceHash: f865f2f199b41e06
+  es:
+    name: picnic (colorido)
+    _sourceHash: f865f2f199b41e06

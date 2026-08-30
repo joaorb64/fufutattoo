@@ -328,6 +328,49 @@
       }
     ]
   },
+  "picnic_colorido": {
+    "name": {
+      "pt": "picnic (colorido)",
+      "en": "picnic (colorful)",
+      "es": "picnic (colorido)"
+    },
+    "tags": [
+      {
+        "pt": "picnic",
+        "en": [
+          "picnic"
+        ],
+        "es": [
+          "picnic"
+        ]
+      },
+      {
+        "pt": "vinho",
+        "en": [
+          "wine"
+        ],
+        "es": [
+          "vino"
+        ]
+      }
+    ],
+    "price": 150,
+    "size_min": [
+      6,
+      6
+    ],
+    "size_max": [
+      9,
+      9
+    ],
+    "images": [
+      {
+        "original": "/flashes/picnic_colorido/1.png",
+        "watermarked": "/flashes_processed/picnic_colorido/1.png",
+        "thumbnail": "/flashes_processed/picnic_colorido/thumb_1.png"
+      }
+    ]
+  },
   "picnic_preto_e_cinza": {
     "name": {
       "pt": "picnic (preto e cinza)",
