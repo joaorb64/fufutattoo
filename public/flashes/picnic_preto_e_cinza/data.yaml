@@ -1,0 +1,11 @@
+name: picnic (preto e cinza)
+tags:
+  - picnic
+  - vinho
+price: 130
+size_min:
+  - 6
+  - 6
+size_max:
+  - 9
+  - 9
