@@ -12,13 +12,7 @@ size_max:
 translations:
   en:
     name: Gardener (Black and gray)
-    tags:
-      - mouse
-      - flower
-    _sourceHash: c5e92feee1cb047e
+    _sourceHash: b6765c57164c99eb
   es:
     name: Jardinero (Negro y gris)
-    tags:
-      - ratón
-      - flor
-    _sourceHash: c5e92feee1cb047e
+    _sourceHash: b6765c57164c99eb

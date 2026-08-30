@@ -19,7 +19,7 @@ const FlashItem = (props: { flash: any; flashId: string }) => {
       onClick={() => navigate(`/flashes/${props.flashId}`)}
     >
       {/* Full image, no crop */}
-      <div className="aspect-square overflow-hidden">
+      <div className="aspect-square overflow-hidden bg-[#ffeedc]">
         {src ? (
           <img
             src={src}

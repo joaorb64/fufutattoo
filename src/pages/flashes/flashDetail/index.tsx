@@ -7,6 +7,7 @@ import FlashItem from "../flashItem";
 import { WHATSAPP_URL } from "../../../config";
 import { resolveLocale } from "../../../i18n";
 import { fetchFlashes } from "../../../flashes";
+import { tagLabels } from "../tagUtils";
 
 const FlashDetail = () => {
   const { t, i18n } = useTranslation();
@@ -251,9 +252,11 @@ const FlashDetail = () => {
             <div>
               <h2 className="text-lg font-bold">{t("flashes.tags")}</h2>
               <div className="flex flex-wrap gap-2">
-                {flash.tags.map((tag: any, i: number) => (
-                  <Tag key={i} tag={tag} />
-                ))}
+                {flash.tags.flatMap((tag: any, i: number) =>
+                  tagLabels(tag, locale).map((label, j) => (
+                    <Tag key={`${i}-${j}`} label={label} />
+                  )),
+                )}
               </div>
             </div>
           )}

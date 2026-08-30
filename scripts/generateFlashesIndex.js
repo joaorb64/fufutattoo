@@ -9,6 +9,7 @@ import translatte from "translatte";
 const flashesDir = path.resolve("public/flashes");
 const outputFile = path.resolve("public/flashes.json");
 const outputImagesDir = path.resolve("public/flashes_processed");
+const tagsDictFile = path.resolve("public/flashes/tags.yaml");
 
 const watermarkText = ""; // texto da watermark
 const watermarkFraction = 0.04; // tamanho proporcional da fonte
@@ -71,12 +72,66 @@ async function createThumbnail(inputPath, outputPath, width = thumbnailWidth) {
 // again, no matter what changes on the Portuguese side.
 
 function sourceHash(data) {
-  const material = JSON.stringify([
-    data.name ?? "",
-    data.tags ?? [],
-    data.description ?? "",
-  ]);
+  // Tags aren't included: their translations live in tags.yaml, not in the
+  // per-flash cache.
+  const material = JSON.stringify([data.name ?? "", data.description ?? ""]);
   return crypto.createHash("sha1").update(material).digest("hex").slice(0, 16);
+}
+
+// --- Tag dictionary ------------------------------------------------------
+//
+// `public/flashes/tags.yaml` maps each Portuguese tag to the list of words
+// shown as filter chips per language. Tags a flash uses but that are missing
+// from the file are added automatically with a machine translation so they
+// can be refined later (in the flash editor or by hand).
+
+function loadTagsDict() {
+  try {
+    return yaml.load(fs.readFileSync(tagsDictFile, "utf-8")) || {};
+  } catch {
+    return {};
+  }
+}
+
+const TAGS_HEADER = `# Shared tag vocabulary.
+#
+# Each key is a Portuguese tag (lowercase, as typed in the flash editor).
+# \`en\` / \`es\` are the lists of words shown as filter chips in that language
+# — list more than one and each becomes its own chip that filters the same
+# flashes (e.g. "rato" shows as both "rat" and "mouse" in English).
+#
+# New tags used by a flash but missing here are auto-added on the next build
+# with a machine translation as a starting point; refine them afterwards.
+
+`;
+
+function saveTagsDict(dict) {
+  const sorted = {};
+  for (const key of Object.keys(dict).sort()) sorted[key] = dict[key];
+  const body = yaml.dump(sorted, { lineWidth: -1, flowLevel: 2 });
+  fs.writeFileSync(tagsDictFile, TAGS_HEADER + body);
+}
+
+async function ensureTagsInDict(dict, tags) {
+  let changed = false;
+  for (const raw of tags) {
+    const key = String(raw).toLowerCase();
+    if (dict[key]) continue;
+    dict[key] = {};
+    for (const lang of TARGET_LANGS) {
+      dict[key][lang] = [(await translateText(key, lang)).toLowerCase()];
+    }
+    changed = true;
+  }
+  return changed;
+}
+
+function tagChips(dict, lang, key) {
+  const entry = dict[key];
+  const list = entry && entry[lang];
+  const arr = Array.isArray(list) ? list : list ? [list] : [];
+  const cleaned = arr.map((s) => String(s).toLowerCase()).filter(Boolean);
+  return cleaned.length ? cleaned : [key];
 }
 
 async function translateText(text, lang) {
@@ -99,16 +154,10 @@ async function translateFlash(data) {
     if (existing?._sourceHash === hash) continue; // cache hit — nothing to do
 
     // `name_locked`/`description_locked` pin just that one field (e.g. set by
-    // the flash editor) while everything else — including tags — still
-    // translates and re-caches normally.
+    // the flash editor). Tags are not translated here — see tags.yaml.
     const name = existing?.name_locked
       ? existing.name
       : await translateText(data.name, lang);
-
-    const tags = [];
-    for (const tag of data.tags ?? []) {
-      tags.push(await translateText(tag, lang));
-    }
 
     const description = data.description
       ? existing?.description_locked
@@ -118,7 +167,6 @@ async function translateFlash(data) {
 
     translations[lang] = {
       name,
-      tags,
       ...(description ? { description } : {}),
       ...(existing?.name_locked ? { name_locked: true } : {}),
       ...(existing?.description_locked ? { description_locked: true } : {}),
@@ -138,11 +186,12 @@ function localizedName(data) {
   return out;
 }
 
-function localizedTags(data) {
-  return (data.tags ?? []).map((tag, i) => {
-    const out = { pt: tag.toLowerCase() };
+function localizedTags(data, dict) {
+  return (data.tags ?? []).map((tag) => {
+    const key = String(tag).toLowerCase();
+    const out = { pt: key };
     for (const lang of TARGET_LANGS) {
-      out[lang] = (data.translations?.[lang]?.tags?.[i] ?? tag).toLowerCase();
+      out[lang] = tagChips(dict, lang, key);
     }
     return out;
   });
@@ -162,10 +211,25 @@ async function generateFlashesJson() {
     `[${new Date().toLocaleTimeString()}] Gerando flashes.json e imagens...`,
   );
   const flashes = {};
+  const tagsDict = loadTagsDict();
 
   const flashFolders = fs
     .readdirSync(flashesDir, { withFileTypes: true })
     .filter((d) => d.isDirectory());
+
+  // Register any tag that isn't in tags.yaml yet, so a machine translation
+  // is available as a starting point and the editor can list it.
+  const allTags = new Set();
+  for (const folder of flashFolders) {
+    const yamlPath = path.join(flashesDir, folder.name, "data.yaml");
+    try {
+      for (const tag of yaml.load(fs.readFileSync(yamlPath, "utf-8"))?.tags ?? [])
+        allTags.add(String(tag).toLowerCase());
+    } catch {
+      // no readable data.yaml in this folder
+    }
+  }
+  if (await ensureTagsInDict(tagsDict, [...allTags])) saveTagsDict(tagsDict);
 
   for (const folder of flashFolders) {
     try {
@@ -212,7 +276,7 @@ async function generateFlashesJson() {
 
       flashes[folder.name] = {
         name: localizedName(data),
-        tags: localizedTags(data),
+        tags: localizedTags(data, tagsDict),
         description: localizedDescription(data),
         price: data.price,
         size_min: data.size_min,
@@ -224,6 +288,20 @@ async function generateFlashesJson() {
       fs.writeFileSync(outputFile, JSON.stringify(flashes, null, 2));
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  // Drop processed-image folders left behind by flashes that no longer exist.
+  const liveFolders = new Set(flashFolders.map((f) => f.name));
+  for (const dir of fs.existsSync(outputImagesDir)
+    ? fs.readdirSync(outputImagesDir, { withFileTypes: true })
+    : []) {
+    if (dir.isDirectory() && !liveFolders.has(dir.name)) {
+      fs.rmSync(path.join(outputImagesDir, dir.name), {
+        recursive: true,
+        force: true,
+      });
+      console.log(`Removido flashes_processed/${dir.name} (flash apagado)`);
     }
   }
 

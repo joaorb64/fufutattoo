@@ -5,13 +5,14 @@ import FlashList from "./flashList";
 import TagList from "./tagList";
 import { resolveLocale } from "../../i18n";
 import { fetchFlashes } from "../../flashes";
+import { tagLabels, tagSynonyms, type LTag } from "./tagUtils";
 
 export default function Flashes() {
   const { t, i18n } = useTranslation();
   const locale = resolveLocale(i18n.language);
   type FlashType = {
     name: Record<string, string>;
-    tags: Record<string, string>[];
+    tags: LTag[];
     images?: string[];
     description?: Record<string, string>;
     price?: number;
@@ -33,31 +34,26 @@ export default function Flashes() {
     // Keyed by the Portuguese text (the canonical, human-authored source of
     // truth) rather than a machine-translated field, so a tag's identity
     // stays stable regardless of translation output.
-    const tagsObj: Record<string, { tag: Record<string, string>; count: number }> = {};
+    type TagData = { tag: LTag; count: number };
+    const tagsObj: Record<string, TagData> = {};
 
     Object.values(flashes).forEach((flash) => {
       flash.tags.forEach((tag) => {
-        if (!tagsObj.hasOwnProperty(tag.pt)) {
-          tagsObj[tag.pt] = {
-            tag,
-            count: 1,
-          };
+        const key = String(tag.pt);
+        if (!tagsObj[key]) {
+          tagsObj[key] = { tag, count: 1 };
         } else {
-          tagsObj[tag.pt].count += 1;
+          tagsObj[key].count += 1;
         }
       });
     });
 
-    const sortedTags = Object.keys(tagsObj)
-      .sort((a, b) => tagsObj[b].count - tagsObj[a].count)
-      .reduce(
-        (Obj: Record<string, { tag: Record<string, string>; count: number }>, key) => {
-          Obj[key] = tagsObj[key];
-          return Obj;
-        },
-        {} as Record<string, { tag: Record<string, string>; count: number }>,
-      );
-
+    const sortedTags: Record<string, TagData> = {};
+    for (const key of Object.keys(tagsObj).sort(
+      (a, b) => tagsObj[b].count - tagsObj[a].count,
+    )) {
+      sortedTags[key] = tagsObj[key];
+    }
     return sortedTags;
   }, [flashes]);
 
@@ -83,9 +79,9 @@ export default function Flashes() {
         return {
           flash: f,
           nameCurrent: f.name?.[locale] ?? "",
-          tagsCurrent: f.tags.map((tag) => tag[locale] ?? tag.pt ?? ""),
+          tagsCurrent: f.tags.flatMap((tag) => tagLabels(tag, locale)),
           nameOther: otherLangs.map((l) => f.name?.[l] ?? ""),
-          tagsOther: f.tags.flatMap((tag) => otherLangs.map((l) => tag[l] ?? "")),
+          tagsOther: f.tags.flatMap((tag) => tagSynonyms(tag)),
           descAll: Object.values(f.description ?? {}),
         };
       }),
@@ -116,18 +112,17 @@ export default function Flashes() {
       const matchesTags =
         selectedTags.length === 0 ||
         selectedTags.every((selectedTag) =>
-          f.tags.some((tag) => Object.values(tag).includes(selectedTag)),
+          f.tags.some((tag) => String(tag.pt) === selectedTag),
         );
 
       return matchesTags;
     });
   }, [allFlashesArray, fuse, search, selectedTags]);
 
-  const toggleTag = (tag: Record<string, string>) => {
+  const toggleTag = (tag: LTag) => {
+    const key = String(tag.pt);
     setSelectedTags((prev) =>
-      prev.includes(tag.pt)
-        ? prev.filter((t) => t !== tag.pt)
-        : [...prev, tag.pt],
+      prev.includes(key) ? prev.filter((t) => t !== key) : [...prev, key],
     );
   };
 

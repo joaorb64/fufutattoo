@@ -1,23 +1,46 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Tag from "./tag";
+import { resolveLocale } from "../../i18n";
+import { tagLabels, type LTag } from "./tagUtils";
 
 type TagData = {
-  tag: Record<string, string>;
+  tag: LTag;
   count: number;
 };
 
 const TagList = (props: {
   tags: Record<string, TagData>;
   selectedTags?: string[];
-  onToggle?: (tag: Record<string, string>) => void;
+  onToggle?: (tag: LTag) => void;
   onClear?: () => void;
 }) => {
   const selected = props.selectedTags || [];
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = resolveLocale(i18n.language);
   const [expanded, setExpanded] = useState(false);
 
-  const tagValues = Object.values(props.tags);
+  // One entry per chip: a tag with several synonyms (e.g. "rato" -> rat,
+  // mouse) becomes several chips that all toggle the same tag.
+  const chips = Object.values(props.tags).flatMap(({ tag, count }) =>
+    tagLabels(tag, locale).map((label, i) => ({
+      tag,
+      label,
+      count: i === 0 ? count : undefined,
+      selected: selected.includes(String(tag.pt)),
+    })),
+  );
+
+  const renderChips = () =>
+    chips.map((chip, i) => (
+      <Tag
+        key={`${chip.label}-${i}`}
+        label={chip.label}
+        count={chip.count}
+        selected={chip.selected}
+        onClick={() => props.onToggle && props.onToggle(chip.tag)}
+      />
+    ));
 
   return (
     <section className="mb-4 flex flex-col gap-1.5">
@@ -40,18 +63,7 @@ const TagList = (props: {
       {!expanded ? (
         <div className="flex items-center gap-x-1">
           <div className="flex flex-wrap gap-x-1 gap-y-1 overflow-hidden max-h-6 flex-1 min-w-0">
-            {tagValues.map((tag, i) => {
-              const isSelected = selected.includes(tag.tag.pt);
-              return (
-                <Tag
-                  key={i}
-                  tag={tag.tag}
-                  count={tag.count}
-                  selected={isSelected}
-                  onClick={() => props.onToggle && props.onToggle(tag.tag)}
-                />
-              );
-            })}
+            {renderChips()}
           </div>
           <button
             onClick={() => setExpanded(true)}
@@ -62,20 +74,7 @@ const TagList = (props: {
         </div>
       ) : (
         <div className="flex flex-col gap-1.5">
-          <div className="flex flex-wrap gap-1">
-            {tagValues.map((tag, i) => {
-              const isSelected = selected.includes(tag.tag.pt);
-              return (
-                <Tag
-                  key={i}
-                  tag={tag.tag}
-                  count={tag.count}
-                  selected={isSelected}
-                  onClick={() => props.onToggle && props.onToggle(tag.tag)}
-                />
-              );
-            })}
-          </div>
+          <div className="flex flex-wrap gap-1">{renderChips()}</div>
           <button
             onClick={() => setExpanded(false)}
             className="text-xs text-zinc-500 hover:text-zinc-800 transition-colors cursor-pointer self-start"

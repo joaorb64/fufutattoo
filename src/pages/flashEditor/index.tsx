@@ -3,6 +3,7 @@ import yaml from "js-yaml";
 import JSZip from "jszip";
 import Fuse from "fuse.js";
 import { fetchFlashes } from "../../flashes";
+import TagDictionary from "./tagDictionary";
 import {
   CREATE_TOKEN_URL,
   REPO_SLUG,
@@ -452,6 +453,8 @@ export default function FlashEditor() {
         </p>
 
         <div className="flex flex-col gap-5">
+          {tokenState === "valid" && <TagDictionary token={token} />}
+
           <div>
             <label className={labelClass}>
               Carregar flash existente para editar (opcional)

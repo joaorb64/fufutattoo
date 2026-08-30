@@ -229,3 +229,31 @@ export async function deleteFlash({
   }));
   return pushCommit(token, message, tree, onProgress);
 }
+
+export const TAGS_DICT_PATH = `${FLASHES_DIR}/tags.yaml`;
+
+// Commit a single UTF-8 text file (used for the shared tag dictionary).
+export async function commitTextFile({
+  token,
+  path,
+  text,
+  message,
+  onProgress = () => {},
+}: {
+  token: string;
+  path: string;
+  text: string;
+  message: string;
+  onProgress?: (msg: string) => void;
+}): Promise<{ commitUrl: string }> {
+  onProgress("A enviar o ficheiro…");
+  const tree: TreeEntry[] = [
+    {
+      path,
+      mode: "100644",
+      type: "blob",
+      sha: await uploadBlob(token, utf8ToBase64(text)),
+    },
+  ];
+  return pushCommit(token, message, tree, onProgress);
+}

@@ -1,0 +1,49 @@
+# Shared tag vocabulary.
+#
+# Each key is a Portuguese tag (lowercase, as typed in the flash editor).
+# `en` / `es` are the lists of words shown as filter chips in that language
+# — list more than one and each becomes its own chip that filters the same
+# flashes (e.g. "rato" shows as both "rat" and "mouse" in English).
+#
+# New tags used by a flash but missing here are auto-added on the next build
+# with a machine translation as a starting point; refine them afterwards.
+
+animal:
+  en: [animal]
+  es: [animal]
+astrologia:
+  en: [astrology]
+  es: [astrología]
+colorido:
+  en: [colorful]
+  es: [colorido]
+cor:
+  en: [color]
+  es: [color]
+flor:
+  en: [flower]
+  es: [flor]
+grecia:
+  en: [greece]
+  es: [grecia]
+peixe:
+  en: [fish]
+  es: [pez]
+pássaro:
+  en: [bird]
+  es: [pájaro]
+rato:
+  en: [rat, mouse]
+  es: [rata, ratón]
+tag1:
+  en: [tag1]
+  es: [etiqueta1]
+tag2:
+  en: [tag2]
+  es: [etiqueta2]
+tag3:
+  en: [tag3]
+  es: [etiqueta3]
+ásia:
+  en: [asia]
+  es: [asia]
