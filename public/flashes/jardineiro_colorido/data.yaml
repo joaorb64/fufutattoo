@@ -1,0 +1,12 @@
+name: Jardineiro (colorido)
+tags:
+  - rato
+  - flor
+  - colorido
+price: 150
+size_min:
+  - 5
+  - 7
+size_max:
+  - 8
+  - 10
