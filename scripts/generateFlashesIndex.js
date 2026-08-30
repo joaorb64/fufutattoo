@@ -36,6 +36,11 @@ function createTextSVG(width, height, text, fontSize) {
   `);
 }
 
+// sharp keeps an internal file cache; when we write a processed image and
+// then read it straight back for the thumbnail, a stale cache entry can
+// surface as a "libspng read error". Disable it.
+sharp.cache(false);
+
 async function processImageWithTextWatermark(inputPath, outputPath) {
   const image = sharp(inputPath);
   const metadata = await image.metadata();
@@ -47,13 +52,17 @@ async function processImageWithTextWatermark(inputPath, outputPath) {
     fontSize,
   );
 
-  await image
+  // Produce the watermarked image as a buffer and reuse it for the
+  // thumbnail instead of re-reading it from disk.
+  const buffer = await image
     .composite([{ input: svgBuffer, gravity: "center" }])
-    .toFile(outputPath);
+    .toBuffer();
+  fs.writeFileSync(outputPath, buffer);
+  return buffer;
 }
 
-async function createThumbnail(inputPath, outputPath, width = thumbnailWidth) {
-  await sharp(inputPath).resize({ width }).toFile(outputPath);
+async function createThumbnail(input, outputPath, width = thumbnailWidth) {
+  await sharp(input).resize({ width }).toFile(outputPath);
 }
 
 // --- Translation caching ---------------------------------------------------
@@ -264,8 +273,11 @@ async function generateFlashesJson() {
         const watermarkedPath = path.join(processedFolder, img);
         const thumbPath = path.join(processedFolder, `thumb_${img}`);
 
-        await processImageWithTextWatermark(inputImagePath, watermarkedPath);
-        await createThumbnail(watermarkedPath, thumbPath);
+        const watermarked = await processImageWithTextWatermark(
+          inputImagePath,
+          watermarkedPath,
+        );
+        await createThumbnail(watermarked, thumbPath);
 
         imageData.push({
           original: `${base}/flashes/${folder.name}/${img}`,

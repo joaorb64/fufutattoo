@@ -12,3 +12,10 @@ size_min:
 size_max:
   - 6
   - 9
+translations:
+  en:
+    name: Kintsugi 2
+    _sourceHash: 4dc2ba80df8b0ca8
+  es:
+    name: Kintsugi 2
+    _sourceHash: 4dc2ba80df8b0ca8

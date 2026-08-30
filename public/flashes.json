@@ -1,65 +1,4 @@
 {
-  "esquilo": {
-    "name": {
-      "pt": "Esquilo",
-      "en": "Squirrel",
-      "es": "Ardilla"
-    },
-    "tags": [
-      {
-        "pt": "esquilo",
-        "en": [
-          "squirrel"
-        ],
-        "es": [
-          "ardilla"
-        ]
-      },
-      {
-        "pt": "noz",
-        "en": [
-          "walnut"
-        ],
-        "es": [
-          "nuez"
-        ]
-      },
-      {
-        "pt": "avelã",
-        "en": [
-          "hazelnut"
-        ],
-        "es": [
-          "avellana"
-        ]
-      },
-      {
-        "pt": "florestinha",
-        "en": [
-          "little forest"
-        ],
-        "es": [
-          "pequeño bosque"
-        ]
-      }
-    ],
-    "price": 120,
-    "size_min": [
-      6,
-      6
-    ],
-    "size_max": [
-      8,
-      8
-    ],
-    "images": [
-      {
-        "original": "/flashes/esquilo/1.png",
-        "watermarked": "/flashes_processed/esquilo/1.png",
-        "thumbnail": "/flashes_processed/esquilo/thumb_1.png"
-      }
-    ]
-  },
   "gatonauta": {
     "name": {
       "pt": "Gatonauta",
@@ -255,6 +194,76 @@
         "original": "/flashes/kintsugi_1/1.png",
         "watermarked": "/flashes_processed/kintsugi_1/1.png",
         "thumbnail": "/flashes_processed/kintsugi_1/thumb_1.png"
+      }
+    ]
+  },
+  "kintsugi_2": {
+    "name": {
+      "pt": "Kintsugi 2",
+      "en": "Kintsugi 2",
+      "es": "Kintsugi 2"
+    },
+    "tags": [
+      {
+        "pt": "kintsug",
+        "en": [
+          "kintsugi"
+        ],
+        "es": [
+          "kintsugi"
+        ]
+      },
+      {
+        "pt": "flor",
+        "en": [
+          "flower"
+        ],
+        "es": [
+          "flor"
+        ]
+      },
+      {
+        "pt": "vaso",
+        "en": [
+          "vase"
+        ],
+        "es": [
+          "florero"
+        ]
+      },
+      {
+        "pt": "azul",
+        "en": [
+          "blue"
+        ],
+        "es": [
+          "azul"
+        ]
+      },
+      {
+        "pt": "ouro",
+        "en": [
+          "gold"
+        ],
+        "es": [
+          "ouro"
+        ]
+      }
+    ],
+    "price": 160,
+    "size_min": [
+      4,
+      7
+    ],
+    "size_max": [
+      6,
+      9
+    ],
+    "images": [
+      {
+        "original": "/flashes/kintsugi_2/1.png",
+        "watermarked": "/flashes_processed/kintsugi_2/1.png",
+        "thumbnail": "/flashes_processed/kintsugi_2/thumb_1.png"
       }
     ]
   },
