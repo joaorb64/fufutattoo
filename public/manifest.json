@@ -1,7 +1,7 @@
 {
-    "name": "Fufu — Tattoo Artist & Painter",
+    "name": "Fufu - Tattoo Artist & Painter",
     "short_name": "Fufu",
-    "description": "Fufu (Flávia) — tattoo artist and painter.",
+    "description": "Fufu (Flávia) - tattoo artist and painter.",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#ffeedc",
