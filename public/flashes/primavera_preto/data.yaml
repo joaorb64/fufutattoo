@@ -1,0 +1,12 @@
+name: Primavera (preto)
+tags:
+  - picnic
+  - vinho
+  - flor
+price: 120
+size_min:
+  - 6
+  - 5
+size_max:
+  - 8
+  - 7
