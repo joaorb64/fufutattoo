@@ -1,5 +1,6 @@
 name: Capi
-tags: []
+tags:
+  - florestinha
 price: 120
 size_min:
   - 5
