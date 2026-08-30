@@ -1,0 +1,16 @@
+name: Capi
+tags: []
+price: 120
+size_min:
+  - 5
+  - 5
+size_max:
+  - 7
+  - 7
+translations:
+  en:
+    name: Capy
+    name_locked: true
+  es:
+    name: Capi
+    name_locked: true
