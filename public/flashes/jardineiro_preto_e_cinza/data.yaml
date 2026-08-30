@@ -1,0 +1,11 @@
+name: Jardineiro (Preto e cinza)
+tags:
+  - rato
+  - flor
+price: 120
+size_min:
+  - 5
+  - 7
+size_max:
+  - 8
+  - 10
