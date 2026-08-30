@@ -18,9 +18,9 @@ const thumbnailWidth = 200; // largura do thumbnail
 // add its code here (must be a code translatte's languages.js recognizes).
 const TARGET_LANGS = ["en", "es"];
 
-// Matches the base path used by vite.config.ts, so image URLs in
-// flashes.json resolve correctly whether built locally or on GitHub Pages.
-const base = process.env.GITHUB_ACTIONS ? "/fufutattoo" : "";
+// Matches the base path used by vite.config.ts. The site is served from the
+// root of the custom domain (fufuart.com), so there is no path prefix.
+const base = "";
 
 if (!fs.existsSync(outputImagesDir)) fs.mkdirSync(outputImagesDir);
 

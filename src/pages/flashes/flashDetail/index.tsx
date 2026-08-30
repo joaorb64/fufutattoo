@@ -237,8 +237,11 @@ const FlashDetail = () => {
             </div>
           )}
 
-          <p className="text-4xl font-[BohoSans] tracking-wide">
-            €{flash.price}
+          <p className="font-[BohoSans] tracking-wide leading-tight">
+            <span className="block text-sm text-zinc-500 lowercase">
+              {t("flashes.priceFrom")}
+            </span>
+            <span className="text-4xl">€{flash.price}</span>
           </p>
 
           {flash.tags && flash.tags.length > 0 && (
