@@ -11,9 +11,15 @@ const Title = ({ className = "" }: { className?: string }) => {
         src={beeImg}
         alt=""
         aria-hidden
-        className="absolute top-1/2 -translate-y-1/2 -right-24 lg:-right-32 xl:-right-36 w-20 lg:w-28 xl:w-32 -rotate-15 pointer-events-none select-none"
+        className="absolute top-1/2 -translate-y-4/7 -right-24 lg:-right-32 xl:-right-36 w-20 lg:w-28 xl:w-32 -rotate-15 pointer-events-none select-none"
       />
       <h1 className="relative font-[BohoSans]">{t("aboutme.title")}</h1>
+      <img
+        src={beeImg}
+        alt=""
+        aria-hidden
+        className="absolute top-1/2 -translate-y-4/7 -left-24 lg:-left-32 xl:-left-36 w-20 lg:w-28 xl:w-32 rotate-15 pointer-events-none select-none"
+      />
     </div>
   );
 };
@@ -29,7 +35,9 @@ const AboutMe = () => {
       {/* ── Desktop: text left, splash-framed photo right ────────────── */}
       <div className="hidden md:flex w-full items-center gap-8 lg:gap-12 xl:gap-16 py-12 px-6 lg:px-10 xl:px-16">
         <div className="flex-1 min-w-0">
-          <Title className="text-5xl lg:text-6xl xl:text-8xl mb-6 lg:mb-8 xl:mb-10" />
+          <div className="text-center mb-6 lg:mb-8 xl:mb-10">
+            <Title className="text-5xl lg:text-6xl xl:text-8xl" />
+          </div>
           {aboutParagraphs.map((paragraph, idx) => (
             <p
               key={idx}
