@@ -20,9 +20,6 @@ const RichText = ({ text }: { text: string }) => (
 
 const Information = () => {
   const { t } = useTranslation();
-  const reschedulingPoints = t("information.rescheduling.points", {
-    returnObjects: true,
-  }) as string[];
   const duringParagraphs = t("information.duringParagraphs", {
     returnObjects: true,
   }) as string[];
@@ -60,24 +57,12 @@ const Information = () => {
                 </h2>
               </div>
               <div className="flex flex-col gap-4">
-                <div className="rounded-3xl bg-white/80 border border-white shadow-sm p-5 sm:p-6">
-                  <h3 className="font-[BohoSans] text-3xl mb-3 flex items-center gap-2">
-                    <span aria-hidden>🗓️</span>
-                    {t("information.rescheduling.heading")}
-                  </h3>
-                  <ul className="flex flex-col gap-2.5">
-                    {reschedulingPoints.map((point, idx) => (
-                      <li key={idx} className="flex gap-2.5">
-                        <span aria-hidden className="shrink-0">
-                          🐾
-                        </span>
-                        <span>
-                          <RichText text={point} />
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <p>
+                  <span className="font-bold text-xl">
+                    {t("information.rescheduling")}
+                  </span>{" "}
+                  <RichText text={t("information.reschedulingText")} />
+                </p>
                 <p>
                   <span className="font-bold text-xl">
                     {t("information.preCare")}

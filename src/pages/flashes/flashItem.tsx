@@ -34,12 +34,12 @@ const FlashItem = (props: { flash: any; flashId: string }) => {
       </div>
 
       {/* Polaroid caption */}
-      <div className="pt-3 flex items-baseline justify-between gap-2">
+      <div className="pt-3 flex items-center justify-between gap-2">
         <p className="font-[BohoSans] text-3xl tracking-wide uppercase leading-tight truncate font-medium">
           {flashName}
         </p>
         <p className="shrink-0 text-right leading-tight">
-          <span className="block text-xs text-zinc-500 lowercase tracking-wide">
+          <span className="block text-xs text-zinc-500 uppercase tracking-wide font-semibold">
             {t("flashes.priceFrom")}
           </span>
           <span className="font-[BohoSans] text-2xl text-zinc-900 font-medium">

@@ -685,19 +685,19 @@ export default function FlashEditor() {
               ) : (
                 <>
                   <p>
-                    Crie um{" "}
+                    Com a sua conta do GitHub (que tem acesso ao repositório{" "}
+                    <code>{REPO_SLUG}</code>), crie um{" "}
                     <a
                       href={CREATE_TOKEN_URL}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-teal-700 underline"
                     >
-                      token de acesso fino no GitHub
+                      token de acesso pessoal (classic)
                     </a>{" "}
-                    com: <em>Resource owner</em> = joaorb64, <em>Only select
-                    repositories</em> → <code>{REPO_SLUG}</code>,{" "}
-                    <em>Permissions → Contents → Read and write</em>. Cole o
-                    token aqui — ele fica guardado só neste navegador.
+                    marcando o escopo <em>repo</em> e definindo uma validade
+                    (ex. 90 dias). Cole o token aqui — ele fica guardado só
+                    neste navegador.
                   </p>
                   <div className="flex gap-2">
                     <input
@@ -705,7 +705,7 @@ export default function FlashEditor() {
                       className={inputClass}
                       value={tokenInput}
                       onChange={(e) => setTokenInput(e.target.value)}
-                      placeholder="github_pat_..."
+                      placeholder="ghp_..."
                       autoComplete="off"
                     />
                     <button

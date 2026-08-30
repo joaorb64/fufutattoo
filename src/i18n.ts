@@ -60,14 +60,9 @@ const resources = {
       information: {
         title: "Session & Care",
         before: "Before session",
-        rescheduling: {
-          heading: "Rescheduling",
-          points: [
-            "I ask for a **25% deposit** when you book, which is **deducted from the final price**.",
-            "If you need to reschedule, do it **as early as possible** or at least **48h in advance**.",
-            "You can **reschedule only once**: if you need to cancel your second appointment, you'll have to make an **additional 25% payment** (not deducted from the final price) to reschedule again.",
-          ],
-        },
+        rescheduling: "Rescheduling",
+        reschedulingText:
+          "I ask for a **25% deposit** when you book, which is deducted from the final price. If you need to reschedule, do it **as early as possible** or at least **48h in advance**. You can reschedule **only once**: if you need to cancel your second appointment, you'll have to make an **additional 25% payment** (not deducted from the final price) to reschedule again.",
         preCare: "Pre-tattoo care",
         preCareText:
           "In the days before the session, moisturise the area daily with a good body cream, drink plenty of water, avoid direct sun on the spot and use sunscreen. **No alcohol in the 24h before the session.**",
@@ -163,14 +158,9 @@ const resources = {
       information: {
         title: "Sessão e Cuidados",
         before: "Antes da sessão",
-        rescheduling: {
-          heading: "Reagendamento",
-          points: [
-            "Solicito um **depósito de 25%** no momento do agendamento, que será **abatido do valor final**.",
-            "Se precisar reagendar, faça-o **o mais cedo possível** ou com pelo menos **48h de antecedência**.",
-            "Só é possível **reagendar uma vez**: se precisar cancelar o segundo agendamento, terá de fazer um **pagamento adicional de 25%** (que não será descontado do valor final) para poder reagendar novamente.",
-          ],
-        },
+        rescheduling: "Reagendamento",
+        reschedulingText:
+          "Solicito um **depósito de 25%** no momento do agendamento, que será abatido do valor final. Se precisar reagendar, faça-o **o mais cedo possível** ou com pelo menos **48h de antecedência**. Só é possível reagendar **uma vez**: se precisar cancelar o segundo agendamento, terá de fazer um **pagamento adicional de 25%** (que não será descontado do valor final) para poder reagendar novamente.",
         preCare: "Cuidados pré-tatuagem",
         preCareText:
           "Nos dias anteriores à sessão, hidrate a zona diariamente com um bom creme corporal, beba bastante água, evite a exposição solar direta no local e use protetor solar. **Não consuma álcool nas 24h anteriores à sessão.**",
@@ -266,14 +256,9 @@ const resources = {
       information: {
         title: "Sesión y Cuidados",
         before: "Antes de la sesión",
-        rescheduling: {
-          heading: "Reprogramación",
-          points: [
-            "Solicito un **depósito del 25%** al reservar, que se **descuenta del precio final**.",
-            "Si necesitas reprogramar, hazlo **lo antes posible** o con al menos **48h de antelación**.",
-            "Solo se puede **reprogramar una vez**: si necesitas cancelar tu segunda cita, tendrás que hacer un **pago adicional del 25%** (que no se descuenta del precio final) para poder reprogramar de nuevo.",
-          ],
-        },
+        rescheduling: "Reprogramación",
+        reschedulingText:
+          "Solicito un **depósito del 25%** al reservar, que se descuenta del precio final. Si necesitas reprogramar, hazlo **lo antes posible** o con al menos **48h de antelación**. Solo se puede reprogramar **una vez**: si necesitas cancelar tu segunda cita, tendrás que hacer un **pago adicional del 25%** (que no se descuenta del precio final) para poder reprogramar de nuevo.",
         preCare: "Cuidados pre-tatuaje",
         preCareText:
           "En los días previos a la sesión, hidrata la zona a diario con una buena crema corporal, bebe mucha agua, evita la exposición solar directa en el lugar y usa protector solar. **No consumas alcohol en las 24h previas a la sesión.**",

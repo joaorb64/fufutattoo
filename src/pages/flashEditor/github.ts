@@ -2,9 +2,14 @@
 //
 // The site is a static GitHub Pages build with no backend, so a real OAuth
 // login is impossible (the token exchange needs a server + client secret and
-// has no CORS). Instead the artist pastes a fine-grained personal access
-// token once; it lives only in this browser's localStorage and is used to
-// push a single commit through the Git Data API.
+// has no CORS). Instead the user pastes a personal access token once; it
+// lives only in this browser's localStorage and is used to push a single
+// commit through the Git Data API.
+//
+// A *classic* PAT with the `repo` scope is used rather than a fine-grained
+// one: fine-grained tokens can't target a repository owned by another
+// personal account, so a collaborator (e.g. Flavia) couldn't make one for
+// this repo without moving it into an organisation.
 
 const OWNER = "joaorb64";
 const REPO = "fufutattoo";
@@ -14,7 +19,7 @@ const FLASHES_DIR = "public/flashes";
 const TOKEN_KEY = "flashEditor.githubToken";
 
 export const CREATE_TOKEN_URL =
-  "https://github.com/settings/personal-access-tokens/new";
+  "https://github.com/settings/tokens/new?scopes=repo&description=fufutattoo+flash+editor";
 export const REPO_SLUG = `${OWNER}/${REPO}`;
 
 export function getStoredToken(): string {
@@ -54,8 +59,8 @@ async function gh(token: string, path: string, init?: RequestInit) {
     }
     if (res.status === 401 || res.status === 403) {
       throw new Error(
-        `Token recusado pelo GitHub (${res.status}). Verifique se ele tem ` +
-          `permissão de "Contents: Read and write" no repositório ${REPO_SLUG}.`,
+        `Token recusado pelo GitHub (${res.status}). Confirme que ele tem o ` +
+          `escopo "repo" e que a sua conta tem acesso de escrita a ${REPO_SLUG}.`,
       );
     }
     throw new Error(`GitHub ${res.status}: ${detail || res.statusText}`);
@@ -72,8 +77,8 @@ export async function verifyToken(
       return {
         ok: false,
         error:
-          `O token funciona mas não tem permissão de escrita em ${REPO_SLUG}. ` +
-          `Recrie-o com "Contents: Read and write".`,
+          `O token funciona mas a conta não tem permissão de escrita em ${REPO_SLUG}. ` +
+          `Confirme que está como colaboradora do repositório e que o token tem o escopo "repo".`,
       };
     }
     return { ok: true };
