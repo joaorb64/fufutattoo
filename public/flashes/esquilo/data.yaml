@@ -11,3 +11,10 @@ size_min:
 size_max:
   - 8
   - 8
+translations:
+  en:
+    name: Squirrel
+    _sourceHash: 56315b3c7afb5b95
+  es:
+    name: Ardilla
+    _sourceHash: 56315b3c7afb5b95

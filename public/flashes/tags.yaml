@@ -14,6 +14,12 @@ animal:
 astrologia:
   en: [astrology]
   es: [astrología]
+avelã:
+  en: [hazelnut]
+  es: [avellana]
+azul:
+  en: [blue]
+  es: [azul]
 botânico:
   en: [botanical]
   es: [botánico]
@@ -23,18 +29,33 @@ colorido:
 cor:
   en: [color]
   es: [color]
+esquilo:
+  en: [squirrel]
+  es: [ardilla]
 estrela:
   en: [star]
   es: [estrella]
 flor:
   en: [flower]
   es: [flor]
+florestinha:
+  en: [little forest]
+  es: [pequeño bosque]
 grecia:
   en: [greece]
   es: [grecia]
+kintsugi:
+  en: [kintsugi]
+  es: [kintsugi]
 lua:
   en: [moon]
   es: [luna]
+noz:
+  en: [walnut]
+  es: [nuez]
+ouro:
+  en: [gold]
+  es: [ouro]
 peixe:
   en: [fish]
   es: [pez]
@@ -53,6 +74,9 @@ tag2:
 tag3:
   en: [tag3]
   es: [etiqueta3]
+vaso:
+  en: [vase]
+  es: [florero]
 ásia:
   en: [asia]
   es: [asia]
