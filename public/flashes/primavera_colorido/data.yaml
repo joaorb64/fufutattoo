@@ -1,0 +1,13 @@
+name: Primavera (colorido)
+tags:
+  - picnic
+  - vinho
+  - flor
+  - colorido
+price: 120
+size_min:
+  - 6
+  - 5
+size_max:
+  - 8
+  - 7
