@@ -15,8 +15,7 @@ const TopBar = () => {
     { to: "/", key: "nav.home" },
     { to: "/about", key: "nav.about" },
     { to: "/flashes", key: "nav.flashes" },
-    { to: "/info", key: "nav.info" },
-    { to: "/studio", key: "nav.studio" },
+    { to: "/prep-care", key: "nav.info" },
   ];
 
   const LangSwitcher = ({ className = "" }: { className?: string }) => (

@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import "./index.css";
 import "./i18n";
 import App from "./App.jsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import Hero from "./components/Hero.jsx";
 import ReactDOM from "react-dom/client";
 import Flashes from "./pages/flashes/index.js";
@@ -36,8 +40,12 @@ const router = createBrowserRouter(
           element: <AboutMe />,
         },
         {
-          path: "/info",
+          path: "/prep-care",
           element: <Information />,
+        },
+        {
+          path: "/info",
+          element: <Navigate to="/prep-care" replace />,
         },
         {
           path: "/studio",

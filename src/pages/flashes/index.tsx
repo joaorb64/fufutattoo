@@ -6,6 +6,8 @@ import TagList from "./tagList";
 import { resolveLocale } from "../../i18n";
 import { fetchFlashes } from "../../flashes";
 import { tagLabels, tagSynonyms, type LTag } from "./tagUtils";
+import StickerTitle from "../../components/StickerTitle";
+import mushroomsSticker from "../../assets/images/sticker_mushrooms.webp";
 
 export default function Flashes() {
   const { t, i18n } = useTranslation();
@@ -129,9 +131,12 @@ export default function Flashes() {
   return (
     <div className="col w-full px-4 sm:px-6">
       <div className="text-center">
-        <h1 className="text-6xl md:text-8xl font-[BohoSans] mt-6 mb-6">
+        <StickerTitle
+          sticker={mushroomsSticker}
+          className="text-6xl md:text-8xl mt-6 mb-6"
+        >
           {t("flashes.title")}
-        </h1>
+        </StickerTitle>
       </div>
 
       <div className="mb-4 flex justify-center">

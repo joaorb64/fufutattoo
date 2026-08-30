@@ -80,35 +80,34 @@ export default function Hero() {
           <div className="px-4">
             <ul className="w-full font-[BohoSans] text-5xl flex flex-col gap-2 tracking-[0.05em] items-end">
               <HeroButton to={"/about"}>{t("hero.about")}</HeroButton>
-              <HeroButton to={"/info"}>{t("hero.info")}</HeroButton>
-              <HeroButton to={"/studio"}>{t("hero.studio")}</HeroButton>
+              <HeroButton to={"/prep-care"}>{t("hero.info")}</HeroButton>{" "}
               <HeroButton to="/flashes">{t("hero.flashes")}</HeroButton>
             </ul>
           </div>
 
           <div className="w-full bg-[#ffeedcD0] flex justify-center gap-8 py-3 mt-3">
-          <a
-            href={INSTAGRAM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-home-accent hover:text-home-accent-dark transition-colors"
-          >
-            <MaskIcon src="instagram.svg" className="w-7 h-7" />
-          </a>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-home-accent hover:text-home-accent-dark transition-colors"
-          >
-            <MaskIcon src="whatsapp.svg" className="w-7 h-7" />
-          </a>
-          <a
-            href={`mailto:${EMAIL}`}
-            className="text-home-accent hover:text-home-accent-dark transition-colors"
-          >
-            <MaskIcon src="email.svg" className="w-7 h-7" />
-          </a>
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-home-accent hover:text-home-accent-dark transition-colors"
+            >
+              <MaskIcon src="instagram.svg" className="w-7 h-7" />
+            </a>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-home-accent hover:text-home-accent-dark transition-colors"
+            >
+              <MaskIcon src="whatsapp.svg" className="w-7 h-7" />
+            </a>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="text-home-accent hover:text-home-accent-dark transition-colors"
+            >
+              <MaskIcon src="email.svg" className="w-7 h-7" />
+            </a>
           </div>
         </div>
       </div>
@@ -144,9 +143,8 @@ export default function Hero() {
         <div className="w-full px-6 lg:px-10 xl:px-16">
           <ul className="w-full mt-12 font-[BohoSans] text-2xl lg:text-4xl xl:text-5xl flex flex-col gap-2 md:gap-4 tracking-[0.05em] items-start">
             <HeroButton to={"/about"}>{t("hero.about")}</HeroButton>
-            <HeroButton to={"/info"}>{t("hero.info")}</HeroButton>
-            <HeroButton to={"/studio"}>{t("hero.studio")}</HeroButton>
             <HeroButton to="/flashes">{t("hero.flashes")}</HeroButton>
+            <HeroButton to={"/prep-care"}>{t("hero.info")}</HeroButton>
           </ul>
 
           <div className="flex mt-8 flex-col gap-2">
@@ -157,9 +155,7 @@ export default function Hero() {
               className="flex items-center gap-2 text-home-accent hover:text-home-accent-dark transition-colors"
             >
               <MaskIcon src="instagram.svg" className="w-7 h-7 shrink-0" />
-              <span className="tracking-wider text-lg">
-                {INSTAGRAM_HANDLE}
-              </span>
+              <span className="tracking-wider text-lg">{INSTAGRAM_HANDLE}</span>
             </a>
             <a
               href={WHATSAPP_URL}
