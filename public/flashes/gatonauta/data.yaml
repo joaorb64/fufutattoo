@@ -1,0 +1,16 @@
+name: Gatonauta
+tags: []
+price: 120
+size_min:
+  - 5
+  - 6
+size_max:
+  - 8
+  - 9
+translations:
+  en:
+    name: Catstronaut
+    name_locked: true
+  es:
+    name: Gatonauta
+    name_locked: true
