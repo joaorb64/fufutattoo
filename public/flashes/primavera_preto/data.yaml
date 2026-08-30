@@ -10,3 +10,10 @@ size_min:
 size_max:
   - 8
   - 7
+translations:
+  en:
+    name: Spring (black)
+    _sourceHash: daab6892263e748c
+  es:
+    name: Primavera (negro)
+    _sourceHash: daab6892263e748c

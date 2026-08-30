@@ -5,18 +5,10 @@
 # — list more than one and each becomes its own chip that filters the same
 # flashes (e.g. "rato" shows as both "rat" and "mouse" in English).
 #
-# New tags used by a flash but missing here are auto-added on the next build
-# with a machine translation as a starting point; refine them afterwards.
+# On each build, tags used by a flash but missing here are added with a
+# machine translation (refine them afterwards), and tags no flash uses any
+# more are removed.
 
-animal:
-  en: [animal]
-  es: [animal]
-astrologia:
-  en: [astrology]
-  es: [astrología]
-avelã:
-  en: [hazelnut]
-  es: [avellana]
 azul:
   en: [blue]
   es: [azul]
@@ -26,60 +18,33 @@ botânico:
 colorido:
   en: [colorful]
   es: [colorido]
-cor:
-  en: [color]
-  es: [color]
-esquilo:
-  en: [squirrel]
-  es: [ardilla]
 estrela:
   en: [star]
   es: [estrella]
 flor:
   en: [flower]
   es: [flor]
-florestinha:
-  en: [little forest]
-  es: [pequeño bosque]
-grecia:
-  en: [greece]
-  es: [grecia]
-kintsug:
-  en: [kintsugi]
-  es: [kintsugi]
 kintsugi:
   en: [kintsugi]
   es: [kintsugi]
 lua:
   en: [moon]
   es: [luna]
-noz:
-  en: [walnut]
-  es: [nuez]
 ouro:
   en: [gold]
-  es: [ouro]
-peixe:
-  en: [fish]
-  es: [pez]
+  es: [oro]
+picnic:
+  en: [picnic]
+  es: [picnic]
 pássaro:
   en: [bird]
   es: [pájaro]
 rato:
   en: [rat, mouse]
   es: [rata, ratón]
-tag1:
-  en: [tag1]
-  es: [etiqueta1]
-tag2:
-  en: [tag2]
-  es: [etiqueta2]
-tag3:
-  en: [tag3]
-  es: [etiqueta3]
 vaso:
   en: [vase]
   es: [florero]
-ásia:
-  en: [asia]
-  es: [asia]
+vinho:
+  en: [wine]
+  es: [vino]

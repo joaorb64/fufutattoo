@@ -4,10 +4,17 @@ tags:
   - vinho
   - flor
   - colorido
-price: 120
+price: 140
 size_min:
   - 6
   - 5
 size_max:
   - 8
   - 7
+translations:
+  en:
+    name: Spring (colorful)
+    _sourceHash: 7e183d22e26ffd97
+  es:
+    name: Primavera (colorida)
+    _sourceHash: 7e183d22e26ffd97

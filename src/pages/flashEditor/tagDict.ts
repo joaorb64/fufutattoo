@@ -8,8 +8,9 @@ export const TAGS_HEADER = `# Shared tag vocabulary.
 # — list more than one and each becomes its own chip that filters the same
 # flashes (e.g. "rato" shows as both "rat" and "mouse" in English).
 #
-# New tags used by a flash but missing here are auto-added on the next build
-# with a machine translation as a starting point; refine them afterwards.
+# On each build, tags used by a flash but missing here are added with a
+# machine translation (refine them afterwards), and tags no flash uses any
+# more are removed.
 
 `;
 

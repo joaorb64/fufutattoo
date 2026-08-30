@@ -109,8 +109,9 @@ const TAGS_HEADER = `# Shared tag vocabulary.
 # — list more than one and each becomes its own chip that filters the same
 # flashes (e.g. "rato" shows as both "rat" and "mouse" in English).
 #
-# New tags used by a flash but missing here are auto-added on the next build
-# with a machine translation as a starting point; refine them afterwards.
+# On each build, tags used by a flash but missing here are added with a
+# machine translation (refine them afterwards), and tags no flash uses any
+# more are removed.
 
 `;
 
@@ -121,10 +122,12 @@ function saveTagsDict(dict) {
   fs.writeFileSync(tagsDictFile, TAGS_HEADER + body);
 }
 
-async function ensureTagsInDict(dict, tags) {
+// Add missing tags with a machine translation, drop tags no flash uses.
+async function syncTagsDict(dict, tags) {
+  const used = new Set(tags.map((t) => String(t).toLowerCase()));
   let changed = false;
-  for (const raw of tags) {
-    const key = String(raw).toLowerCase();
+
+  for (const key of used) {
     if (dict[key]) continue;
     dict[key] = {};
     for (const lang of TARGET_LANGS) {
@@ -132,6 +135,14 @@ async function ensureTagsInDict(dict, tags) {
     }
     changed = true;
   }
+
+  for (const key of Object.keys(dict)) {
+    if (!used.has(key)) {
+      delete dict[key];
+      changed = true;
+    }
+  }
+
   return changed;
 }
 
@@ -238,7 +249,7 @@ async function generateFlashesJson() {
       // no readable data.yaml in this folder
     }
   }
-  if (await ensureTagsInDict(tagsDict, [...allTags])) saveTagsDict(tagsDict);
+  if (await syncTagsDict(tagsDict, [...allTags])) saveTagsDict(tagsDict);
 
   for (const folder of flashFolders) {
     try {

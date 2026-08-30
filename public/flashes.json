@@ -176,7 +176,7 @@
           "gold"
         ],
         "es": [
-          "ouro"
+          "oro"
         ]
       }
     ],
@@ -205,7 +205,7 @@
     },
     "tags": [
       {
-        "pt": "kintsug",
+        "pt": "kintsugi",
         "en": [
           "kintsugi"
         ],
@@ -246,7 +246,7 @@
           "gold"
         ],
         "es": [
-          "ouro"
+          "oro"
         ]
       }
     ],
@@ -325,6 +325,119 @@
         "original": "/flashes/passaro_da_noite/1.png",
         "watermarked": "/flashes_processed/passaro_da_noite/1.png",
         "thumbnail": "/flashes_processed/passaro_da_noite/thumb_1.png"
+      }
+    ]
+  },
+  "primavera_colorido": {
+    "name": {
+      "pt": "Primavera (colorido)",
+      "en": "Spring (colorful)",
+      "es": "Primavera (colorida)"
+    },
+    "tags": [
+      {
+        "pt": "picnic",
+        "en": [
+          "picnic"
+        ],
+        "es": [
+          "picnic"
+        ]
+      },
+      {
+        "pt": "vinho",
+        "en": [
+          "wine"
+        ],
+        "es": [
+          "vino"
+        ]
+      },
+      {
+        "pt": "flor",
+        "en": [
+          "flower"
+        ],
+        "es": [
+          "flor"
+        ]
+      },
+      {
+        "pt": "colorido",
+        "en": [
+          "colorful"
+        ],
+        "es": [
+          "colorido"
+        ]
+      }
+    ],
+    "price": 140,
+    "size_min": [
+      6,
+      5
+    ],
+    "size_max": [
+      8,
+      7
+    ],
+    "images": [
+      {
+        "original": "/flashes/primavera_colorido/1.png",
+        "watermarked": "/flashes_processed/primavera_colorido/1.png",
+        "thumbnail": "/flashes_processed/primavera_colorido/thumb_1.png"
+      }
+    ]
+  },
+  "primavera_preto": {
+    "name": {
+      "pt": "Primavera (preto)",
+      "en": "Spring (black)",
+      "es": "Primavera (negro)"
+    },
+    "tags": [
+      {
+        "pt": "picnic",
+        "en": [
+          "picnic"
+        ],
+        "es": [
+          "picnic"
+        ]
+      },
+      {
+        "pt": "vinho",
+        "en": [
+          "wine"
+        ],
+        "es": [
+          "vino"
+        ]
+      },
+      {
+        "pt": "flor",
+        "en": [
+          "flower"
+        ],
+        "es": [
+          "flor"
+        ]
+      }
+    ],
+    "price": 120,
+    "size_min": [
+      6,
+      5
+    ],
+    "size_max": [
+      8,
+      7
+    ],
+    "images": [
+      {
+        "original": "/flashes/primavera_preto/1.png",
+        "watermarked": "/flashes_processed/primavera_preto/1.png",
+        "thumbnail": "/flashes_processed/primavera_preto/thumb_1.png"
       }
     ]
   }
