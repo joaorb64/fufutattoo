@@ -109,6 +109,53 @@ export function repoPathFromImageUrl(url: string): string | null {
   return m ? `${FLASHES_DIR}/${m[1]}/${m[2]}` : null;
 }
 
+type TreeEntry = { path: string; mode: "100644"; type: "blob"; sha: string | null };
+
+// Push one commit built from an explicit list of tree entries (a null `sha`
+// deletes that path) on top of the current branch head.
+async function pushCommit(
+  token: string,
+  message: string,
+  tree: TreeEntry[],
+  onProgress: (msg: string) => void,
+): Promise<{ commitUrl: string }> {
+  onProgress("Lendo o estado atual do repositório…");
+  const ref = await gh(token, `/repos/${REPO_SLUG}/git/ref/heads/${BRANCH}`);
+  const baseCommitSha: string = ref.object.sha;
+  const baseCommit = await gh(
+    token,
+    `/repos/${REPO_SLUG}/git/commits/${baseCommitSha}`,
+  );
+
+  onProgress("Criando o commit…");
+  const newTree = await gh(token, `/repos/${REPO_SLUG}/git/trees`, {
+    method: "POST",
+    body: JSON.stringify({ base_tree: baseCommit.tree.sha, tree }),
+  });
+  const commit = await gh(token, `/repos/${REPO_SLUG}/git/commits`, {
+    method: "POST",
+    body: JSON.stringify({
+      message,
+      tree: newTree.sha,
+      parents: [baseCommitSha],
+    }),
+  });
+  await gh(token, `/repos/${REPO_SLUG}/git/refs/heads/${BRANCH}`, {
+    method: "PATCH",
+    body: JSON.stringify({ sha: commit.sha }),
+  });
+
+  return { commitUrl: `https://github.com/${REPO_SLUG}/commit/${commit.sha}` };
+}
+
+async function uploadBlob(token: string, content: string): Promise<string> {
+  const blob = await gh(token, `/repos/${REPO_SLUG}/git/blobs`, {
+    method: "POST",
+    body: JSON.stringify({ content, encoding: "base64" }),
+  });
+  return blob.sha;
+}
+
 export type CommitFileInput = {
   token: string;
   slug: string;
@@ -129,49 +176,25 @@ export async function commitFlash({
   onProgress = () => {},
 }: CommitFileInput): Promise<{ commitUrl: string }> {
   const dir = `${FLASHES_DIR}/${slug}`;
-
-  onProgress("Lendo o estado atual do repositório…");
-  const ref = await gh(token, `/repos/${REPO_SLUG}/git/ref/heads/${BRANCH}`);
-  const baseCommitSha: string = ref.object.sha;
-  const baseCommit = await gh(
-    token,
-    `/repos/${REPO_SLUG}/git/commits/${baseCommitSha}`,
-  );
-  const baseTreeSha: string = baseCommit.tree.sha;
-
-  const tree: Record<string, unknown>[] = [];
+  const tree: TreeEntry[] = [];
 
   onProgress("Enviando data.yaml…");
-  const yamlBlob = await gh(token, `/repos/${REPO_SLUG}/git/blobs`, {
-    method: "POST",
-    body: JSON.stringify({
-      content: utf8ToBase64(yamlText),
-      encoding: "base64",
-    }),
-  });
   tree.push({
     path: `${dir}/data.yaml`,
     mode: "100644",
     type: "blob",
-    sha: yamlBlob.sha,
+    sha: await uploadBlob(token, utf8ToBase64(yamlText)),
   });
 
   let i = 0;
   for (const img of images) {
     i += 1;
     onProgress(`Enviando imagem ${i}/${images.length}…`);
-    const blob = await gh(token, `/repos/${REPO_SLUG}/git/blobs`, {
-      method: "POST",
-      body: JSON.stringify({
-        content: await blobToBase64(img.blob),
-        encoding: "base64",
-      }),
-    });
     tree.push({
       path: `${dir}/${img.name}`,
       mode: "100644",
       type: "blob",
-      sha: blob.sha,
+      sha: await uploadBlob(token, await blobToBase64(img.blob)),
     });
   }
 
@@ -179,25 +202,30 @@ export async function commitFlash({
     tree.push({ path, mode: "100644", type: "blob", sha: null });
   }
 
-  onProgress("Criando o commit…");
-  const newTree = await gh(token, `/repos/${REPO_SLUG}/git/trees`, {
-    method: "POST",
-    body: JSON.stringify({ base_tree: baseTreeSha, tree }),
-  });
-  const commit = await gh(token, `/repos/${REPO_SLUG}/git/commits`, {
-    method: "POST",
-    body: JSON.stringify({
-      message,
-      tree: newTree.sha,
-      parents: [baseCommitSha],
-    }),
-  });
-  await gh(token, `/repos/${REPO_SLUG}/git/refs/heads/${BRANCH}`, {
-    method: "PATCH",
-    body: JSON.stringify({ sha: commit.sha }),
-  });
+  return pushCommit(token, message, tree, onProgress);
+}
 
-  return {
-    commitUrl: `https://github.com/${REPO_SLUG}/commit/${commit.sha}`,
-  };
+export type DeleteFlashInput = {
+  token: string;
+  slug: string;
+  filePaths: string[]; // full repo paths of every file in the flash's folder
+  message: string;
+  onProgress?: (msg: string) => void;
+};
+
+export async function deleteFlash({
+  token,
+  slug,
+  filePaths,
+  message,
+  onProgress = () => {},
+}: DeleteFlashInput): Promise<{ commitUrl: string }> {
+  const paths = new Set([`${FLASHES_DIR}/${slug}/data.yaml`, ...filePaths]);
+  const tree: TreeEntry[] = [...paths].map((path) => ({
+    path,
+    mode: "100644",
+    type: "blob",
+    sha: null,
+  }));
+  return pushCommit(token, message, tree, onProgress);
 }

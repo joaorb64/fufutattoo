@@ -6,6 +6,7 @@ import {
   CREATE_TOKEN_URL,
   REPO_SLUG,
   commitFlash,
+  deleteFlash,
   getStoredToken,
   repoPathFromImageUrl,
   setStoredToken,
@@ -77,6 +78,9 @@ export default function FlashEditor() {
   const [uploadMsg, setUploadMsg] = useState("");
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [commitUrl, setCommitUrl] = useState<string | null>(null);
+  const [deleteState, setDeleteState] = useState<
+    "idle" | "confirm" | "deleting" | "done"
+  >("idle");
 
   useEffect(() => {
     if (!slugTouched) setSlug(slugify(name));
@@ -185,6 +189,8 @@ export default function FlashEditor() {
   };
 
   const loadExisting = async (existingSlug: string) => {
+    setDeleteState("idle");
+    setUploadState("idle");
     if (!existingSlug) {
       resetForm();
       return;
@@ -371,6 +377,32 @@ export default function FlashEditor() {
     } catch (e) {
       setUploadError((e as Error).message);
       setUploadState("error");
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!originalSlug) return;
+    const filePaths = (loadedFlash?.images || [])
+      .map((img: any) => repoPathFromImageUrl(img.original))
+      .filter(Boolean) as string[];
+
+    setDeleteState("deleting");
+    setUploadError(null);
+    setCommitUrl(null);
+    try {
+      const { commitUrl: url } = await deleteFlash({
+        token,
+        slug: originalSlug,
+        filePaths,
+        message: `Apaga flash: ${loadedFlash?.name?.pt || originalSlug}`,
+        onProgress: setUploadMsg,
+      });
+      setCommitUrl(url);
+      setDeleteState("done");
+      resetForm();
+    } catch (e) {
+      setUploadError((e as Error).message);
+      setDeleteState("idle");
     }
   };
 
@@ -817,6 +849,68 @@ export default function FlashEditor() {
               <p className="mt-2">
                 Se preferir, é só mandar o .zip para o Joao que ele resolve.
               </p>
+            </div>
+          )}
+
+          {deleteState === "done" && (
+            <div className="bg-teal-50 border border-teal-200 rounded p-4 text-sm text-zinc-700 leading-relaxed">
+              <p className="font-bold mb-1">Flash apagado</p>
+              <p>O site atualiza sozinho em alguns minutos.</p>
+              {commitUrl && (
+                <p className="mt-1">
+                  <a
+                    href={commitUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-teal-700 underline"
+                  >
+                    Ver o commit no GitHub
+                  </a>
+                </p>
+              )}
+            </div>
+          )}
+
+          {originalSlug && tokenState === "valid" && deleteState !== "done" && (
+            <div className="mt-4 border-t border-zinc-200 pt-4">
+              {deleteState === "confirm" ? (
+                <div className="bg-red-50 border border-red-200 rounded p-4 text-sm text-red-700">
+                  <p className="font-bold mb-2">
+                    Apagar o flash "{loadedFlash?.name?.pt || originalSlug}"?
+                  </p>
+                  <p className="mb-3">
+                    Isto remove a pasta <code>{originalSlug}</code> do
+                    repositório num commit. Não dá para desfazer pelo editor.
+                  </p>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={handleDelete}
+                      className="bg-red-600 hover:bg-red-700 text-white font-semibold rounded-full px-5 py-2 cursor-pointer"
+                    >
+                      Sim, apagar
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setDeleteState("idle")}
+                      className="border border-zinc-300 text-zinc-600 rounded-full px-5 py-2 cursor-pointer"
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  disabled={deleteState === "deleting"}
+                  onClick={() => setDeleteState("confirm")}
+                  className="text-red-600 hover:text-red-700 underline text-sm cursor-pointer disabled:opacity-50"
+                >
+                  {deleteState === "deleting"
+                    ? uploadMsg || "Apagando…"
+                    : "Apagar este flash"}
+                </button>
+              )}
             </div>
           )}
         </div>
