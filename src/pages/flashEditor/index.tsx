@@ -5,6 +5,12 @@ import Fuse from "fuse.js";
 import { fetchFlashes } from "../../flashes";
 import TagDictionary from "./tagDictionary";
 import {
+  emptyEntry,
+  loadTagDict,
+  serializeTagDict,
+  type TagDict,
+} from "./tagDict";
+import {
   CREATE_TOKEN_URL,
   REPO_SLUG,
   commitFlash,
@@ -60,6 +66,9 @@ export default function FlashEditor() {
   const [sizeMaxH, setSizeMaxH] = useState(emptyForm.sizeMaxH);
   const [tags, setTags] = useState<string[]>(emptyForm.tags);
   const [tagInput, setTagInput] = useState("");
+  const [tagDict, setTagDict] = useState<TagDict>({});
+  // Serialized dict as last loaded/saved, to know if it needs committing.
+  const [tagDictBaseline, setTagDictBaseline] = useState("");
   const [nameEnOverride, setNameEnOverride] = useState(emptyForm.nameEnOverride);
   const [nameEsOverride, setNameEsOverride] = useState(emptyForm.nameEsOverride);
   const [descEnOverride, setDescEnOverride] = useState(emptyForm.descEnOverride);
@@ -87,6 +96,7 @@ export default function FlashEditor() {
   // double-click can't fire a second commit.
   const [publishLocked, setPublishLocked] = useState(false);
   const feedbackRef = useRef<HTMLDivElement>(null);
+  const tagDictInited = useRef(false);
 
   useEffect(() => {
     if (!slugTouched) setSlug(slugify(name));
@@ -98,6 +108,33 @@ export default function FlashEditor() {
       .then((data) => setAllFlashes(data))
       .catch(() => {});
   }, []);
+
+  // Load the shared tag dictionary once, folding in any tag already used by a
+  // flash so every tag has a row even before it's in tags.yaml.
+  useEffect(() => {
+    if (tagDictInited.current || Object.keys(allFlashes).length === 0) return;
+    tagDictInited.current = true;
+    loadTagDict().then((dict) => {
+      const merged: TagDict = { ...dict };
+      for (const flash of Object.values(allFlashes) as any[]) {
+        for (const tag of flash.tags || []) {
+          const key = String(tag.pt).toLowerCase();
+          if (!merged[key]) {
+            merged[key] = {
+              en: (Array.isArray(tag.en) ? tag.en : [tag.en])
+                .filter(Boolean)
+                .join(", "),
+              es: (Array.isArray(tag.es) ? tag.es : [tag.es])
+                .filter(Boolean)
+                .join(", "),
+            };
+          }
+        }
+      }
+      setTagDict(merged);
+      setTagDictBaseline(serializeTagDict(merged));
+    });
+  }, [allFlashes]);
 
   useEffect(() => {
     return () => {
@@ -149,12 +186,26 @@ export default function FlashEditor() {
 
   const addTag = (raw: string) => {
     const clean = raw.trim().toLowerCase();
-    if (clean && !tags.includes(clean)) setTags((prev) => [...prev, clean]);
+    if (clean && !tags.includes(clean)) {
+      setTags((prev) => [...prev, clean]);
+      setTagDict((prev) =>
+        prev[clean] ? prev : { ...prev, [clean]: emptyEntry() },
+      );
+    }
     setTagInput("");
   };
 
   const removeTag = (tag: string) =>
     setTags((prev) => prev.filter((t) => t !== tag));
+
+  const setTagTranslation = (tag: string, lang: "en" | "es", value: string) =>
+    setTagDict((prev) => ({
+      ...prev,
+      [tag]: { ...(prev[tag] ?? emptyEntry()), [lang]: value },
+    }));
+
+  const tagDictText = serializeTagDict(tagDict);
+  const tagDictDirty = tagDictText !== tagDictBaseline;
 
   const onFilesSelected = (files: FileList | null) => {
     if (!files) return;
@@ -392,9 +443,11 @@ export default function FlashEditor() {
           ? `Atualiza flash: ${name.trim()}`
           : `Novo flash: ${name.trim()}`,
         removePaths,
+        tagsDictText: tagDictDirty ? tagDictText : undefined,
         onProgress: setUploadMsg,
       });
       setCommitUrl(url);
+      if (tagDictDirty) setTagDictBaseline(tagDictText);
       setUploadState("done");
     } catch (e) {
       setUploadError((e as Error).message);
@@ -453,7 +506,14 @@ export default function FlashEditor() {
         </p>
 
         <div className="flex flex-col gap-5">
-          {tokenState === "valid" && <TagDictionary token={token} />}
+          {tokenState === "valid" && (
+            <TagDictionary
+              dict={tagDict}
+              onChange={setTagDict}
+              token={token}
+              onSaved={() => setTagDictBaseline(serializeTagDict(tagDict))}
+            />
+          )}
 
           <div>
             <label className={labelClass}>
@@ -633,24 +693,56 @@ export default function FlashEditor() {
 
           <div>
             <label className={labelClass}>Tags</label>
-            <div className="flex flex-wrap gap-2 mb-2">
-              {tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="flex items-center gap-1 bg-[#C9449E] text-white text-sm font-semibold rounded-full px-3 py-1"
-                >
-                  {tag}
-                  <button
-                    type="button"
-                    onClick={() => removeTag(tag)}
-                    className="hover:opacity-70 cursor-pointer"
-                    aria-label={`Remover tag ${tag}`}
+
+            {tags.length > 0 && (
+              <ul className="flex flex-col gap-2 mb-2">
+                {tags.map((tag) => (
+                  <li
+                    key={tag}
+                    className="border border-zinc-200 rounded p-2 flex flex-col gap-1.5"
                   >
-                    ×
-                  </button>
-                </span>
-              ))}
-            </div>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="font-semibold text-[#C9449E]">
+                        {tag}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => removeTag(tag)}
+                        className="text-zinc-400 hover:text-red-600 cursor-pointer px-1"
+                        aria-label={`Remover tag ${tag}`}
+                      >
+                        ×
+                      </button>
+                    </div>
+                    {tokenState === "valid" ? (
+                      <div className="grid grid-cols-2 gap-2">
+                        <input
+                          className={smallInputClass}
+                          value={tagDict[tag]?.en ?? ""}
+                          onChange={(e) =>
+                            setTagTranslation(tag, "en", e.target.value)
+                          }
+                          placeholder="inglês — ex: rat, mouse"
+                        />
+                        <input
+                          className={smallInputClass}
+                          value={tagDict[tag]?.es ?? ""}
+                          onChange={(e) =>
+                            setTagTranslation(tag, "es", e.target.value)
+                          }
+                          placeholder="espanhol — ex: rata, ratón"
+                        />
+                      </div>
+                    ) : (
+                      <p className="text-xs text-zinc-400">
+                        Conecte o GitHub para editar as traduções desta tag.
+                      </p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+
             <div className="relative">
               <input
                 className={inputClass}
@@ -680,8 +772,14 @@ export default function FlashEditor() {
               )}
             </div>
             <p className="text-xs text-zinc-400 mt-1">
-              Tags já usadas aparecem como sugestão, com quantos flashes já
-              usam cada uma — reaproveitar evita criar tags quase-duplicadas.
+              Escreva em português. Traduções com vírgula viram vários chips
+              (ex. <code>rat, mouse</code>) que filtram os mesmos flashes.
+              {tagDictDirty && tokenState === "valid" && (
+                <span className="text-teal-600">
+                  {" "}
+                  As traduções alteradas vão junto ao publicar.
+                </span>
+              )}
             </p>
           </div>
 

@@ -156,6 +156,8 @@ async function uploadBlob(token: string, content: string): Promise<string> {
   return blob.sha;
 }
 
+export const TAGS_DICT_PATH = `${FLASHES_DIR}/tags.yaml`;
+
 export type CommitFileInput = {
   token: string;
   slug: string;
@@ -163,6 +165,7 @@ export type CommitFileInput = {
   images: { blob: Blob; name: string }[]; // name like "1.png"
   message: string;
   removePaths?: string[]; // full repo paths of stale files to delete
+  tagsDictText?: string; // if set, also write public/flashes/tags.yaml
   onProgress?: (msg: string) => void;
 };
 
@@ -173,6 +176,7 @@ export async function commitFlash({
   images,
   message,
   removePaths = [],
+  tagsDictText,
   onProgress = () => {},
 }: CommitFileInput): Promise<{ commitUrl: string }> {
   const dir = `${FLASHES_DIR}/${slug}`;
@@ -185,6 +189,16 @@ export async function commitFlash({
     type: "blob",
     sha: await uploadBlob(token, utf8ToBase64(yamlText)),
   });
+
+  if (tagsDictText != null) {
+    onProgress("Enviando dicionário de tags…");
+    tree.push({
+      path: TAGS_DICT_PATH,
+      mode: "100644",
+      type: "blob",
+      sha: await uploadBlob(token, utf8ToBase64(tagsDictText)),
+    });
+  }
 
   let i = 0;
   for (const img of images) {
@@ -229,8 +243,6 @@ export async function deleteFlash({
   }));
   return pushCommit(token, message, tree, onProgress);
 }
-
-export const TAGS_DICT_PATH = `${FLASHES_DIR}/tags.yaml`;
 
 // Commit a single UTF-8 text file (used for the shared tag dictionary).
 export async function commitTextFile({
