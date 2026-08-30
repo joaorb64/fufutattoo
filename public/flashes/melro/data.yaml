@@ -1,0 +1,15 @@
+name: Melro
+tags:
+  - pássaro
+  - florestinha
+price: 150
+size_min:
+  - 6.5
+  - 7
+size_max:
+  - 8.5
+  - 9
+translations:
+  en:
+    name: Blackbird
+    name_locked: true
