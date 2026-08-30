@@ -72,7 +72,7 @@ const resources = {
         during: "On session day",
         duringParagraphs: [
           "Sleep well and come well fed. Bring your **snacks, water bottle and distractions**. You can bring **one companion**.",
-          "All my materials are **professional and sterilised**.",
+          "All my materials are **professional and single-use**.",
           "Tattooing is a process that **can't be rushed** — it takes as long as it takes. Book your session on a **calm day** and don't come with a tight schedule, because I can't speed the process up.",
           "Don't be shy about **suggesting changes** to the stencil or the design — it doesn't make you a difficult client. It's extremely important to me that you're **200% confident** before we start.",
         ],
@@ -170,7 +170,7 @@ const resources = {
         during: "No dia da sessão",
         duringParagraphs: [
           "Durma bem e venha bem alimentado. Traga os seus **snacks, garrafa de água e distrações**. Pode trazer **um acompanhante**.",
-          "Todos os meus materiais são **profissionais e esterilizados**.",
+          "Todos os meus materiais são **profissionais e descartáveis**.",
           "Tatuar é um processo que **não pode ser apressado**, demora o tempo que for necessário. Marque a sua sessão para um **dia tranquilo** e não venha com horários apertados, pois não posso apressar o processo.",
           "Não tenha receio de **sugerir alterações** ao stencil ou ao design — isso não te torna um cliente difícil. É extremamente importante para mim que esteja **200% confiante** antes de começarmos.",
         ],
@@ -268,7 +268,7 @@ const resources = {
         during: "El día de la sesión",
         duringParagraphs: [
           "Duerme bien y ven bien alimentado/a. Trae tus **snacks, botella de agua y distracciones**. Puedes traer **un acompañante**.",
-          "Todos mis materiales son **profesionales y esterilizados**.",
+          "Todos mis materiales son **profesionales y desechables**.",
           "Tatuar es un proceso que **no se puede apresurar**, lleva el tiempo que haga falta. Agenda tu sesión para un **día tranquilo** y no vengas con horarios ajustados, porque no puedo acelerar el proceso.",
           "No tengas reparo en **sugerir cambios** en el stencil o el diseño — eso no te convierte en un cliente difícil. Es extremadamente importante para mí que estés **200% seguro/a** antes de empezar.",
         ],

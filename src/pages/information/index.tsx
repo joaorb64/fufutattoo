@@ -56,23 +56,14 @@ const Information = () => {
                   {t("information.before")}
                 </h2>
               </div>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 text-lg">
                 <p>
-                  <span className="font-bold text-xl">
-                    {t("information.rescheduling")}
-                  </span>{" "}
                   <RichText text={t("information.reschedulingText")} />
                 </p>
                 <p>
-                  <span className="font-bold text-xl">
-                    {t("information.preCare")}
-                  </span>{" "}
                   <RichText text={t("information.preCareText")} />
                 </p>
                 <p>
-                  <span className="font-bold text-xl">
-                    {t("information.yourSkin")}
-                  </span>{" "}
                   <RichText text={t("information.skinText")} />
                 </p>
               </div>
@@ -100,7 +91,7 @@ const Information = () => {
                   {t("information.during")}
                 </h2>
               </div>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 text-lg">
                 {duringParagraphs.map((paragraph, idx) => (
                   <p key={idx}>
                     <RichText text={paragraph} />
@@ -131,7 +122,7 @@ const Information = () => {
                   {t("information.after")}
                 </h2>
               </div>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 text-lg">
                 {afterParagraphs.map((paragraph, idx) => (
                   <p key={idx}>
                     <RichText text={paragraph} />
