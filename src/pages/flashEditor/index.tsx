@@ -2,6 +2,15 @@ import { useEffect, useMemo, useState } from "react";
 import yaml from "js-yaml";
 import JSZip from "jszip";
 import Fuse from "fuse.js";
+import {
+  CREATE_TOKEN_URL,
+  REPO_SLUG,
+  commitFlash,
+  getStoredToken,
+  repoPathFromImageUrl,
+  setStoredToken,
+  verifyToken,
+} from "./github";
 
 function slugify(text: string) {
   return text
@@ -55,6 +64,19 @@ export default function FlashEditor() {
   const [images, setImages] = useState<ImageEntry[]>([]);
   const [loadingImages, setLoadingImages] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
+
+  const [token, setToken] = useState(getStoredToken);
+  const [tokenInput, setTokenInput] = useState("");
+  const [tokenState, setTokenState] = useState<
+    "idle" | "checking" | "valid" | "invalid"
+  >(getStoredToken() ? "valid" : "idle");
+  const [tokenError, setTokenError] = useState<string | null>(null);
+  const [uploadState, setUploadState] = useState<
+    "idle" | "uploading" | "done" | "error"
+  >("idle");
+  const [uploadMsg, setUploadMsg] = useState("");
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [commitUrl, setCommitUrl] = useState<string | null>(null);
 
   useEffect(() => {
     if (!slugTouched) setSlug(slugify(name));
@@ -220,7 +242,8 @@ export default function FlashEditor() {
     images.length > 0 &&
     !slugConflict;
 
-  const buildAndDownload = async () => {
+  // Shared payload for both the .zip download and the direct GitHub push.
+  const buildPayload = () => {
     const data: Record<string, unknown> = {
       name: name.trim(),
       tags,
@@ -257,13 +280,20 @@ export default function FlashEditor() {
     }
     if (Object.keys(translations).length) data.translations = translations;
 
+    const yamlText = yaml.dump(data);
+    const files = images.map((img, i) => {
+      const ext = img.file.name.split(".").pop()?.toLowerCase() || "png";
+      return { blob: img.file, name: `${i + 1}.${ext}` };
+    });
+    return { yamlText, files };
+  };
+
+  const buildAndDownload = async () => {
+    const { yamlText, files } = buildPayload();
     const zip = new JSZip();
     const folder = zip.folder(slug)!;
-    folder.file("data.yaml", yaml.dump(data));
-    images.forEach((img, i) => {
-      const ext = img.file.name.split(".").pop()?.toLowerCase() || "png";
-      folder.file(`${i + 1}.${ext}`, img.file);
-    });
+    folder.file("data.yaml", yamlText);
+    files.forEach((f) => folder.file(f.name, f.blob));
 
     const blob = await zip.generateAsync({ type: "blob" });
     const url = URL.createObjectURL(blob);
@@ -275,6 +305,73 @@ export default function FlashEditor() {
     a.remove();
     URL.revokeObjectURL(url);
     setDownloaded(true);
+  };
+
+  const saveToken = async () => {
+    const value = tokenInput.trim();
+    if (!value) return;
+    setTokenState("checking");
+    setTokenError(null);
+    const result = await verifyToken(value);
+    if (result.ok) {
+      setStoredToken(value);
+      setToken(value);
+      setTokenInput("");
+      setTokenState("valid");
+    } else {
+      setTokenState("invalid");
+      setTokenError(result.error || "Token inválido.");
+    }
+  };
+
+  const clearToken = () => {
+    setStoredToken("");
+    setToken("");
+    setTokenState("idle");
+    setTokenError(null);
+  };
+
+  const handleUpload = async () => {
+    const { yamlText, files } = buildPayload();
+
+    // When editing, drop files from the old folder that the new version no
+    // longer includes (renamed slug, fewer images, images renamed to 1..N).
+    const newPaths = new Set([
+      `public/flashes/${slug}/data.yaml`,
+      ...files.map((f) => `public/flashes/${slug}/${f.name}`),
+    ]);
+    const removePaths: string[] = [];
+    if (originalSlug) {
+      if (originalSlug !== slug) {
+        removePaths.push(`public/flashes/${originalSlug}/data.yaml`);
+      }
+      for (const img of loadedFlash?.images || []) {
+        const p = repoPathFromImageUrl(img.original);
+        if (p && !newPaths.has(p)) removePaths.push(p);
+      }
+    }
+
+    setUploadState("uploading");
+    setUploadError(null);
+    setCommitUrl(null);
+    try {
+      const { commitUrl: url } = await commitFlash({
+        token,
+        slug,
+        yamlText,
+        images: files,
+        message: originalSlug
+          ? `Atualiza flash: ${name.trim()}`
+          : `Novo flash: ${name.trim()}`,
+        removePaths,
+        onProgress: setUploadMsg,
+      });
+      setCommitUrl(url);
+      setUploadState("done");
+    } catch (e) {
+      setUploadError((e as Error).message);
+      setUploadState("error");
+    }
   };
 
   const inputClass =
@@ -563,14 +660,131 @@ export default function FlashEditor() {
             )}
           </div>
 
+          <details className="mt-2 rounded border border-zinc-200 bg-zinc-50 p-3 text-sm">
+            <summary className="cursor-pointer font-semibold text-zinc-700">
+              {tokenState === "valid"
+                ? "⚙️ GitHub conectado — publicar direto está ativado"
+                : "⚙️ Conectar ao GitHub para publicar direto (opcional)"}
+            </summary>
+            <div className="mt-3 flex flex-col gap-2 text-zinc-600">
+              {tokenState === "valid" ? (
+                <>
+                  <p>
+                    Este navegador está conectado. O botão{" "}
+                    <strong>"Publicar no site"</strong> abaixo envia tudo
+                    direto, sem precisar baixar nada.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={clearToken}
+                    className="self-start text-red-600 underline cursor-pointer"
+                  >
+                    Desconectar este navegador
+                  </button>
+                </>
+              ) : (
+                <>
+                  <p>
+                    Crie um{" "}
+                    <a
+                      href={CREATE_TOKEN_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-teal-700 underline"
+                    >
+                      token de acesso fino no GitHub
+                    </a>{" "}
+                    com: <em>Resource owner</em> = joaorb64, <em>Only select
+                    repositories</em> → <code>{REPO_SLUG}</code>,{" "}
+                    <em>Permissions → Contents → Read and write</em>. Cole o
+                    token aqui — ele fica guardado só neste navegador.
+                  </p>
+                  <div className="flex gap-2">
+                    <input
+                      type="password"
+                      className={inputClass}
+                      value={tokenInput}
+                      onChange={(e) => setTokenInput(e.target.value)}
+                      placeholder="github_pat_..."
+                      autoComplete="off"
+                    />
+                    <button
+                      type="button"
+                      onClick={saveToken}
+                      disabled={!tokenInput.trim() || tokenState === "checking"}
+                      className="shrink-0 bg-zinc-800 hover:bg-zinc-900 disabled:bg-zinc-300 text-white font-semibold rounded px-4 cursor-pointer"
+                    >
+                      {tokenState === "checking" ? "Verificando…" : "Salvar"}
+                    </button>
+                  </div>
+                  {tokenState === "invalid" && tokenError && (
+                    <p className="text-red-600">{tokenError}</p>
+                  )}
+                </>
+              )}
+            </div>
+          </details>
+
+          {tokenState === "valid" && (
+            <button
+              type="button"
+              disabled={!canSubmit || uploadState === "uploading"}
+              onClick={handleUpload}
+              className="bg-teal-600 hover:bg-teal-700 disabled:bg-zinc-300 disabled:cursor-not-allowed text-white font-bold rounded-full py-3 cursor-pointer transition-colors"
+            >
+              {uploadState === "uploading"
+                ? uploadMsg || "Publicando…"
+                : originalSlug
+                  ? "Publicar alterações no site"
+                  : "Publicar no site"}
+            </button>
+          )}
+
           <button
             type="button"
-            disabled={!canSubmit}
+            disabled={!canSubmit || uploadState === "uploading"}
             onClick={buildAndDownload}
-            className="mt-2 bg-teal-600 hover:bg-teal-700 disabled:bg-zinc-300 disabled:cursor-not-allowed text-white font-bold rounded-full py-3 cursor-pointer transition-colors"
+            className={
+              (tokenState === "valid"
+                ? "bg-white border border-zinc-300 text-zinc-700 hover:bg-zinc-50"
+                : "bg-teal-600 hover:bg-teal-700 text-white") +
+              " disabled:bg-zinc-200 disabled:text-zinc-400 disabled:cursor-not-allowed font-bold rounded-full py-3 cursor-pointer transition-colors"
+            }
           >
             Baixar .zip
           </button>
+
+          {uploadState === "done" && (
+            <div className="bg-teal-50 border border-teal-200 rounded p-4 text-sm text-zinc-700 leading-relaxed">
+              <p className="font-bold mb-1">Publicado! 🎉</p>
+              <p>
+                O site atualiza sozinho em alguns minutos (as traduções para
+                inglês e espanhol são geradas nesse processo).
+              </p>
+              {commitUrl && (
+                <p className="mt-1">
+                  <a
+                    href={commitUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-teal-700 underline"
+                  >
+                    Ver o commit no GitHub
+                  </a>
+                </p>
+              )}
+            </div>
+          )}
+
+          {uploadState === "error" && uploadError && (
+            <div className="bg-red-50 border border-red-200 rounded p-4 text-sm text-red-700 leading-relaxed">
+              <p className="font-bold mb-1">Não deu para publicar</p>
+              <p>{uploadError}</p>
+              <p className="mt-1 text-red-600">
+                Você ainda pode usar o "Baixar .zip" e subir manualmente.
+              </p>
+            </div>
+          )}
 
           {downloaded && (
             <div className="bg-teal-50 border border-teal-200 rounded p-4 text-sm text-zinc-700 leading-relaxed">
