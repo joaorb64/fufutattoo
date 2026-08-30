@@ -1,4 +1,33 @@
 {
+  "gatonauta": {
+    "name": {
+      "pt": "Gatonauta",
+      "en": "Catstronaut",
+      "es": "Gatonauta"
+    },
+    "tags": [],
+    "price": 120,
+    "size_min": [
+      5,
+      6
+    ],
+    "size_max": [
+      8,
+      9
+    ],
+    "images": [
+      {
+        "original": "/flashes/gatonauta/1.png",
+        "watermarked": "/flashes_processed/gatonauta/1.png",
+        "thumbnail": "/flashes_processed/gatonauta/thumb_1.png"
+      },
+      {
+        "original": "/flashes/gatonauta/2.png",
+        "watermarked": "/flashes_processed/gatonauta/2.png",
+        "thumbnail": "/flashes_processed/gatonauta/thumb_2.png"
+      }
+    ]
+  },
   "jardineiro_colorido": {
     "name": {
       "pt": "Jardineiro (colorido)",
@@ -95,6 +124,67 @@
         "original": "/flashes/jardineiro_preto_e_cinza/1.png",
         "watermarked": "/flashes_processed/jardineiro_preto_e_cinza/1.png",
         "thumbnail": "/flashes_processed/jardineiro_preto_e_cinza/thumb_1.png"
+      }
+    ]
+  },
+  "passaro_da_noite": {
+    "name": {
+      "pt": "Pássaro da noite",
+      "en": "Night bird",
+      "es": "pájaro nocturno"
+    },
+    "tags": [
+      {
+        "pt": "pássaro",
+        "en": [
+          "bird"
+        ],
+        "es": [
+          "pájaro"
+        ]
+      },
+      {
+        "pt": "botânico",
+        "en": [
+          "botanical"
+        ],
+        "es": [
+          "botánico"
+        ]
+      },
+      {
+        "pt": "lua",
+        "en": [
+          "moon"
+        ],
+        "es": [
+          "luna"
+        ]
+      },
+      {
+        "pt": "estrela",
+        "en": [
+          "star"
+        ],
+        "es": [
+          "estrella"
+        ]
+      }
+    ],
+    "price": 160,
+    "size_min": [
+      7,
+      10
+    ],
+    "size_max": [
+      9,
+      12
+    ],
+    "images": [
+      {
+        "original": "/flashes/passaro_da_noite/1.png",
+        "watermarked": "/flashes_processed/passaro_da_noite/1.png",
+        "thumbnail": "/flashes_processed/passaro_da_noite/thumb_1.png"
       }
     ]
   }

@@ -14,18 +14,27 @@ animal:
 astrologia:
   en: [astrology]
   es: [astrología]
+botânico:
+  en: [botanical]
+  es: [botánico]
 colorido:
   en: [colorful]
   es: [colorido]
 cor:
   en: [color]
   es: [color]
+estrela:
+  en: [star]
+  es: [estrella]
 flor:
   en: [flower]
   es: [flor]
 grecia:
   en: [greece]
   es: [grecia]
+lua:
+  en: [moon]
+  es: [luna]
 peixe:
   en: [fish]
   es: [pez]

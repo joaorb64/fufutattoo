@@ -11,3 +11,10 @@ size_min:
 size_max:
   - 9
   - 12
+translations:
+  en:
+    name: Night bird
+    _sourceHash: 993c2cf9c66be83d
+  es:
+    name: pájaro nocturno
+    _sourceHash: 993c2cf9c66be83d
