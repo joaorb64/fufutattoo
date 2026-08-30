@@ -3,7 +3,7 @@ import StickerTitle from "../../components/StickerTitle";
 import jelloImg from "../../assets/images/jello.webp";
 import tanookiImg from "../../assets/images/sticker_tanooki.webp";
 import duckImg from "../../assets/images/sticker_duck.webp";
-import foxImg from "../../assets/images/sticker_fox.webp";
+import birdImg from "../../assets/images/sticker_bird.webp";
 
 // Renders **bold** spans inside an otherwise plain string.
 const RichText = ({ text }: { text: string }) => (
@@ -56,7 +56,7 @@ const Section = ({
             src={image}
             alt=""
             aria-hidden
-            className="md:hidden absolute top-1/2 -translate-y-1/2 -right-24 w-20 pointer-events-none select-none"
+            className="md:hidden absolute top-1/2 -translate-y-1/2 -right-16 h-16 w-16 object-contain pointer-events-none select-none"
           />
           <h2 className="relative text-5xl font-[BohoSans]">{heading}</h2>
         </div>
@@ -114,7 +114,7 @@ const Information = () => {
         />
         <Section
           bg="#F0E0A2"
-          image={foxImg}
+          image={birdImg}
           heading={t("information.after")}
           paragraphs={afterParagraphs}
         />
