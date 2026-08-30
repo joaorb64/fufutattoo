@@ -97,7 +97,7 @@ const Information = () => {
         <Section
           bg="#9DB2DB"
           image={tanookiImg}
-          imageClassName="w-60 lg:w-80"
+          imageClassName="w-60 lg:w-70"
           heading={t("information.before")}
           paragraphs={[
             t("information.reschedulingText"),
