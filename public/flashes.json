@@ -102,6 +102,81 @@
       }
     ]
   },
+  "jardineiro_colorido": {
+    "name": {
+      "pt": "Jardineiro (colorido)",
+      "en": "Gardener (colored)",
+      "es": "Jardinero (de color)"
+    },
+    "tags": [
+      {
+        "pt": "rato",
+        "en": "mouse",
+        "es": "ratón"
+      },
+      {
+        "pt": "flor",
+        "en": "flower",
+        "es": "flor"
+      },
+      {
+        "pt": "colorido",
+        "en": "colorful",
+        "es": "vistoso"
+      }
+    ],
+    "price": 150,
+    "size_min": [
+      5,
+      7
+    ],
+    "size_max": [
+      8,
+      10
+    ],
+    "images": [
+      {
+        "original": "/flashes/jardineiro_colorido/1.png",
+        "watermarked": "/flashes_processed/jardineiro_colorido/1.png",
+        "thumbnail": "/flashes_processed/jardineiro_colorido/thumb_1.png"
+      }
+    ]
+  },
+  "jardineiro_preto_e_cinza": {
+    "name": {
+      "pt": "Jardineiro (Preto e cinza)",
+      "en": "Gardener (Black and gray)",
+      "es": "Jardinero (Negro y gris)"
+    },
+    "tags": [
+      {
+        "pt": "rato",
+        "en": "mouse",
+        "es": "ratón"
+      },
+      {
+        "pt": "flor",
+        "en": "flower",
+        "es": "flor"
+      }
+    ],
+    "price": 120,
+    "size_min": [
+      5,
+      7
+    ],
+    "size_max": [
+      8,
+      10
+    ],
+    "images": [
+      {
+        "original": "/flashes/jardineiro_preto_e_cinza/1.png",
+        "watermarked": "/flashes_processed/jardineiro_preto_e_cinza/1.png",
+        "thumbnail": "/flashes_processed/jardineiro_preto_e_cinza/thumb_1.png"
+      }
+    ]
+  },
   "pato": {
     "name": {
       "pt": "Pato",

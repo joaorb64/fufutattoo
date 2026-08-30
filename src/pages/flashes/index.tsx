@@ -4,6 +4,7 @@ import Fuse from "fuse.js";
 import FlashList from "./flashList";
 import TagList from "./tagList";
 import { resolveLocale } from "../../i18n";
+import { fetchFlashes } from "../../flashes";
 
 export default function Flashes() {
   const { t, i18n } = useTranslation();
@@ -21,7 +22,7 @@ export default function Flashes() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}flashes.json`)
+    fetchFlashes()
       .then((res) => res.json())
       .then(async (data) => {
         setFlashes(data);

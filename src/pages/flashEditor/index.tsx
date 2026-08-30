@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import yaml from "js-yaml";
 import JSZip from "jszip";
 import Fuse from "fuse.js";
+import { fetchFlashes } from "../../flashes";
 import {
   CREATE_TOKEN_URL,
   REPO_SLUG,
@@ -81,13 +82,17 @@ export default function FlashEditor() {
   const [deleteState, setDeleteState] = useState<
     "idle" | "confirm" | "deleting" | "done"
   >("idle");
+  // Briefly locks the publish button after a run so an accidental
+  // double-click can't fire a second commit.
+  const [publishLocked, setPublishLocked] = useState(false);
+  const feedbackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!slugTouched) setSlug(slugify(name));
   }, [name, slugTouched]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}flashes.json`)
+    fetchFlashes()
       .then((res) => res.json())
       .then((data) => setAllFlashes(data))
       .catch(() => {});
@@ -337,7 +342,22 @@ export default function FlashEditor() {
     setTokenError(null);
   };
 
+  // Scroll the status panel into view whenever a publish/delete run changes
+  // state, so the feedback is never off-screen.
+  useEffect(() => {
+    if (uploadState !== "idle" || deleteState === "deleting" || deleteState === "done") {
+      feedbackRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, [uploadState, deleteState]);
+
+  const lockPublishBriefly = () => {
+    setPublishLocked(true);
+    setTimeout(() => setPublishLocked(false), 5000);
+  };
+
   const handleUpload = async () => {
+    if (uploadState === "uploading" || publishLocked) return;
+    lockPublishBriefly();
     const { yamlText, files } = buildPayload();
 
     // When editing, drop files from the old folder that the new version no
@@ -358,6 +378,7 @@ export default function FlashEditor() {
     }
 
     setUploadState("uploading");
+    setUploadMsg("A preparar o envio…");
     setUploadError(null);
     setCommitUrl(null);
     try {
@@ -381,12 +402,13 @@ export default function FlashEditor() {
   };
 
   const handleDelete = async () => {
-    if (!originalSlug) return;
+    if (!originalSlug || deleteState === "deleting") return;
     const filePaths = (loadedFlash?.images || [])
       .map((img: any) => repoPathFromImageUrl(img.original))
       .filter(Boolean) as string[];
 
     setDeleteState("deleting");
+    setUploadMsg("A apagar…");
     setUploadError(null);
     setCommitUrl(null);
     try {
@@ -760,12 +782,20 @@ export default function FlashEditor() {
           {tokenState === "valid" && (
             <button
               type="button"
-              disabled={!canSubmit || uploadState === "uploading"}
+              disabled={
+                !canSubmit ||
+                uploadState === "uploading" ||
+                publishLocked ||
+                deleteState === "deleting"
+              }
               onClick={handleUpload}
-              className="bg-teal-600 hover:bg-teal-700 disabled:bg-zinc-300 disabled:cursor-not-allowed text-white font-bold rounded-full py-3 cursor-pointer transition-colors"
+              className="flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 disabled:bg-zinc-300 disabled:cursor-not-allowed text-white font-bold rounded-full py-3 cursor-pointer transition-colors"
             >
+              {uploadState === "uploading" && (
+                <span className="inline-block w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+              )}
               {uploadState === "uploading"
-                ? uploadMsg || "Publicando…"
+                ? "A publicar…"
                 : originalSlug
                   ? "Publicar alterações no site"
                   : "Publicar no site"}
@@ -774,7 +804,11 @@ export default function FlashEditor() {
 
           <button
             type="button"
-            disabled={!canSubmit || uploadState === "uploading"}
+            disabled={
+              !canSubmit ||
+              uploadState === "uploading" ||
+              deleteState === "deleting"
+            }
             onClick={buildAndDownload}
             className={
               (tokenState === "valid"
@@ -786,27 +820,36 @@ export default function FlashEditor() {
             Baixar .zip
           </button>
 
-          {uploadState === "done" && (
-            <div className="bg-teal-50 border border-teal-200 rounded p-4 text-sm text-zinc-700 leading-relaxed">
-              <p className="font-bold mb-1">Publicado! 🎉</p>
-              <p>
-                O site atualiza sozinho em alguns minutos (as traduções para
-                inglês e espanhol são geradas nesse processo).
-              </p>
-              {commitUrl && (
-                <p className="mt-1">
-                  <a
-                    href={commitUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-teal-700 underline"
-                  >
-                    Ver o commit no GitHub
-                  </a>
+          <div ref={feedbackRef} className="scroll-mt-4">
+            {(uploadState === "uploading" || deleteState === "deleting") && (
+              <div className="flex items-center gap-3 bg-teal-50 border border-teal-200 rounded p-4 text-sm text-zinc-700">
+                <span className="inline-block w-4 h-4 shrink-0 border-2 border-teal-300 border-t-teal-600 rounded-full animate-spin" />
+                <span>{uploadMsg || "A comunicar com o GitHub…"}</span>
+              </div>
+            )}
+
+            {uploadState === "done" && (
+              <div className="bg-teal-50 border border-teal-200 rounded p-4 text-sm text-zinc-700 leading-relaxed">
+                <p className="font-bold mb-1">Publicado! 🎉</p>
+                <p>
+                  O site atualiza sozinho em alguns minutos (as traduções para
+                  inglês e espanhol são geradas nesse processo).
                 </p>
-              )}
-            </div>
-          )}
+                {commitUrl && (
+                  <p className="mt-1">
+                    <a
+                      href={commitUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-teal-700 underline"
+                    >
+                      Ver o commit no GitHub
+                    </a>
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
 
           {uploadState === "error" && uploadError && (
             <div className="bg-red-50 border border-red-200 rounded p-4 text-sm text-red-700 leading-relaxed">

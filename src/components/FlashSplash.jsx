@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { fetchFlashes } from "../flashes";
 
 const getRandomInt = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
@@ -24,7 +25,7 @@ export default function FlashSplash() {
   const [revealId, setRevealId] = useState(0);
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}flashes.json`)
+    fetchFlashes()
       .then((res) => res.json())
       .then((data) => {
         const list = Object.entries(data)

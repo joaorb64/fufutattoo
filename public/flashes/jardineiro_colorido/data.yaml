@@ -10,3 +10,18 @@ size_min:
 size_max:
   - 8
   - 10
+translations:
+  en:
+    name: Gardener (colored)
+    tags:
+      - mouse
+      - flower
+      - colorful
+    _sourceHash: 8500103c29dfad17
+  es:
+    name: Jardinero (de color)
+    tags:
+      - ratón
+      - flor
+      - vistoso
+    _sourceHash: 8500103c29dfad17

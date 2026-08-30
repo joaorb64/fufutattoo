@@ -6,6 +6,7 @@ import Carousel from "../../../components/Carousel";
 import FlashItem from "../flashItem";
 import { WHATSAPP_URL } from "../../../config";
 import { resolveLocale } from "../../../i18n";
+import { fetchFlashes } from "../../../flashes";
 
 const FlashDetail = () => {
   const { t, i18n } = useTranslation();
@@ -20,7 +21,7 @@ const FlashDetail = () => {
   const cmToInches = (cm: number) => (cm / 2.54).toFixed(2);
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}flashes.json`)
+    fetchFlashes()
       .then((res) => res.json())
       .then((data) => {
         const foundFlash = data[flashId!];
