@@ -32,28 +32,31 @@ const AboutMe = () => {
 
   return (
     <>
-      {/* ── Desktop: text left, splash-framed photo right ────────────── */}
-      <div className="hidden md:flex w-full items-center gap-8 lg:gap-12 xl:gap-16 py-12 px-6 lg:px-10 xl:px-16">
-        <div className="flex-1 min-w-0">
-          <div className="text-center mb-6 lg:mb-8 xl:mb-10">
-            <Title className="text-5xl lg:text-6xl xl:text-8xl" />
-          </div>
-          {aboutParagraphs.map((paragraph, idx) => (
-            <p
-              key={idx}
-              className="text-lg lg:text-xl text-zinc-800 leading-relaxed mb-6 max-w-xl"
-            >
-              {paragraph}
-            </p>
-          ))}
+      {/* ── Desktop: centered title, then text left + splash-framed photo right ── */}
+      <div className="hidden md:block w-full py-12 px-6 lg:px-10 xl:px-16">
+        <div className="text-center mb-8 lg:mb-12 xl:mb-16">
+          <Title className="text-5xl lg:text-6xl xl:text-8xl" />
         </div>
 
-        <SplashImage
-          src={aboutMeImg}
-          alt="Flávia"
-          accentColor="#DFA040"
-          className="w-full max-w-65 lg:max-w-sm xl:max-w-xl min-w-0 shrink"
-        />
+        <div className="flex items-center gap-8 lg:gap-12 xl:gap-16">
+          <div className="flex-1 min-w-0">
+            {aboutParagraphs.map((paragraph, idx) => (
+              <p
+                key={idx}
+                className="text-lg lg:text-xl text-zinc-800 leading-relaxed mb-6 max-w-xl"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
+
+          <SplashImage
+            src={aboutMeImg}
+            alt="Flávia"
+            accentColor="#DFA040"
+            className="w-full max-w-65 lg:max-w-sm xl:max-w-xl min-w-0 shrink"
+          />
+        </div>
       </div>
 
       {/* ── Mobile: title, then photo, then text ─────────────────────── */}
