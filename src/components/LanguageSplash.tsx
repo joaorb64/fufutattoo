@@ -8,6 +8,9 @@ export function hasChosenLanguage(): boolean {
 
 export default function LanguageSplash({ onDone }: { onDone: () => void }) {
   const { i18n } = useTranslation();
+  // Language isn't chosen yet, so pin the splash copy to English regardless of
+  // what the detector picked.
+  const t = i18n.getFixedT("en");
 
   const select = (lang: string) => {
     i18n.changeLanguage(lang);
@@ -16,34 +19,38 @@ export default function LanguageSplash({ onDone }: { onDone: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-[#ffeedc] flex flex-col items-center justify-center gap-8 p-6">
-      <h1
-        className="text-brand font-[BohoSans] tracking-widest text-center"
-        style={{ fontSize: "clamp(3rem, 12vw, 7rem)" }}
-      >
-        FUFU TATTOO
-      </h1>
+    <div className="fixed inset-0 z-9999 bg-[#ffeedc] flex flex-col items-center justify-center gap-8 p-6 font-[BohoSans] text-center">
+      <div>
+        <h1
+          className="text-home-accent font-bold tracking-widest"
+          style={{ fontSize: "clamp(3rem, 12vw, 7rem)" }}
+        >
+          FUFU
+        </h1>
+        <p className="text-zinc-800 uppercase text-2xl md:text-4xl tracking-wider">
+          {t("hero.artist")}
+        </p>
+        <p className="text-zinc-600 uppercase text-xl md:text-3xl tracking-wider">
+          {t("hero.location")}
+        </p>
+      </div>
 
-      <p className="text-zinc-500 font-[BohoSans] text-xl md:text-2xl tracking-wider text-center">
-        Tattoo and Painting · Madrid
-      </p>
-
-      <div className="flex gap-4 mt-4">
+      <div className="flex flex-col sm:flex-row items-stretch gap-4 mt-4 w-full max-w-xs sm:max-w-none sm:w-auto text-xl md:text-2xl uppercase font-medium tracking-wider">
         <button
           onClick={() => select("pt")}
-          className="px-8 py-3 bg-brand text-white rounded-full text-xl font-[BohoSans] tracking-wider hover:bg-brand-dark transition-colors cursor-pointer"
+          className="w-full sm:w-auto px-8 py-3 bg-home-accent text-white rounded-full hover:bg-home-accent-dark transition-colors cursor-pointer"
         >
           Português
         </button>
         <button
           onClick={() => select("en")}
-          className="px-8 py-3 border-2 border-brand text-brand rounded-full text-xl font-[BohoSans] tracking-wider hover:bg-brand/10 transition-colors cursor-pointer"
+          className="w-full sm:w-auto px-8 py-3 bg-home-accent text-white rounded-full hover:bg-home-accent-dark transition-colors cursor-pointer"
         >
           English
         </button>
         <button
           onClick={() => select("es")}
-          className="px-8 py-3 border-2 border-brand text-brand rounded-full text-xl font-[BohoSans] tracking-wider hover:bg-brand/10 transition-colors cursor-pointer"
+          className="w-full sm:w-auto px-8 py-3 bg-home-accent text-white rounded-full hover:bg-home-accent-dark transition-colors cursor-pointer"
         >
           Español
         </button>
