@@ -35,7 +35,7 @@ const resources = {
         studio: "Studio",
       },
       topbar: {
-        title: "FUFU TATTOO",
+        title: "FUFU",
         openMenu: "Open menu",
         closeMenu: "Close menu",
         language: "Language",
@@ -133,7 +133,7 @@ const resources = {
         studio: "O Estúdio",
       },
       topbar: {
-        title: "FUFU TATTOO",
+        title: "FUFU",
         openMenu: "Abrir menu",
         closeMenu: "Fechar menu",
         language: "Idioma",
@@ -231,7 +231,7 @@ const resources = {
         studio: "Estudio",
       },
       topbar: {
-        title: "FUFU TATTOO",
+        title: "FUFU",
         openMenu: "Abrir menú",
         closeMenu: "Cerrar menú",
         language: "Idioma",
