@@ -51,9 +51,8 @@ const resources = {
       aboutme: {
         title: "About me",
         paragraphs: [
-          "Hi! I'm Flávia, but you can call me Fufu 🙂 Originally from Brazil, I spent four years in Lisbon and am now based in Madrid. I've always loved drawing and painting, and for the past three years, I've been living the dream of doing it professionally!",
-          "My work flows naturally around the themes and techniques that inspire me. I love creating designs that are expressive and illustrative yet cozy and tender—pieces that bring a touch of enchantment, warmth, and whimsy to your daily life. While my favorite themes are flora, fauna, and fantasy, I'm always open to new ideas. I tattoo in both color and black & gray.",
-          "Through my art, I aim to remind us of the wonderful, lush, magical world outside, helping people fall in love with nature and reconnect with the healing power of human imagination.",
+          "Hi! I'm Flávia, but you can call me Fufu 🙂 I'm Brazilian, spent four years in Lisbon and now live in Madrid.",
+          "My work is expressive and illustrative, yet also cozy and delicate. I love creating pieces that bring a touch of enchantment, tenderness and magic to your daily life. My goal is to remind people of the wonderful, lush and magical world that exists out there and within each of our imaginations! My favorite themes are flora, fauna and fantasy, but I'm always open to new ideas. I tattoo in both color and black & gray.",
           "Check out my Instagram, flashbook, and shop to explore my latest work. If you're looking for a tattoo or a commissioned painting or illustration, feel free to reach out through any channel!",
         ],
       },
@@ -149,9 +148,8 @@ const resources = {
       aboutme: {
         title: "Sobre mim",
         paragraphs: [
-          "Oi! Sou a Flávia, mas pode me chamar de Fufu 🙂 Originalmente do Brasil, morei quatro anos em Lisboa e agora estou baseada em Madrid. Sempre amei desenhar e pintar, e nos últimos três anos, estou vivendo o sonho de fazer isso profissionalmente!",
-          "Meu trabalho flui naturalmente ao redor dos temas e técnicas que me inspiram. Adoro criar desenhos expressivos e ilustrativos, mas também aconchegantes e ternos — peças que trazem um toque de encantamento, calor e magia para o seu dia a dia. Meus temas favoritos são flora, fauna e fantasia, mas estou sempre aberta a novas ideias. Tatuo tanto em cores quanto em preto e cinza.",
-          "Através da minha arte, busco lembrar do mundo maravilhoso, exuberante e mágico lá fora, ajudando as pessoas a se apaixonarem pela natureza e a se reconectarem com o poder curativo da imaginação humana.",
+          "Oi! Sou a Flávia, mas pode me chamar de Fufu 🙂 Brasileira, passei quatro anos em Lisboa e agora vivo em Madrid.",
+          "Meu trabalho é expressivo e ilustrativo, mas também aconchegante e delicado. Adoro criar peças que trazem um toque de encantamento, ternura e magia para o seu dia a dia. Meu objetivo é lembrar as pessoas do mundo maravilhoso, exuberante e mágico que existe lá fora e dentro da imaginação de cada um de nós! Meus temas favoritos são flora, fauna e fantasia, mas estou sempre aberta a novas ideias. Tatuo tanto em cores quanto em preto e cinza.",
           "Confira meu Instagram, flashbook e loja para ver meus trabalhos mais recentes. Se você está procurando uma tatuagem ou uma pintura ou ilustração sob encomenda, sinta-se à vontade para entrar em contato por qualquer canal!",
         ],
       },
@@ -247,9 +245,8 @@ const resources = {
       aboutme: {
         title: "Sobre mí",
         paragraphs: [
-          "¡Hola! Soy Flávia, pero puedes llamarme Fufu 🙂 Originaria de Brasil, viví cuatro años en Lisboa y ahora estoy basada en Madrid. Siempre amé dibujar y pintar, y en los últimos tres años, estoy viviendo el sueño de hacerlo profesionalmente.",
-          "Mi trabajo fluye naturalmente alrededor de los temas y técnicas que me inspiran. Me encanta crear diseños expresivos e ilustrativos, pero a la vez acogedores y tiernos — piezas que traen un toque de encanto, calidez y magia a tu día a día. Mis temas favoritos son la flora, la fauna y la fantasía, pero siempre estoy abierta a nuevas ideas. Tatúo tanto a color como en blanco y negro.",
-          "A través de mi arte, busco recordarnos el mundo maravilloso, exuberante y mágico de afuera, ayudando a las personas a enamorarse de la naturaleza y a reconectar con el poder sanador de la imaginación humana.",
+          "¡Hola! Soy Flávia, pero puedes llamarme Fufu 🙂 Soy brasileña, viví cuatro años en Lisboa y ahora vivo en Madrid.",
+          "Mi trabajo es expresivo e ilustrativo, pero también acogedor y delicado. Me encanta crear piezas que traen un toque de encanto, ternura y magia a tu día a día. ¡Mi objetivo es recordar a las personas el mundo maravilloso, exuberante y mágico que existe ahí fuera y dentro de la imaginación de cada uno de nosotros! Mis temas favoritos son la flora, la fauna y la fantasía, pero siempre estoy abierta a nuevas ideas. Tatúo tanto a color como en blanco y negro.",
           "Echa un vistazo a mi Instagram, flashbook y tienda para ver mis trabajos más recientes. Si buscas un tatuaje o una pintura o ilustración por encargo, ¡no dudes en contactarme por cualquier canal!",
         ],
       },

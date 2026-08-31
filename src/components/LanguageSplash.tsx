@@ -38,19 +38,19 @@ export default function LanguageSplash({ onDone }: { onDone: () => void }) {
       <div className="flex flex-col sm:flex-row items-stretch gap-4 mt-4 w-full max-w-xs sm:max-w-none sm:w-auto text-xl md:text-2xl uppercase font-medium tracking-wider">
         <button
           onClick={() => select("pt")}
-          className="w-full sm:w-auto px-8 py-3 bg-home-accent text-white rounded-full hover:bg-home-accent-dark transition-colors cursor-pointer"
+          className="w-full uppercase sm:w-auto px-8 py-3 bg-home-accent text-white rounded-full hover:bg-home-accent-dark transition-colors cursor-pointer"
         >
           Português
         </button>
         <button
           onClick={() => select("en")}
-          className="w-full sm:w-auto px-8 py-3 bg-home-accent text-white rounded-full hover:bg-home-accent-dark transition-colors cursor-pointer"
+          className="w-full uppercase sm:w-auto px-8 py-3 bg-home-accent text-white rounded-full hover:bg-home-accent-dark transition-colors cursor-pointer"
         >
           English
         </button>
         <button
           onClick={() => select("es")}
-          className="w-full sm:w-auto px-8 py-3 bg-home-accent text-white rounded-full hover:bg-home-accent-dark transition-colors cursor-pointer"
+          className="w-full uppercase sm:w-auto px-8 py-3 bg-home-accent text-white rounded-full hover:bg-home-accent-dark transition-colors cursor-pointer"
         >
           Español
         </button>
