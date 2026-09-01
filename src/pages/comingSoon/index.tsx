@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import StickerTitle from "../../components/StickerTitle";
+import Seo from "../../components/Seo";
 import jelloImg from "../../assets/images/jello.webp";
 import tanookiImg from "../../assets/images/sticker_tanooki.webp";
 import duckImg from "../../assets/images/sticker_duck.webp";
@@ -28,8 +29,16 @@ const ComingSoon = ({ titleKey }: { titleKey: string }) => {
   // is reused between /painting and /shop), never repeating the previous one.
   const sticker = useMemo(() => pickSticker(), [pathname]);
 
+  // titleKey is "painting.title" | "shop.title" → the seo.* sub-key.
+  const seoKey = titleKey.split(".")[0];
+
   return (
     <div className="w-full">
+      <Seo
+        title={t(`seo.${seoKey}.title`)}
+        description={t(`seo.${seoKey}.description`)}
+        path={pathname}
+      />
       <div className="text-center">
         <StickerTitle className="text-6xl md:text-8xl mt-6 mb-6">
           {t(titleKey)}

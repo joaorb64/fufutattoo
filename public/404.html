@@ -3,6 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <title>Fufu</title>
+    <!-- This shim immediately redirects to the real route; don't let a crawler
+         index the transient 404 itself. -->
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href="https://fufuart.com/" />
     <script type="text/javascript">
       // Single Page Apps for GitHub Pages
       // https://github.com/rafgraph/spa-github-pages

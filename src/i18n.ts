@@ -124,11 +124,54 @@ const resources = {
         loading: "Loading...",
         notFound: "Flash not found.",
         clearTags: "Clear",
+        imageAlt: "{{name}} — tattoo flash by Fufu",
         priceFrom: "from",
         moreTags: "▼ more tags",
         fewerTags: "▲ fewer tags",
         pricingNote:
           "Prices apply to the sizes shown. You can go bigger for an additional cost. Small changes to the design or colors are also possible - let's talk!",
+      },
+      seo: {
+        siteName: "Fufu",
+        home: {
+          title: "Fufu - Tattoo, Painting & Illustration in Madrid",
+          description:
+            "Fufu (Flávia) - tattoo artist, painter and illustrator based in Madrid. Browse the flashbook, book a custom tattoo or commission a painting or illustration.",
+        },
+        about: {
+          title: "About Fufu - Tattoo Artist & Illustrator | Fufu",
+          description:
+            "Meet Flávia (Fufu), a Brazilian tattoo artist, painter and illustrator in Madrid. Expressive, illustrative work in color and black & gray - flora, fauna and fantasy.",
+        },
+        flashes: {
+          title: "Flashbook - Available Tattoo Designs | Fufu",
+          description:
+            "Fufu's flashbook: ready-to-book tattoo designs with prices and recommended sizes. Filter by theme and find your next tattoo.",
+        },
+        info: {
+          title: "Session & Care - Before and After Your Tattoo | Fufu",
+          description:
+            "How to prepare for your tattoo session with Fufu and how to care for it while it heals: deposits, rescheduling, pre-care, aftercare and touch-ups.",
+        },
+        studio: {
+          title: "The Studio | Fufu",
+          description:
+            "Where Fufu tattoos - a relaxed, cozy and well-equipped space for safe and comfortable sessions.",
+        },
+        painting: {
+          title: "Painting & Illustration | Fufu",
+          description:
+            "Commissioned paintings and illustrations by Fufu (Flávia) - expressive, illustrative and cozy artwork. Coming soon.",
+        },
+        shop: {
+          title: "Shop | Fufu",
+          description: "Prints and original artwork by Fufu. Coming soon.",
+        },
+        flashDetail: {
+          title: "{{name}} - Tattoo Flash | Fufu",
+          descriptionFallback:
+            "{{name}} - a ready-to-book tattoo flash by Fufu, from €{{price}}. See sizes and book your session.",
+        },
       },
     },
   },
@@ -231,11 +274,54 @@ const resources = {
         loading: "Carregando...",
         notFound: "Flash não encontrado.",
         clearTags: "Limpar",
+        imageAlt: "{{name}} — flash de tatuagem da Fufu",
         priceFrom: "a partir de",
         moreTags: "▼ mais tags",
         fewerTags: "▲ menos tags",
         pricingNote:
           "Valores se aplicam aos tamanhos descritos. É possível aumentar o tamanho, com um acréscimo no valor. Também é possível fazer pequenas alterações no design ou nas cores, vamos conversar!",
+      },
+      seo: {
+        siteName: "Fufu",
+        home: {
+          title: "Fufu - Tatuagem, Pintura e Ilustração em Madrid",
+          description:
+            "Fufu (Flávia) - tatuadora, pintora e ilustradora em Madrid. Veja o flashbook, agende uma tatuagem personalizada ou encomende uma pintura ou ilustração.",
+        },
+        about: {
+          title: "Sobre a Fufu - Tatuadora e Ilustradora | Fufu",
+          description:
+            "Conheça a Flávia (Fufu), tatuadora, pintora e ilustradora brasileira em Madrid. Trabalho expressivo e ilustrativo, em cor e preto e cinza - flora, fauna e fantasia.",
+        },
+        flashes: {
+          title: "Flashbook - Tatuagens Disponíveis | Fufu",
+          description:
+            "O flashbook da Fufu: desenhos de tatuagem prontos para agendar, com preços e tamanhos recomendados. Filtre por tema e encontre sua próxima tatuagem.",
+        },
+        info: {
+          title: "Sessão e Cuidados - Antes e Depois da Tatuagem | Fufu",
+          description:
+            "Como se preparar para a sessão com a Fufu e como cuidar da tatuagem na cicatrização: sinal, remarcação, pré-cuidados, pós-cuidados e retoques.",
+        },
+        studio: {
+          title: "O Estúdio | Fufu",
+          description:
+            "Onde a Fufu tatua - um espaço tranquilo, acolhedor e bem equipado para sessões seguras e confortáveis.",
+        },
+        painting: {
+          title: "Pintura e Ilustração | Fufu",
+          description:
+            "Pinturas e ilustrações por encomenda da Fufu (Flávia) - arte expressiva, ilustrativa e acolhedora. Em breve.",
+        },
+        shop: {
+          title: "Loja | Fufu",
+          description: "Prints e artes originais da Fufu. Em breve.",
+        },
+        flashDetail: {
+          title: "{{name}} - Flash de Tatuagem | Fufu",
+          descriptionFallback:
+            "{{name}} - um flash de tatuagem da Fufu pronto para agendar, a partir de €{{price}}. Veja os tamanhos e agende sua sessão.",
+        },
       },
     },
   },
@@ -338,11 +424,54 @@ const resources = {
         loading: "Cargando...",
         notFound: "Flash no encontrado.",
         clearTags: "Limpiar",
+        imageAlt: "{{name}} — flash de tatuaje de Fufu",
         priceFrom: "desde",
         moreTags: "▼ más etiquetas",
         fewerTags: "▲ menos etiquetas",
         pricingNote:
           "Los precios corresponden a los tamaños indicados. Es posible aumentar el tamaño, con un incremento en el precio. También se pueden hacer pequeños cambios en el diseño o los colores, ¡hablemos!",
+      },
+      seo: {
+        siteName: "Fufu",
+        home: {
+          title: "Fufu - Tatuaje, Pintura e Ilustración en Madrid",
+          description:
+            "Fufu (Flávia) - tatuadora, pintora e ilustradora en Madrid. Mira el flashbook, reserva un tatuaje personalizado o encarga una pintura o ilustración.",
+        },
+        about: {
+          title: "Sobre Fufu - Tatuadora e Ilustradora | Fufu",
+          description:
+            "Conoce a Flávia (Fufu), tatuadora, pintora e ilustradora brasileña en Madrid. Trabajo expresivo e ilustrativo, en color y negro y gris - flora, fauna y fantasía.",
+        },
+        flashes: {
+          title: "Flashbook - Tatuajes Disponibles | Fufu",
+          description:
+            "El flashbook de Fufu: diseños de tatuaje listos para reservar, con precios y tamaños recomendados. Filtra por tema y encuentra tu próximo tatuaje.",
+        },
+        info: {
+          title: "Sesión y Cuidados - Antes y Después del Tatuaje | Fufu",
+          description:
+            "Cómo prepararte para la sesión con Fufu y cómo cuidar tu tatuaje mientras cicatriza: señal, cambios de cita, precuidado, poscuidado y retoques.",
+        },
+        studio: {
+          title: "El Estudio | Fufu",
+          description:
+            "Donde tatúa Fufu - un espacio relajado, acogedor y bien equipado para sesiones seguras y cómodas.",
+        },
+        painting: {
+          title: "Pintura e Ilustración | Fufu",
+          description:
+            "Pinturas e ilustraciones por encargo de Fufu (Flávia) - arte expresivo, ilustrativo y acogedor. Muy pronto.",
+        },
+        shop: {
+          title: "Tienda | Fufu",
+          description: "Láminas y obra original de Fufu. Muy pronto.",
+        },
+        flashDetail: {
+          title: "{{name}} - Flash de Tatuaje | Fufu",
+          descriptionFallback:
+            "{{name}} - un flash de tatuaje de Fufu listo para reservar, desde €{{price}}. Mira los tamaños y reserva tu sesión.",
+        },
       },
     },
   },
@@ -371,5 +500,15 @@ i18n
       caches: ["localStorage", "cookie"],
     },
   });
+
+// Keep <html lang> in sync with the active language (it starts as "pt" in
+// index.html) so assistive tech and search engines see the right language.
+const applyHtmlLang = (lng: string) => {
+  if (typeof document !== "undefined") {
+    document.documentElement.lang = resolveLocale(lng);
+  }
+};
+i18n.on("languageChanged", applyHtmlLang);
+applyHtmlLang(i18n.language);
 
 export default i18n;

@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import SplashImage from "../../components/SplashImage";
 import StickerTitle from "../../components/StickerTitle";
+import Seo from "../../components/Seo";
 import aboutMeImg from "../../assets/images/aboutme.webp";
 import beeImg from "../../assets/images/bee2.webp";
 
@@ -12,6 +13,11 @@ const AboutMe = () => {
 
   return (
     <>
+      <Seo
+        title={t("seo.about.title")}
+        description={t("seo.about.description")}
+        path="/about"
+      />
       {/* ── Desktop: centered title, then text left + splash-framed photo right ── */}
       <div className="hidden md:block w-full pt-6 pb-12 px-6 lg:px-10 xl:px-16">
         <div className="text-center mb-8 lg:mb-12 xl:mb-16">

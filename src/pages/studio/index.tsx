@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import StickerTitle from "../../components/StickerTitle";
+import Seo from "../../components/Seo";
 import studioImg from "./studio.png";
 
 const Studio = (props: {}) => {
@@ -7,6 +8,11 @@ const Studio = (props: {}) => {
 
   return (
     <div>
+      <Seo
+        title={t("seo.studio.title")}
+        description={t("seo.studio.description")}
+        path="/studio"
+      />
       <div className="text-center">
         <StickerTitle className="text-6xl md:text-8xl mt-6 mb-6">
           {t("studio.title")}

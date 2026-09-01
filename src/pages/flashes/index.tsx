@@ -7,6 +7,7 @@ import { resolveLocale } from "../../i18n";
 import { fetchFlashes } from "../../flashes";
 import { tagLabels, tagSynonyms, type LTag } from "./tagUtils";
 import StickerTitle from "../../components/StickerTitle";
+import Seo from "../../components/Seo";
 import mushroomsSticker from "../../assets/images/sticker_mushrooms.webp";
 
 export default function Flashes() {
@@ -130,6 +131,11 @@ export default function Flashes() {
 
   return (
     <div className="col w-full px-4 sm:px-6">
+      <Seo
+        title={t("seo.flashes.title")}
+        description={t("seo.flashes.description")}
+        path="/flashes"
+      />
       <div className="text-center">
         <StickerTitle
           sticker={mushroomsSticker}

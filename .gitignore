@@ -11,11 +11,15 @@ node_modules
 dist
 dist-ssr
 *.local
+.cache
 
 # Build output of scripts/generateFlashesIndex.js — regenerated on every
 # build (locally and in CI) from public/flashes/*/data.yaml + tags.yaml.
 public/flashes.json
 public/flashes_processed/
+
+# Regenerated on every build by scripts/generateSitemap.js.
+public/sitemap.xml
 
 # Editor directories and files
 .vscode/*

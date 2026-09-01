@@ -13,6 +13,7 @@ export default function Carousel(props: {
   preferThumbnail?: boolean;
   showDots?: boolean;
   className?: string;
+  alt?: string;
   onIndexChange?: (i: number) => void;
 }) {
   const {
@@ -22,6 +23,7 @@ export default function Carousel(props: {
     preferThumbnail = false,
     showDots = true,
     className = "",
+    alt = "",
     onIndexChange,
   } = props;
   const [index, setIndex] = useState<number>(initialIndex);
@@ -106,7 +108,11 @@ export default function Carousel(props: {
           ) : (
             <img
               src={src}
-              alt="current"
+              alt={
+                alt
+                  ? `${alt}${images.length > 1 ? ` (${index + 1}/${images.length})` : ""}`
+                  : "current"
+              }
               className="max-w-full max-h-full object-contain"
             />
           )}

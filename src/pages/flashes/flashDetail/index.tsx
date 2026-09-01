@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import Tag from "../tag";
 import Carousel from "../../../components/Carousel";
 import FlashItem from "../flashItem";
+import Seo from "../../../components/Seo";
+import { FlashStructuredData } from "../../../components/StructuredData";
 import { WHATSAPP_URL } from "../../../config";
 import { resolveLocale } from "../../../i18n";
 import { fetchFlashes } from "../../../flashes";
@@ -79,6 +81,12 @@ const FlashDetail = () => {
   if (!flash) {
     return (
       <div className="min-h-screen flex items-center justify-center">
+        <Seo
+          title={t("flashes.notFound", "Flash not found.")}
+          description={t("flashes.notFound", "Flash not found.")}
+          path={`/flashes/${flashId}`}
+          noindex
+        />
         <p>{t("flashes.notFound", "Flash not found.")}</p>
       </div>
     );
@@ -86,6 +94,20 @@ const FlashDetail = () => {
 
   const images = flash.images || [];
   const flashName = flash.name[locale] || flash.name.en || flash.name.pt;
+  const flashDescription =
+    flash.description?.[locale] ||
+    flash.description?.en ||
+    flash.description?.pt ||
+    "";
+  const flashPath = `/flashes/${flashId}`;
+  const flashImage =
+    images[0]?.original ?? images[0]?.watermarked ?? images[0]?.thumbnail;
+  const seoDescription =
+    flashDescription ||
+    t("seo.flashDetail.descriptionFallback", {
+      name: flashName,
+      price: flash.price,
+    });
   const flashUrl =
     typeof window !== "undefined"
       ? window.location.origin + window.location.pathname
@@ -98,6 +120,21 @@ const FlashDetail = () => {
 
   return (
     <div className="min-h-screen p-4 w-full">
+      <Seo
+        title={t("seo.flashDetail.title", { name: flashName })}
+        description={seoDescription}
+        path={flashPath}
+        image={flashImage}
+        type="article"
+      />
+      <FlashStructuredData
+        name={flashName}
+        description={flashDescription || undefined}
+        image={flashImage}
+        price={flash.price}
+        path={flashPath}
+        flashbookLabel={t("nav.flashes")}
+      />
       <button
         onClick={() => navigate("/flashes")}
         className="mb-4 hover:text-brand font-bold flex items-center gap-2 cursor-pointer"
@@ -116,6 +153,7 @@ const FlashDetail = () => {
               <div className="w-full h-96 rounded-lg overflow-hidden">
                 <Carousel
                   images={images}
+                  alt={flashName}
                   controlledIndex={imageIndex}
                   showDots={false}
                   onIndexChange={(i) => setImageIndex(i)}
@@ -139,7 +177,7 @@ const FlashDetail = () => {
                     >
                       <img
                         src={images[i].thumbnail}
-                        alt={`Thumbnail ${i + 1}`}
+                        alt={`${flashName} — ${t("flashes.option", { number: i + 1 })}`}
                         className="w-full h-24 object-cover rounded-t-lg"
                       />
                       <div

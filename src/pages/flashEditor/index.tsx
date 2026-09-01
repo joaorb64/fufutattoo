@@ -494,6 +494,9 @@ export default function FlashEditor() {
 
   return (
     <div className="min-h-dvh bg-zinc-50 text-zinc-900 py-10 px-4">
+      {/* Internal tool — keep it out of search indexes. */}
+      <title>Flash editor</title>
+      <meta name="robots" content="noindex,nofollow" />
       <div className="max-w-2xl mx-auto bg-white rounded-lg shadow p-6 sm:p-8">
         <h1 className="text-2xl font-bold mb-1">
           {originalSlug ? "Editar flash" : "Adicionar novo flash"}

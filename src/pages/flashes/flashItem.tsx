@@ -23,7 +23,7 @@ const FlashItem = (props: { flash: any; flashId: string }) => {
         {src ? (
           <img
             src={src}
-            alt={flashName}
+            alt={t("flashes.imageAlt", { name: flashName })}
             className="w-full h-full object-contain"
           />
         ) : (

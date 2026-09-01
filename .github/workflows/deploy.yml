@@ -23,6 +23,23 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      # Chromium for the prerender step (scripts/prerender.js). npm ci downloads
+      # it on a cache miss; this keeps subsequent runs fast.
+      - name: Cache Puppeteer browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: puppeteer-${{ runner.os }}-
+      # Prerendered top-level pages. scripts/prerender.js validates this against
+      # a hash of the built bundle, so a flash-only edit (which never touches the
+      # bundle) reuses it and skips launching a browser entirely.
+      - name: Cache prerendered pages
+        uses: actions/cache@v4
+        with:
+          path: .cache/prerender
+          key: prerender-${{ hashFiles('src/**', 'index.html', 'scripts/prerender.js', 'package-lock.json') }}
+          restore-keys: prerender-
       - run: npm ci
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3

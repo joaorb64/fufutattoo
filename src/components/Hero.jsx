@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import Seo from "./Seo";
 import SplashImage from "./SplashImage";
 import heroImg from "../assets/images/mainpage.webp";
 import ratImg from "../assets/images/rat.webp";
@@ -41,6 +42,11 @@ export default function Hero() {
 
   return (
     <section className="min-h-dvh w-full grid md:grid-cols-[1fr_1fr] lg:grid-cols-[11fr_9fr] xl:grid-cols-[3fr_2fr] absolute top-0 overflow-hidden content-center">
+      <Seo
+        title={t("seo.home.title")}
+        description={t("seo.home.description")}
+        path="/"
+      />
       {/* ── Mobile: splash photo floats behind; title/nav/footer float above ── */}
       <div className="md:hidden relative w-full h-dvh flex flex-col justify-between">
         {/* Splash photo — floating background, bigger than the screen, doesn't

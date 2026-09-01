@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import StickerTitle from "../../components/StickerTitle";
+import Seo from "../../components/Seo";
 import jelloImg from "../../assets/images/jello.webp";
 import tanookiImg from "../../assets/images/sticker_tanooki.webp";
 import duckImg from "../../assets/images/sticker_duck.webp";
@@ -75,6 +76,11 @@ const Information = () => {
 
   return (
     <div>
+      <Seo
+        title={t("seo.info.title")}
+        description={t("seo.info.description")}
+        path="/prep-care"
+      />
       <div className="text-center">
         <StickerTitle
           sticker={jelloImg}
