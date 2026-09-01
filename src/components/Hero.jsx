@@ -78,10 +78,12 @@ export default function Hero() {
 
         <div className="relative w-full">
           <div className="px-4">
-            <ul className="w-full font-[BohoSans] text-5xl flex flex-col gap-2 tracking-[0.05em] items-end">
+            <ul className="w-full font-[BohoSans] text-4xl flex flex-col gap-2 tracking-[0.05em] items-end">
               <HeroButton to={"/about"}>{t("hero.about")}</HeroButton>
-              <HeroButton to={"/prep-care"}>{t("hero.info")}</HeroButton>{" "}
               <HeroButton to="/flashes">{t("hero.flashes")}</HeroButton>
+              <HeroButton to={"/prep-care"}>{t("hero.info")}</HeroButton>
+              <HeroButton to={"/painting"}>{t("hero.painting")}</HeroButton>
+              <HeroButton to={"/shop"}>{t("hero.shop")}</HeroButton>
             </ul>
           </div>
 
@@ -141,10 +143,12 @@ export default function Hero() {
 
         {/* Nav links + socials */}
         <div className="w-full px-6 lg:px-10 xl:px-16">
-          <ul className="w-full mt-12 font-[BohoSans] text-2xl lg:text-4xl xl:text-5xl flex flex-col gap-2 md:gap-4 tracking-[0.05em] items-start">
+          <ul className="w-full mt-8 lg:mt-10 font-[BohoSans] text-2xl lg:text-3xl xl:text-4xl flex flex-col gap-1.5 md:gap-2.5 tracking-[0.05em] items-start">
             <HeroButton to={"/about"}>{t("hero.about")}</HeroButton>
             <HeroButton to="/flashes">{t("hero.flashes")}</HeroButton>
             <HeroButton to={"/prep-care"}>{t("hero.info")}</HeroButton>
+            <HeroButton to={"/painting"}>{t("hero.painting")}</HeroButton>
+            <HeroButton to={"/shop"}>{t("hero.shop")}</HeroButton>
           </ul>
 
           <div className="flex mt-8 flex-col gap-2">

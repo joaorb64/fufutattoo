@@ -1,28 +1,8 @@
 import { useTranslation } from "react-i18next";
 import SplashImage from "../../components/SplashImage";
+import StickerTitle from "../../components/StickerTitle";
 import aboutMeImg from "../../assets/images/aboutme.webp";
 import beeImg from "../../assets/images/bee2.webp";
-
-const Title = ({ className = "" }: { className?: string }) => {
-  const { t } = useTranslation();
-  return (
-    <div className={`relative inline-block ${className}`}>
-      <img
-        src={beeImg}
-        alt=""
-        aria-hidden
-        className="absolute top-1/2 -translate-y-4/7 -right-24 lg:-right-32 xl:-right-36 w-20 lg:w-28 xl:w-32 -rotate-15 pointer-events-none select-none"
-      />
-      <h1 className="relative font-[BohoSans]">{t("aboutme.title")}</h1>
-      <img
-        src={beeImg}
-        alt=""
-        aria-hidden
-        className="absolute top-1/2 -translate-y-4/7 -left-24 lg:-left-32 xl:-left-36 w-20 lg:w-28 xl:w-32 rotate-15 pointer-events-none select-none"
-      />
-    </div>
-  );
-};
 
 const AboutMe = () => {
   const { t } = useTranslation();
@@ -35,7 +15,13 @@ const AboutMe = () => {
       {/* ── Desktop: centered title, then text left + splash-framed photo right ── */}
       <div className="hidden md:block w-full py-12 px-6 lg:px-10 xl:px-16">
         <div className="text-center mb-8 lg:mb-12 xl:mb-16">
-          <Title className="text-5xl lg:text-6xl xl:text-8xl" />
+          <StickerTitle
+            sticker={beeImg}
+            tiltDeg={15}
+            className="text-5xl lg:text-6xl xl:text-8xl"
+          >
+            {t("aboutme.title")}
+          </StickerTitle>
         </div>
 
         <div className="flex items-center gap-8 lg:gap-12 xl:gap-16">
@@ -61,7 +47,13 @@ const AboutMe = () => {
 
       {/* ── Mobile: title, then photo, then text ─────────────────────── */}
       <div className="md:hidden w-full flex flex-col items-center px-6 pt-8 pb-8">
-        <Title className="text-5xl mb-6 text-center" />
+        <StickerTitle
+          sticker={beeImg}
+          tiltDeg={15}
+          className="text-5xl mb-6 text-center"
+        >
+          {t("aboutme.title")}
+        </StickerTitle>
 
         <SplashImage
           src={aboutMeImg}

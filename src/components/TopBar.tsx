@@ -12,10 +12,11 @@ const TopBar = () => {
   if (!showTopBar) return null;
 
   const navLinks = [
-    { to: "/", key: "nav.home" },
     { to: "/about", key: "nav.about" },
     { to: "/flashes", key: "nav.flashes" },
     { to: "/prep-care", key: "nav.info" },
+    { to: "/painting", key: "nav.painting" },
+    { to: "/shop", key: "nav.shop" },
   ];
 
   const LangSwitcher = ({ className = "" }: { className?: string }) => (

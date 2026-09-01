@@ -28,11 +28,17 @@ const resources = {
   en: {
     translation: {
       nav: {
-        home: "Home",
         about: "About me",
         flashes: "Flashbook",
         info: "Session & Care",
         studio: "Studio",
+        painting: "Painting & Illustration",
+        shop: "Shop",
+      },
+      painting: { title: "Painting & Illustration" },
+      shop: { title: "Shop" },
+      comingSoon: {
+        heading: "Coming soon",
       },
       topbar: {
         title: "FUFU",
@@ -47,6 +53,8 @@ const resources = {
         info: "Session & Care",
         studio: "Studio",
         flashes: "Flashbook",
+        painting: "Painting & Illustration",
+        shop: "Shop",
       },
       aboutme: {
         title: "About me",
@@ -125,11 +133,17 @@ const resources = {
   pt: {
     translation: {
       nav: {
-        home: "Home",
         about: "Sobre mim",
         flashes: "Flashbook",
         info: "Sessão e Cuidados",
         studio: "O Estúdio",
+        painting: "Pintura e Ilustração",
+        shop: "Loja",
+      },
+      painting: { title: "Pintura e Ilustração" },
+      shop: { title: "Loja" },
+      comingSoon: {
+        heading: "Em breve",
       },
       topbar: {
         title: "FUFU",
@@ -144,6 +158,8 @@ const resources = {
         info: "Sessão e Cuidados",
         studio: "O Estúdio",
         flashes: "Flashbook",
+        painting: "Pintura e Ilustração",
+        shop: "Loja",
       },
       aboutme: {
         title: "Sobre mim",
@@ -222,11 +238,17 @@ const resources = {
   es: {
     translation: {
       nav: {
-        home: "Inicio",
         about: "Sobre mí",
         flashes: "Flashbook",
         info: "Sesión y Cuidados",
         studio: "Estudio",
+        painting: "Pintura y Ilustración",
+        shop: "Tienda",
+      },
+      painting: { title: "Pintura y Ilustración" },
+      shop: { title: "Tienda" },
+      comingSoon: {
+        heading: "Muy pronto",
       },
       topbar: {
         title: "FUFU",
@@ -241,12 +263,14 @@ const resources = {
         info: "Sesión y Cuidados",
         studio: "Estudio",
         flashes: "Flashbook",
+        painting: "Pintura y Ilustración",
+        shop: "Tienda",
       },
       aboutme: {
         title: "Sobre mí",
         paragraphs: [
           "¡Hola! Soy Flávia, pero puedes llamarme Fufu 🙂 Soy brasileña, viví cuatro años en Lisboa y ahora vivo en Madrid.",
-          "Mi trabajo es expresivo e ilustrativo, pero también acogedor y delicado. Me encanta crear piezas que traen un toque de encanto, ternura y magia a tu día a día. ¡Mi objetivo es recordar a las personas el mundo maravilloso, exuberante y mágico que existe ahí fuera y dentro de la imaginación de cada uno de nosotros! Mis temas favoritos son la flora, la fauna y la fantasía, pero siempre estoy abierta a nuevas ideas. Tatúo tanto a color como en blanco y negro.",
+          "Mi trabajo es expresivo y ilustrativo, pero también acogedor y delicado. Me encanta crear piezas que traen un toque de encanto, ternura y magia a tu día a día. Mi objetivo es recordar a las personas el mundo maravilloso, exuberante y mágico que existe ahí fuera y dentro de la imaginación de cada uno de nosotros. Mis temas favoritos son la flora, la fauna y la fantasía, pero siempre estoy abierta a nuevas ideas. Tatúo tanto a color como en negro y gris.",
           "Echa un vistazo a mi Instagram, flashbook y tienda para ver mis trabajos más recientes. Si buscas un tatuaje o una pintura o ilustración por encargo, ¡no dudes en contactarme por cualquier canal!",
         ],
       },

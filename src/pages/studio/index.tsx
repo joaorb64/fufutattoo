@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import StickerTitle from "../../components/StickerTitle";
 import studioImg from "./studio.png";
 
 const Studio = (props: {}) => {
@@ -7,9 +8,9 @@ const Studio = (props: {}) => {
   return (
     <div>
       <div className="text-center">
-        <h1 className="text-6xl md:text-8xl font-[BohoSans] mt-6 mb-6">
+        <StickerTitle className="text-6xl md:text-8xl mt-6 mb-6">
           {t("studio.title")}
-        </h1>
+        </StickerTitle>
       </div>
 
       <div className="mx-auto px-4 sm:px-6 lg:px-8">

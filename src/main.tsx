@@ -14,6 +14,7 @@ import FlashDetail from "./pages/flashes/flashDetail";
 import AboutMe from "./pages/aboutme/index.js";
 import Information from "./pages/information/index.js";
 import Studio from "./pages/studio/index.js";
+import ComingSoon from "./pages/comingSoon/index.js";
 import FlashEditor from "./pages/flashEditor";
 import LanguageSplash, { hasChosenLanguage } from "./components/LanguageSplash";
 
@@ -50,6 +51,14 @@ const router = createBrowserRouter(
         {
           path: "/studio",
           element: <Studio />,
+        },
+        {
+          path: "/painting",
+          element: <ComingSoon titleKey="painting.title" />,
+        },
+        {
+          path: "/shop",
+          element: <ComingSoon titleKey="shop.title" />,
         },
       ],
     },

@@ -35,7 +35,7 @@ const FlashItem = (props: { flash: any; flashId: string }) => {
 
       {/* Polaroid caption — stacked on mobile, title + price side by side on desktop */}
       <div className="pt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-0.5 md:gap-2">
-        <p className="font-[BohoSans] text-3xl sm:text-2xl tracking-wide uppercase leading-tight truncate font-medium">
+        <p className="font-[BohoSans] text-2xl sm:text-2xl lg:text-3xl tracking-wide uppercase leading-tight truncate font-medium">
           {flashName}
         </p>
         <p className="shrink-0 leading-tight text-left md:text-right">

@@ -21,36 +21,34 @@ export default function LanguageSplash({ onDone }: { onDone: () => void }) {
   return (
     <div className="fixed inset-0 z-9999 bg-[#ffeedc] flex flex-col items-center justify-center gap-8 p-6 font-[BohoSans] text-center">
       <div>
-        <h1
-          className="text-home-accent font-bold tracking-widest"
-          style={{ fontSize: "clamp(3rem, 12vw, 7rem)" }}
-        >
+        <h1 className="text-home-accent font-bold tracking-widest text-7xl md:text-8xl pl-2">
+          {/* pl-2 is there to make the text align properly */}
           FUFU
         </h1>
-        <p className="text-zinc-800 uppercase text-2xl md:text-4xl tracking-wider">
+        <p className="text-zinc-800 uppercase text-3xl md:text-4xl tracking-wider">
           {t("hero.artist")}
         </p>
-        <p className="text-zinc-600 uppercase text-xl md:text-3xl tracking-wider">
+        <p className="text-zinc-600 uppercase text-2xl md:text-3xl tracking-wider">
           {t("hero.location")}
         </p>
       </div>
 
-      <div className="flex flex-col sm:flex-row items-stretch gap-4 mt-4 w-full max-w-xs sm:max-w-none sm:w-auto text-xl md:text-2xl uppercase font-medium tracking-wider">
+      <div className="flex flex-col items-stretch gap-4 mt-4 w-full max-w-xs text-xl md:text-2xl uppercase font-medium tracking-wider">
         <button
           onClick={() => select("pt")}
-          className="w-full uppercase sm:w-auto px-8 py-3 bg-home-accent text-white rounded-full hover:bg-home-accent-dark transition-colors cursor-pointer"
+          className="w-full px-8 py-3 bg-home-accent text-white rounded-full hover:bg-home-accent-dark transition-colors cursor-pointer"
         >
           Português
         </button>
         <button
           onClick={() => select("en")}
-          className="w-full uppercase sm:w-auto px-8 py-3 bg-home-accent text-white rounded-full hover:bg-home-accent-dark transition-colors cursor-pointer"
+          className="w-full px-8 py-3 bg-home-accent text-white rounded-full hover:bg-home-accent-dark transition-colors cursor-pointer"
         >
           English
         </button>
         <button
           onClick={() => select("es")}
-          className="w-full uppercase sm:w-auto px-8 py-3 bg-home-accent text-white rounded-full hover:bg-home-accent-dark transition-colors cursor-pointer"
+          className="w-full px-8 py-3 bg-home-accent text-white rounded-full hover:bg-home-accent-dark transition-colors cursor-pointer"
         >
           Español
         </button>
