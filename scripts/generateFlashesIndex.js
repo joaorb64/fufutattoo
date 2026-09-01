@@ -11,9 +11,41 @@ const outputFile = path.resolve("public/flashes.json");
 const outputImagesDir = path.resolve("public/flashes_processed");
 const tagsDictFile = path.resolve("public/flashes/tags.yaml");
 
+// Incremental image cache. Maps "<folder>/<file>" -> sha1 of the source bytes,
+// alongside the processing params in effect when it was written. An image is
+// only re-run through sharp when its source content changed, its outputs are
+// missing, or the params below changed. Lives outside public/ so it never ends
+// up in the deployed site; in CI it's restored/saved via actions/cache next to
+// public/flashes_processed.
+const imageCacheFile = path.resolve(".cache/flashes/manifest.json");
+
 const watermarkText = ""; // texto da watermark
 const watermarkFraction = 0.04; // tamanho proporcional da fonte
 const thumbnailWidth = 200; // largura do thumbnail
+
+const imageParams = { watermarkText, watermarkFraction, thumbnailWidth };
+
+function loadImageCache() {
+  try {
+    const c = JSON.parse(fs.readFileSync(imageCacheFile, "utf-8"));
+    // Any param change invalidates every entry.
+    if (JSON.stringify(c.params) !== JSON.stringify(imageParams)) {
+      return { params: imageParams, images: {} };
+    }
+    return { params: imageParams, images: c.images || {} };
+  } catch {
+    return { params: imageParams, images: {} };
+  }
+}
+
+function saveImageCache(cache) {
+  fs.mkdirSync(path.dirname(imageCacheFile), { recursive: true });
+  fs.writeFileSync(imageCacheFile, JSON.stringify(cache));
+}
+
+function fileHash(p) {
+  return crypto.createHash("sha1").update(fs.readFileSync(p)).digest("hex");
+}
 
 // Languages generated from the Portuguese source. To add another one, just
 // add its code here (must be a code translatte's languages.js recognizes).
@@ -232,6 +264,10 @@ async function generateFlashesJson() {
   );
   const flashes = {};
   const tagsDict = loadTagsDict();
+  const imageCache = loadImageCache();
+  const nextImageCache = { params: imageParams, images: {} };
+  let processed = 0;
+  let skipped = 0;
 
   const flashFolders = fs
     .readdirSync(flashesDir, { withFileTypes: true })
@@ -251,68 +287,95 @@ async function generateFlashesJson() {
   }
   if (await syncTagsDict(tagsDict, [...allTags])) saveTagsDict(tagsDict);
 
-  for (const folder of flashFolders) {
-    try {
-      const folderPath = path.join(flashesDir, folder.name);
-      const files = fs.readdirSync(folderPath);
+  async function processFolder(folder) {
+    const folderPath = path.join(flashesDir, folder.name);
+    const files = fs.readdirSync(folderPath);
 
-      const yamlFile = files.find((f) => f.endsWith(".yaml"));
-      if (!yamlFile) continue;
+    const yamlFile = files.find((f) => f.endsWith(".yaml"));
+    if (!yamlFile) return;
 
-      const yamlPath = path.join(folderPath, yamlFile);
-      const originalYamlText = fs.readFileSync(yamlPath, "utf-8");
-      const data = yaml.load(originalYamlText) || {};
+    const yamlPath = path.join(folderPath, yamlFile);
+    const originalYamlText = fs.readFileSync(yamlPath, "utf-8");
+    const data = yaml.load(originalYamlText) || {};
 
-      await translateFlash(data);
+    await translateFlash(data);
 
-      // Only touch the file on disk if the cache actually changed something
-      // (avoids re-triggering --watch on our own write for no reason).
-      const newYamlText = yaml.dump(data);
-      if (newYamlText !== originalYamlText) {
-        fs.writeFileSync(yamlPath, newYamlText);
-      }
+    // Only touch the file on disk if the cache actually changed something
+    // (avoids re-triggering --watch on our own write for no reason).
+    const newYamlText = yaml.dump(data);
+    if (newYamlText !== originalYamlText) {
+      fs.writeFileSync(yamlPath, newYamlText);
+    }
 
-      const images = files.filter((f) => /\.(jpe?g|png)$/i.test(f));
-      const processedFolder = path.join(outputImagesDir, folder.name);
-      if (!fs.existsSync(processedFolder))
-        fs.mkdirSync(processedFolder, { recursive: true });
+    const images = files.filter((f) => /\.(jpe?g|png)$/i.test(f));
+    const processedFolder = path.join(outputImagesDir, folder.name);
+    if (!fs.existsSync(processedFolder))
+      fs.mkdirSync(processedFolder, { recursive: true });
 
-      const imageData = [];
+    const imageData = [];
 
-      for (const img of images) {
-        const inputImagePath = path.join(folderPath, img);
-        const watermarkedPath = path.join(processedFolder, img);
-        const thumbPath = path.join(processedFolder, `thumb_${img}`);
+    for (const img of images) {
+      const inputImagePath = path.join(folderPath, img);
+      const watermarkedPath = path.join(processedFolder, img);
+      const thumbPath = path.join(processedFolder, `thumb_${img}`);
 
+      const key = `${folder.name}/${img}`;
+      const srcHash = fileHash(inputImagePath);
+      const upToDate =
+        imageCache.images[key] === srcHash &&
+        fs.existsSync(watermarkedPath) &&
+        fs.existsSync(thumbPath);
+
+      if (upToDate) {
+        skipped++;
+      } else {
         const watermarked = await processImageWithTextWatermark(
           inputImagePath,
           watermarkedPath,
         );
         await createThumbnail(watermarked, thumbPath);
-
-        imageData.push({
-          original: `${base}/flashes/${folder.name}/${img}`,
-          watermarked: `${base}/flashes_processed/${folder.name}/${img}`,
-          thumbnail: `${base}/flashes_processed/${folder.name}/thumb_${img}`,
-        });
+        processed++;
       }
+      nextImageCache.images[key] = srcHash;
 
-      flashes[folder.name] = {
-        name: localizedName(data),
-        tags: localizedTags(data, tagsDict),
-        description: localizedDescription(data),
-        price: data.price,
-        size_min: data.size_min,
-        size_max: data.size_max,
-        size_recommended: data.size_recommended,
-        images: imageData,
-      };
-
-      fs.writeFileSync(outputFile, JSON.stringify(flashes, null, 2));
-    } catch (e) {
-      console.log(e);
+      imageData.push({
+        original: `${base}/flashes/${folder.name}/${img}`,
+        watermarked: `${base}/flashes_processed/${folder.name}/${img}`,
+        thumbnail: `${base}/flashes_processed/${folder.name}/thumb_${img}`,
+      });
     }
+
+    flashes[folder.name] = {
+      name: localizedName(data),
+      tags: localizedTags(data, tagsDict),
+      description: localizedDescription(data),
+      price: data.price,
+      size_min: data.size_min,
+      size_max: data.size_max,
+      size_recommended: data.size_recommended,
+      images: imageData,
+    };
   }
+
+  await Promise.all(
+    flashFolders.map((folder) =>
+      processFolder(folder).catch((e) => {
+        console.log(`Erro em ${folder.name}:`, e);
+      }),
+    ),
+  );
+
+  // Keep the on-disk folder order regardless of which parallel task finished
+  // first (this is the order the gallery renders in).
+  const orderedFlashes = {};
+  for (const folder of flashFolders) {
+    if (flashes[folder.name]) orderedFlashes[folder.name] = flashes[folder.name];
+  }
+  fs.writeFileSync(outputFile, JSON.stringify(orderedFlashes, null, 2));
+  saveImageCache(nextImageCache);
+  console.log(
+    `[${new Date().toLocaleTimeString()}] imagens: ${processed} processada(s), ${skipped} reaproveitada(s)`,
+  );
 
   // Drop processed-image folders left behind by flashes that no longer exist.
   const liveFolders = new Set(flashFolders.map((f) => f.name));

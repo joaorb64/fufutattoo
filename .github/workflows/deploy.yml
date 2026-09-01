@@ -40,6 +40,17 @@ jobs:
           path: .cache/prerender
           key: prerender-${{ hashFiles('src/**', 'index.html', 'scripts/prerender.js', 'package-lock.json') }}
           restore-keys: prerender-
+      # Processed flash images (watermark + thumbnail). restore-keys lets a
+      # flash edit start from the previous set so generateFlashesIndex.js only
+      # re-runs sharp on the images that actually changed.
+      - name: Cache processed flash images
+        uses: actions/cache@v4
+        with:
+          path: |
+            public/flashes_processed
+            .cache/flashes
+          key: flash-images-${{ hashFiles('public/flashes/**/*.png', 'public/flashes/**/*.jpg', 'public/flashes/**/*.jpeg') }}
+          restore-keys: flash-images-
       - run: npm ci
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
