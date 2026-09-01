@@ -13,7 +13,7 @@ const AboutMe = () => {
   return (
     <>
       {/* ── Desktop: centered title, then text left + splash-framed photo right ── */}
-      <div className="hidden md:block w-full py-12 px-6 lg:px-10 xl:px-16">
+      <div className="hidden md:block w-full pt-6 pb-12 px-6 lg:px-10 xl:px-16">
         <div className="text-center mb-8 lg:mb-12 xl:mb-16">
           <StickerTitle
             sticker={beeImg}
@@ -46,7 +46,7 @@ const AboutMe = () => {
       </div>
 
       {/* ── Mobile: title, then photo, then text ─────────────────────── */}
-      <div className="md:hidden w-full flex flex-col items-center px-6 pt-8 pb-8">
+      <div className="md:hidden w-full flex flex-col items-center px-6 pt-6 pb-8">
         <StickerTitle
           sticker={beeImg}
           tiltDeg={15}

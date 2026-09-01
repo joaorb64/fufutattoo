@@ -3,7 +3,7 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 // Languages the site's own UI (and per-flash content) is available in.
-// Autonyms — each language's own name for itself, never translated — used
+// Autonyms - each language's own name for itself, never translated - used
 // by the language switcher and the first-visit language splash.
 export const SUPPORTED_LANGS = ["pt", "en", "es"] as const;
 export type SupportedLang = (typeof SUPPORTED_LANGS)[number];
@@ -80,15 +80,15 @@ const resources = {
         duringParagraphs: [
           "Sleep well and come well fed. Bring your **snacks, water bottle and distractions**. You can bring **one companion**.",
           "All my materials are **professional and single-use**.",
-          "Tattooing is a process that **can't be rushed** — it takes as long as it takes. Book your session on a **calm day** and don't come with a tight schedule, because I can't speed the process up.",
-          "Don't be shy about **suggesting changes** to the stencil or the design — it doesn't make you a difficult client. It's extremely important to me that you're **200% confident** before we start.",
+          "Tattooing is a process that **can't be rushed** - it takes as long as it takes. Book your session on a **calm day** and don't come with a tight schedule, because I can't speed the process up.",
+          "Don't be shy about **suggesting changes** to the stencil or the design - it doesn't make you a difficult client. It's extremely important to me that you're **200% confident** before we start.",
         ],
         after: "After session",
         afterParagraphs: [
           "At the end of the session I apply a **special film** to protect your tattoo. **Replace it after 24h**, making sure the tattoo is clean and dry, and keep the second film on for **another 48h**.",
           "Apply the ointment **sparingly, twice a day**, and only when the tattoo is **dry and peeling**. Avoid excess product, as it can encourage infections and slow healing. My favourite ointments are **Bepanthen Plus** and **Cicalfate**.",
-          "Resist the urge to **scratch or pick the scabs** — it can really harm the final result.",
-          "In the first week, avoid activities that overly stretch the tattooed area (like weight training), as well as sweat and friction. Avoid direct sun and soaking in water (pool, sea, etc.) for **two weeks**. **Showering is fine — and encouraged!**",
+          "Resist the urge to **scratch or pick the scabs** - it can really harm the final result.",
+          "In the first week, avoid activities that overly stretch the tattooed area (like weight training), as well as sweat and friction. Avoid direct sun and soaking in water (pool, sea, etc.) for **two weeks**. **Showering is fine - and encouraged!**",
           "You can eat and drink normally, but **avoid excess** and watch out for possible allergies or a history of poor healing.",
           "A touch-up may be needed, and **that service is free**. That said, I ask for a small **10€** contribution towards materials if no additional tattoo is done. If you get another tattoo in the same session as the touch-up, the touch-up is **100% free**. :)",
           "Your **feedback** is very welcome! Share your experience and healing process so I can keep improving the service and the space.",
@@ -127,6 +127,8 @@ const resources = {
         priceFrom: "from",
         moreTags: "▼ more tags",
         fewerTags: "▲ fewer tags",
+        pricingNote:
+          "Prices apply to the sizes shown. You can go bigger for an additional cost. Small changes to the design or colors are also possible - let's talk!",
       },
     },
   },
@@ -186,13 +188,13 @@ const resources = {
           "Durma bem e venha bem alimentado. Traga os seus **snacks, garrafa de água e distrações**. Pode trazer **um acompanhante**.",
           "Todos os meus materiais são **profissionais e descartáveis**.",
           "Tatuar é um processo que **não pode ser apressado**, demora o tempo que for necessário. Marque a sua sessão para um **dia tranquilo** e não venha com horários apertados, pois não posso apressar o processo.",
-          "Não tenha receio de **sugerir alterações** ao stencil ou ao design — isso não te torna um cliente difícil. É extremamente importante para mim que esteja **200% confiante** antes de começarmos.",
+          "Não tenha receio de **sugerir alterações** ao stencil ou ao design - isso não te torna um cliente difícil. É extremamente importante para mim que esteja **200% confiante** antes de começarmos.",
         ],
         after: "Após a sessão",
         afterParagraphs: [
           "No final da sessão, aplico uma **película especial** para proteger a sua tatuagem. **Substitua-a após 24h**, garantindo que a tatuagem esteja limpa e seca, e mantenha a segunda película por **mais 48h**.",
           "Aplique a pomada **com moderação, 2 vezes ao dia**, e apenas quando a tatuagem estiver **seca e a descamar**. Evite o excesso de produto, pois pode facilitar infeções e atrasar a cicatrização. As minhas pomadas favoritas são a **Bepanthene Plus** e a **Cicalfate**.",
-          "Resista à tentação de **coçar ou tirar as crostas** — isso pode prejudicar muito o resultado final.",
+          "Resista à tentação de **coçar ou tirar as crostas** - isso pode prejudicar muito o resultado final.",
           "Na primeira semana, evite atividades que estiquem excessivamente a zona tatuada (como musculação), bem como suor e fricção. Evite a exposição solar direta e a imersão em água (piscina, mar, etc.) durante **duas semanas**. **Banho pode, e deve!**",
           "Pode comer e beber normalmente, mas **evite excessos** e fique atento(a) a possíveis alergias ou histórico de má cicatrização.",
           "Poderá ser necessário um **retoque, cujo serviço é gratuito**. Contudo, peço uma pequena contribuição de **10€** para o material caso não seja feita nenhuma tatuagem adicional. Se fizer outra tatuagem na mesma sessão do retoque, o retoque é **100% gratuito**. :)",
@@ -232,6 +234,8 @@ const resources = {
         priceFrom: "a partir de",
         moreTags: "▼ mais tags",
         fewerTags: "▲ menos tags",
+        pricingNote:
+          "Valores se aplicam aos tamanhos descritos. É possível aumentar o tamanho, com um acréscimo no valor. Também é possível fazer pequenas alterações no design ou nas cores, vamos conversar!",
       },
     },
   },
@@ -291,13 +295,13 @@ const resources = {
           "Duerme bien y ven bien alimentado/a. Trae tus **snacks, botella de agua y distracciones**. Puedes traer **un acompañante**.",
           "Todos mis materiales son **profesionales y desechables**.",
           "Tatuar es un proceso que **no se puede apresurar**, lleva el tiempo que haga falta. Agenda tu sesión para un **día tranquilo** y no vengas con horarios ajustados, porque no puedo acelerar el proceso.",
-          "No tengas reparo en **sugerir cambios** en el stencil o el diseño — eso no te convierte en un cliente difícil. Es extremadamente importante para mí que estés **200% seguro/a** antes de empezar.",
+          "No tengas reparo en **sugerir cambios** en el stencil o el diseño - eso no te convierte en un cliente difícil. Es extremadamente importante para mí que estés **200% seguro/a** antes de empezar.",
         ],
         after: "Después de la sesión",
         afterParagraphs: [
           "Al final de la sesión aplico una **película especial** para proteger tu tatuaje. **Cámbiala después de 24h**, asegurándote de que el tatuaje esté limpio y seco, y mantén la segunda película **otras 48h**.",
           "Aplica la pomada **con moderación, 2 veces al día**, y solo cuando el tatuaje esté **seco y descamando**. Evita el exceso de producto, ya que puede facilitar infecciones y retrasar la cicatrización. Mis pomadas favoritas son **Bepanthen Plus** y **Cicalfate**.",
-          "Resiste la tentación de **rascar o arrancar las costras** — puede perjudicar mucho el resultado final.",
+          "Resiste la tentación de **rascar o arrancar las costras** - puede perjudicar mucho el resultado final.",
           "En la primera semana, evita actividades que estiren en exceso la zona tatuada (como el gimnasio), así como el sudor y la fricción. Evita la exposición solar directa y la inmersión en agua (piscina, mar, etc.) durante **dos semanas**. **¡Ducharse sí, y debes!**",
           "Puedes comer y beber con normalidad, pero **evita excesos** y presta atención a posibles alergias o antecedentes de mala cicatrización.",
           "Puede que necesites un retoque, y **ese servicio es gratuito**. No obstante, pido una pequeña contribución de **10€** para el material si no se hace ningún tatuaje adicional. Si te haces otro tatuaje en la misma sesión que el retoque, el retoque es **100% gratuito**. :)",
@@ -337,6 +341,8 @@ const resources = {
         priceFrom: "desde",
         moreTags: "▼ más etiquetas",
         fewerTags: "▲ menos etiquetas",
+        pricingNote:
+          "Los precios corresponden a los tamaños indicados. Es posible aumentar el tamaño, con un incremento en el precio. También se pueden hacer pequeños cambios en el diseño o los colores, ¡hablemos!",
       },
     },
   },

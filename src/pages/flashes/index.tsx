@@ -139,6 +139,10 @@ export default function Flashes() {
         </StickerTitle>
       </div>
 
+      <p className="mx-auto max-w-2xl text-center text-sm sm:text-base text-zinc-600 leading-relaxed mb-6">
+        {t("flashes.pricingNote")}
+      </p>
+
       <div className="mb-4 flex justify-center">
         <div className="relative w-full md:w-120">
           <svg
