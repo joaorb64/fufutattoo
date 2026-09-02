@@ -177,7 +177,7 @@ const FlashDetail = () => {
                     >
                       <img
                         src={images[i].thumbnail}
-                        alt={`${flashName} — ${t("flashes.option", { number: i + 1 })}`}
+                        alt={`${flashName}, ${t("flashes.option", { number: i + 1 })}`}
                         className="w-full h-24 object-cover rounded-t-lg"
                       />
                       <div

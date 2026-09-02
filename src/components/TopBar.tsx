@@ -42,7 +42,10 @@ const TopBar = () => {
         style={{ WebkitTextStroke: "0.4px currentColor" }}
       >
         <div className="flex items-center justify-between px-4 py-3">
-          <Link to="/" className="font-[BohoSans] text-3xl tracking-widest hover:text-teal-200 transition-colors">
+          <Link
+            to="/"
+            className="font-[BohoSans] text-4xl tracking-widest hover:text-teal-200 transition-colors"
+          >
             {t("topbar.title")}
           </Link>
           <div className="flex items-center gap-2">
@@ -50,15 +53,33 @@ const TopBar = () => {
             <button
               onClick={() => setMenuOpen((prev) => !prev)}
               className="p-2 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-white cursor-pointer"
-              aria-label={menuOpen ? t("topbar.closeMenu") : t("topbar.openMenu")}
+              aria-label={
+                menuOpen ? t("topbar.closeMenu") : t("topbar.openMenu")
+              }
             >
               {menuOpen ? (
-                <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  className="h-6 w-6"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <line x1="18" y1="6" x2="6" y2="18" />
                   <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               ) : (
-                <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  className="h-6 w-6"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <line x1="3" y1="12" x2="21" y2="12" />
                   <line x1="3" y1="6" x2="21" y2="6" />
                   <line x1="3" y1="18" x2="21" y2="18" />
@@ -74,7 +95,10 @@ const TopBar = () => {
         className="fixed w-full top-0 left-0 z-50 py-4 bg-brand text-white shadow-lg hidden sm:flex items-center justify-center gap-3 md:gap-4 lg:gap-8 xl:gap-12 font-[BohoSans] text-lg md:text-xl lg:text-2xl xl:text-3xl tracking-wider"
         style={{ WebkitTextStroke: "0.4px currentColor" }}
       >
-        <Link to="/" className="absolute left-4 text-xl md:text-xl lg:text-2xl xl:text-3xl tracking-widest hover:text-teal-200 transition-colors">
+        <Link
+          to="/"
+          className="absolute left-4 inset-y-0 flex items-center text-3xl md:text-3xl lg:text-4xl xl:text-5xl tracking-widest hover:text-teal-200 transition-colors"
+        >
           {t("topbar.title")}
         </Link>
 

@@ -15,18 +15,16 @@ function JsonLd({ data }: { data: unknown }) {
 
 const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 
-// Site-wide identity: the artist (Person) and her practice (a generic
-// LocalBusiness — she does tattoo, painting and illustration, not a
-// tattoo-parlour-only business). Location is Madrid with a deliberately broad
-// areaServed since she also takes commissions remotely.
+// Site-wide identity: the artist (Person) + her practice (a generic
+// LocalBusiness — tattoo and painting, not a tattoo-parlour-only business),
+// based in Madrid.
 export function SiteStructuredData() {
   const person = {
     "@type": "Person",
     "@id": `${SITE_URL}/#person`,
     name: "Flávia",
     alternateName: "Fufu",
-    jobTitle: "Tattoo artist, painter & illustrator",
-    knowsAbout: ["Tattooing", "Painting", "Illustration"],
+    jobTitle: "Tattoo artist and painter",
     url: SITE_URL,
     image: OG_IMAGE,
     sameAs: [INSTAGRAM_URL],
@@ -41,8 +39,7 @@ export function SiteStructuredData() {
     "@type": "LocalBusiness",
     "@id": `${SITE_URL}/#business`,
     name: "Fufu",
-    description:
-      "Fufu (Flávia) — tattoo, painting and illustration. Flashbook, custom tattoos and commissioned artwork.",
+    description: "Tattoo and painting by Flávia (Fufu), in Madrid.",
     url: SITE_URL,
     image: OG_IMAGE,
     priceRange: "€€",
@@ -53,7 +50,7 @@ export function SiteStructuredData() {
       addressLocality: "Madrid",
       addressCountry: "ES",
     },
-    areaServed: ["Madrid", "Spain", "Europe"],
+    areaServed: ["Madrid", "Spain"],
   };
 
   return (
@@ -68,7 +65,7 @@ export function SiteStructuredData() {
             "@id": `${SITE_URL}/#website`,
             url: SITE_URL,
             name: "Fufu",
-            inLanguage: ["pt-BR", "es-ES", "en"],
+            inLanguage: ["pt", "es", "en"],
             publisher: { "@id": `${SITE_URL}/#person` },
           },
         ],

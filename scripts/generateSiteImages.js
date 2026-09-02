@@ -55,7 +55,7 @@ const ogOverlay = Buffer.from(`
     </defs>
     <rect width="${OG_W}" height="${OG_H}" fill="url(#g)"/>
     <text x="64" y="536" font-family="Arial, Helvetica, sans-serif" font-size="88" font-weight="700" fill="#ffffff" letter-spacing="8">FUFU</text>
-    <text x="66" y="584" font-family="Arial, Helvetica, sans-serif" font-size="29" fill="#ffffff" fill-opacity="0.92" letter-spacing="3">tattoo · painting · illustration — Madrid</text>
+    <text x="66" y="584" font-family="Arial, Helvetica, sans-serif" font-size="29" fill="#ffffff" fill-opacity="0.92" letter-spacing="3">tattoo &amp; painting · Madrid</text>
   </svg>
 `);
 
