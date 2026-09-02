@@ -97,7 +97,7 @@ const overlay = Buffer.from(`
     <text x="${textX}" y="320" font-family="${FONT}" font-size="150"
           letter-spacing="14" fill="${ACCENT}" stroke="${ACCENT}" ${bold(3)}>FUFU</text>
     <text x="${textX + 4}" y="374" font-family="${FONT}" font-size="39"
-          letter-spacing="4" fill="${SUB}" stroke="${SUB}" ${bold(1.1)}>TATUADORA E PINTORA</text>
+          letter-spacing="4" fill="${SUB}" stroke="${SUB}" ${bold(1.1)}>TATUADORA Y PINTORA</text>
     <text x="${textX + 4}" y="416" font-family="${FONT}" font-size="31"
           letter-spacing="8" fill="${LOC}" stroke="${LOC}" ${bold(1)}>MADRID, ESPAÑA</text>
   </svg>
