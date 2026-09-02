@@ -134,9 +134,8 @@ const resources = {
       seo: {
         siteName: "Fufu",
         home: {
-          title: "Fufu - Tattoo & Painting in Madrid",
-          description:
-            "I'm Flávia (Fufu), a tattoo artist and painter in Madrid.",
+          title: "Fufu - Tattoo artist and painter",
+          description: "Flávia (Fufu), tattoo artist and painter in Madrid.",
         },
         about: {
           title: "About me - Fufu",
@@ -165,8 +164,7 @@ const resources = {
         },
         flashDetail: {
           title: "{{name}} - Fufu",
-          descriptionFallback:
-            "Tattoo flash: {{name}}. Price from €{{price}}.",
+          descriptionFallback: "Tattoo flash: {{name}}. Price from €{{price}}.",
         },
       },
     },
@@ -280,8 +278,8 @@ const resources = {
       seo: {
         siteName: "Fufu",
         home: {
-          title: "Fufu - Tatuagem e Pintura em Madrid",
-          description: "Sou a Flávia (Fufu), tatuadora e pintora em Madrid.",
+          title: "Fufu - Tatuadora e pintora",
+          description: "Flávia (Fufu), tatuadora e pintora em Madrid.",
         },
         about: {
           title: "Sobre mim - Fufu",
@@ -425,8 +423,8 @@ const resources = {
       seo: {
         siteName: "Fufu",
         home: {
-          title: "Fufu - Tatuaje y Pintura en Madrid",
-          description: "Soy Flávia (Fufu), tatuadora y pintora en Madrid.",
+          title: "Fufu - Tatuadora y pintora",
+          description: "Flávia (Fufu), tatuadora y pintora en Madrid.",
         },
         about: {
           title: "Sobre mí - Fufu",
