@@ -92,12 +92,13 @@ const TopBar = () => {
 
       {/* Desktop nav — brand left, links centered, language switcher right */}
       <nav
-        className="fixed w-full top-0 left-0 z-50 py-4 bg-brand text-white shadow-lg hidden sm:flex items-center justify-center gap-3 md:gap-4 lg:gap-8 xl:gap-12 font-[BohoSans] text-lg md:text-xl lg:text-2xl xl:text-3xl tracking-wider"
+        className="fixed w-full top-0 left-0 z-50 py-4 lg:py-5 bg-brand text-white shadow-lg hidden sm:flex items-center justify-center gap-3 md:gap-4 lg:gap-8 xl:gap-12 font-[BohoSans] text-lg md:text-xl lg:text-2xl xl:text-3xl tracking-wider"
         style={{ WebkitTextStroke: "0.4px currentColor" }}
       >
         <Link
           to="/"
-          className="absolute left-4 inset-y-0 flex items-center text-3xl md:text-3xl lg:text-4xl xl:text-5xl tracking-widest hover:text-teal-200 transition-colors"
+          className="absolute left-4 inset-y-0 flex items-center font-[BohoSans] text-3xl lg:text-4xl xl:text-5xl tracking-widest hover:text-teal-200 transition-colors"
+          style={{ WebkitTextStroke: "0.85px currentColor" }}
         >
           {t("topbar.title")}
         </Link>

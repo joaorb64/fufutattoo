@@ -144,7 +144,7 @@ const resources = {
         },
         flashes: {
           title: "Flashbook - Fufu",
-          description: "My available tattoo designs, with prices and sizes.",
+          description: "Tattoo flashes available, with prices and sizes.",
         },
         info: {
           title: "Session & Care - Fufu",
@@ -165,7 +165,8 @@ const resources = {
         },
         flashDetail: {
           title: "{{name}} - Fufu",
-          descriptionFallback: "{{name}}, a tattoo flash from €{{price}}.",
+          descriptionFallback:
+            "Tattoo flash: {{name}}. Price from €{{price}}.",
         },
       },
     },
@@ -310,7 +311,7 @@ const resources = {
         flashDetail: {
           title: "{{name}} - Fufu",
           descriptionFallback:
-            "{{name}}, flash de tatuagem a partir de €{{price}}.",
+            "Flash de tatuagem: {{name}}. Preço a partir de €{{price}}.",
         },
       },
     },
@@ -433,7 +434,7 @@ const resources = {
         },
         flashes: {
           title: "Flashbook - Fufu",
-          description: "Mis tatuajes disponibles, con precios y tamaños.",
+          description: "Flashes de tatuaje disponibles, con precios y tamaños.",
         },
         info: {
           title: "Sesión y Cuidados - Fufu",
@@ -454,7 +455,7 @@ const resources = {
         flashDetail: {
           title: "{{name}} - Fufu",
           descriptionFallback:
-            "{{name}}, un flash de tatuaje desde €{{price}}.",
+            "Flash de tatuaje: {{name}}. Precio desde €{{price}}.",
         },
       },
     },
