@@ -1,0 +1,16 @@
+name: abraço quentinho
+tags: []
+price: 80
+size_min:
+  - 4
+  - 4
+size_max:
+  - 7
+  - 7
+translations:
+  en:
+    name: warm hug
+    name_locked: true
+  es:
+    name: abrazo calentito
+    name_locked: true
