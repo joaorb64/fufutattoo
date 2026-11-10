@@ -1,0 +1,16 @@
+name: regue com amor
+tags:
+  - florestinha
+  - flor
+  - colorido
+price: 120
+size_min:
+  - 5
+  - 4
+size_max:
+  - 8
+  - 7
+translations:
+  es:
+    name: riega con amor
+    name_locked: true
