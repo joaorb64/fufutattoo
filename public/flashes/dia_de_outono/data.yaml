@@ -1,0 +1,9 @@
+name: dia de outono
+tags: []
+price: 150
+size_min:
+  - 5
+  - 7
+size_max:
+  - 6
+  - 10
