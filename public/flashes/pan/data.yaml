@@ -1,0 +1,17 @@
+name: pan
+tags: []
+price: 170
+size_min:
+  - 8
+  - 13
+size_max:
+  - 10
+  - 16
+description: tem que ser um pouco maior!
+translations:
+  en:
+    name: pan
+    name_locked: true
+  es:
+    name: pan
+    name_locked: true
