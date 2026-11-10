@@ -11,6 +11,6 @@ size_max:
   - 8
   - 7
 translations:
-  es:
-    name: riega con amor
+  en:
+    name: water with love
     name_locked: true
