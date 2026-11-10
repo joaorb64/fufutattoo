@@ -1,0 +1,18 @@
+name: esquilinho faminto
+tags:
+  - florestinha
+price: 110
+size_min:
+  - 6
+  - 6
+size_max:
+  - 8
+  - 8
+description: Apenas preto e vermelho
+translations:
+  en:
+    name: hungry squirrel
+    name_locked: true
+  es:
+    name: ardillita hambrenta
+    name_locked: true
