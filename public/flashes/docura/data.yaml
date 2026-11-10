@@ -1,0 +1,10 @@
+name: Doçura
+tags: []
+price: 110
+size_min:
+  - 4
+  - 4
+size_max:
+  - 5
+  - 5
+description: Preço por unidade. Escolha a(s) sua(s)!
