@@ -1,0 +1,16 @@
+name: Matilde (preto e cinza / laranja)
+tags: []
+price: 120
+size_min:
+  - 6
+  - 10
+size_max:
+  - 7
+  - 12
+translations:
+  en:
+    name: Matilde
+    name_locked: true
+  es:
+    name: Matilde
+    name_locked: true
