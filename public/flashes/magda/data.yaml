@@ -1,0 +1,9 @@
+name: Magda
+tags: []
+price: 130
+size_min:
+  - 5
+  - 5
+size_max:
+  - 7
+  - 7
