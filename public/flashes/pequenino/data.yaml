@@ -1,0 +1,16 @@
+name: pequenino
+tags: []
+price: 90
+size_min:
+  - 4
+  - 4
+size_max:
+  - 6
+  - 6
+translations:
+  en:
+    name: little fella
+    name_locked: true
+  es:
+    name: pequeñín
+    name_locked: true
