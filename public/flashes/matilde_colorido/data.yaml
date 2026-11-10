@@ -1,0 +1,17 @@
+name: Matilde (colorido)
+tags:
+  - colorido
+price: 150
+size_min:
+  - 6
+  - 10
+size_max:
+  - 7
+  - 12
+translations:
+  en:
+    name: Matilde (color)
+    name_locked: true
+  es:
+    name: Matilde (color)
+    name_locked: true
