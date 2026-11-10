@@ -1,0 +1,9 @@
+name: Vicente
+tags: []
+price: 130
+size_min:
+  - 5
+  - 6
+size_max:
+  - 7
+  - 9
