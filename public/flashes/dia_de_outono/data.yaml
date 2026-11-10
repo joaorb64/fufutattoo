@@ -1,5 +1,6 @@
 name: dia de outono
-tags: []
+tags:
+  - florestinha
 price: 150
 size_min:
   - 5
