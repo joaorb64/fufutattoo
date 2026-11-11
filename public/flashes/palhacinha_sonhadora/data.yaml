@@ -1,0 +1,12 @@
+name: palhacinha sonhadora
+tags: []
+price: 120
+size_min:
+  - 5
+  - 9
+size_max:
+  - 6
+  - 11
+description: |-
+  valor para a versão sem amarelo.
+  com amarelo se acrescentam 15 euros :)
