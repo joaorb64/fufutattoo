@@ -1,0 +1,18 @@
+name: nas cartas
+tags:
+  - valentine's
+  - colorido
+price: 120
+size_min:
+  - 5
+  - 8
+size_max:
+  - 7
+  - 10
+translations:
+  en:
+    name: in the cards
+    name_locked: true
+  es:
+    name: en las cartas
+    name_locked: true
