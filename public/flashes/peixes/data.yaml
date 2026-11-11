@@ -1,0 +1,19 @@
+name: Peixes
+tags:
+  - zodiaco
+  - signo
+  - peixes
+price: 120
+size_min:
+  - 8
+  - 8
+size_max:
+  - 10
+  - 10
+translations:
+  en:
+    name: Pisces
+    name_locked: true
+  es:
+    name: Piscis
+    name_locked: true
