@@ -1,0 +1,19 @@
+name: Touro
+tags:
+  - zodiaco
+  - signo
+  - touro
+price: 130
+size_min:
+  - 7
+  - 8
+size_max:
+  - 9
+  - 10
+translations:
+  en:
+    name: Taurus
+    name_locked: true
+  es:
+    name: Tauro
+    name_locked: true

@@ -90,6 +90,9 @@ releitura:
 signo:
   en: []
   es: []
+touro:
+  en: [taurus]
+  es: [tauro]
 valentine's:
   en: []
   es: [san valentín]
