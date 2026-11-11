@@ -1,0 +1,9 @@
+name: Jubarte (colorido)
+tags: []
+price: 160
+size_min:
+  - 7
+  - 15
+size_max:
+  - 9
+  - 18
