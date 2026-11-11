@@ -21,6 +21,9 @@ baleia:
 botânico:
   en: [botanical]
   es: [botánico]
+circo:
+  en: []
+  es: []
 colorido:
   en: [colorful]
   es: [colorido]
@@ -57,6 +60,9 @@ oceano:
 ouro:
   en: [gold]
   es: [oro]
+palhaço:
+  en: []
+  es: []
 picnic:
   en: [picnic]
   es: [picnic]
@@ -66,6 +72,9 @@ pássaro:
 releitura:
   en: []
   es: []
+valentine's:
+  en: []
+  es: [san valentín]
 vaso:
   en: [vase]
   es: [florero]

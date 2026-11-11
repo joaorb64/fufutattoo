@@ -1,0 +1,19 @@
+name: Love clown 2 (preto)
+tags:
+  - palhaço
+  - circo
+  - valentine's
+price: 120
+size_min:
+  - 5
+  - 8
+size_max:
+  - 6
+  - 10
+translations:
+  en:
+    name: Love clown 2 (black)
+    name_locked: true
+  es:
+    name: Love clown 2 (negro)
+    name_locked: true
