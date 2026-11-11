@@ -60,6 +60,9 @@ flor:
 florestinha:
   en: [forest friend]
   es: [bosquecito]
+fruta:
+  en: []
+  es: []
 halloween:
   en: []
   es: []
@@ -96,6 +99,9 @@ outono:
 palhaço:
   en: []
   es: []
+passaro:
+  en: []
+  es: []
 peixes:
   en: [pisces]
   es: [piscis]
@@ -120,6 +126,9 @@ signo:
 touro:
   en: [taurus]
   es: [tauro]
+trevo:
+  en: []
+  es: []
 valen:
   en: []
   es: []
