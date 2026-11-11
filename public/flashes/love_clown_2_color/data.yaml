@@ -1,4 +1,4 @@
-name: love clown 2 (color)
+name: love clown 2 (colorido)
 tags: []
 price: 130
 size_min:
@@ -7,3 +7,10 @@ size_min:
 size_max:
   - 6
   - 10
+translations:
+  en:
+    name: love clown 2 (color)
+    name_locked: true
+  es:
+    name: love clown 2 (color)
+    name_locked: true
