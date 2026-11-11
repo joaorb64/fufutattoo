@@ -1,6 +1,8 @@
 name: dia de outono
 tags:
   - florestinha
+  - colorido
+  - preto e cinza
 price: 150
 size_min:
   - 5
@@ -8,3 +10,4 @@ size_min:
 size_max:
   - 6
   - 10
+description: pode ser adaptada para preto e cinza.
