@@ -1,5 +1,9 @@
 name: Gatonauta
-tags: []
+tags:
+  - gato
+  - colorido
+  - preto
+  - preto e cinza
 price: 120
 size_min:
   - 5
@@ -11,8 +15,6 @@ translations:
   en:
     name: Catstronaut
     name_locked: true
-    _sourceHash: 11e89e2515afe00f
   es:
     name: Gatonauta
     name_locked: true
-    _sourceHash: 11e89e2515afe00f
