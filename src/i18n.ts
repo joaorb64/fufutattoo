@@ -69,7 +69,7 @@ const resources = {
         before: "Before session",
         rescheduling: "Rescheduling",
         reschedulingText:
-          "I ask for a **25% deposit** when you book, which is deducted from the final price. If you need to reschedule, do it **as early as possible** or at least **48h in advance**. You can reschedule **only once**: if you need to cancel your second appointment, you'll have to make an **additional 25% payment** (not deducted from the final price) to reschedule again.",
+          "I ask for a **non-refundable 50€ deposit** when you book, which is deducted from the final price. If you need to reschedule, please try to do so at least **72h in advance**.",
         preCare: "Pre-tattoo care",
         preCareText:
           "In the days before the session, moisturise the area daily with a good body cream, drink plenty of water, avoid direct sun on the spot and use sunscreen. **No alcohol in the 24h before the session.**",
@@ -86,11 +86,11 @@ const resources = {
         after: "After session",
         afterParagraphs: [
           "At the end of the session I apply a **special film** to protect your tattoo. **Replace it after 24h**, making sure the tattoo is clean and dry, and keep the second film on for **another 48h**.",
-          "Apply the ointment **sparingly, twice a day**, and only when the tattoo is **dry and peeling**. Avoid excess product, as it can encourage infections and slow healing. My favourite ointments are **Bepanthen Plus** and **Cicalfate**.",
+          "Apply the ointment **sparingly, twice a day**, and only when the tattoo is **dry and peeling**. Avoid excess product, as it can encourage infections and slow healing. My favourite ointments are **Cicaplast** (La Roche-Posay), **Cicalfate** (Avène) and **Cicabio** (Bioderma).",
           "Resist the urge to **scratch or pick the scabs** - it can really harm the final result.",
           "In the first week, avoid activities that overly stretch the tattooed area (like weight training), as well as sweat and friction. Avoid direct sun and soaking in water (pool, sea, etc.) for **two weeks**. **Showering is fine - and encouraged!**",
           "You can eat and drink normally, but **avoid excess** and watch out for possible allergies or a history of poor healing.",
-          "A touch-up may be needed, and **that service is free**. That said, I ask for a small **10€** contribution towards materials if no additional tattoo is done. If you get another tattoo in the same session as the touch-up, the touch-up is **100% free**. :)",
+          "If a touch-up is needed, **the service is free**. That said, I ask for a small **10€** contribution towards materials if no additional tattoo is done. If you get another tattoo in the same session as the touch-up, the touch-up is **100% free**. :)",
           "Your **feedback** is very welcome! Share your experience and healing process so I can keep improving the service and the space.",
         ],
       },
@@ -213,7 +213,7 @@ const resources = {
         before: "Antes da sessão",
         rescheduling: "Reagendamento",
         reschedulingText:
-          "Solicito um **depósito de 25%** no momento do agendamento, que será abatido do valor final. Se precisar reagendar, faça-o **o mais cedo possível** ou com pelo menos **48h de antecedência**. Só é possível reagendar **uma vez**: se precisar cancelar o segundo agendamento, terá de fazer um **pagamento adicional de 25%** (que não será descontado do valor final) para poder reagendar novamente.",
+          "Solicito um **depósito de 50 euros, não reembolsável**, no momento do agendamento, que será abatido do valor final. Se precisar reagendar, peço que tente fazê-lo com **72h de antecedência**.",
         preCare: "Cuidados pré-tatuagem",
         preCareText:
           "Nos dias anteriores à sessão, hidrate a zona diariamente com um bom creme corporal, beba bastante água, evite a exposição solar direta no local e use protetor solar. **Não consuma álcool nas 24h anteriores à sessão.**",
@@ -230,11 +230,11 @@ const resources = {
         after: "Após a sessão",
         afterParagraphs: [
           "No final da sessão, aplico uma **película especial** para proteger a sua tatuagem. **Substitua-a após 24h**, garantindo que a tatuagem esteja limpa e seca, e mantenha a segunda película por **mais 48h**.",
-          "Aplique a pomada **com moderação, 2 vezes ao dia**, e apenas quando a tatuagem estiver **seca e a descamar**. Evite o excesso de produto, pois pode facilitar infeções e atrasar a cicatrização. As minhas pomadas favoritas são a **Bepanthene Plus** e a **Cicalfate**.",
+          "Aplique a pomada **com moderação, 2 vezes ao dia**, e apenas quando a tatuagem estiver **seca e a descamar**. Evite o excesso de produto, pois pode facilitar infeções e atrasar a cicatrização. As minhas pomadas favoritas são a **Cicaplast** (La Roche-Posay), a **Cicalfate** (Avène) e a **Cicabio** (Bioderma).",
           "Resista à tentação de **coçar ou tirar as crostas** - isso pode prejudicar muito o resultado final.",
           "Na primeira semana, evite atividades que estiquem excessivamente a zona tatuada (como musculação), bem como suor e fricção. Evite a exposição solar direta e a imersão em água (piscina, mar, etc.) durante **duas semanas**. **Banho pode, e deve!**",
           "Pode comer e beber normalmente, mas **evite excessos** e fique atento(a) a possíveis alergias ou histórico de má cicatrização.",
-          "Poderá ser necessário um **retoque, cujo serviço é gratuito**. Contudo, peço uma pequena contribuição de **10€** para o material caso não seja feita nenhuma tatuagem adicional. Se fizer outra tatuagem na mesma sessão do retoque, o retoque é **100% gratuito**. :)",
+          "Se for necessário um retoque, **o serviço é gratuito**. Contudo, peço uma pequena contribuição de **10€** para o material caso não seja feita nenhuma tatuagem adicional. Se fizer outra tatuagem na mesma sessão do retoque, o retoque é **100% gratuito**. :)",
           "O seu **feedback** é muito bem-vindo! Partilhe a sua experiência e o processo de cicatrização para que eu possa melhorar o serviço e o espaço.",
         ],
       },
@@ -358,7 +358,7 @@ const resources = {
         before: "Antes de la sesión",
         rescheduling: "Reprogramación",
         reschedulingText:
-          "Solicito un **depósito del 25%** al reservar, que se descuenta del precio final. Si necesitas reprogramar, hazlo **lo antes posible** o con al menos **48h de antelación**. Solo se puede reprogramar **una vez**: si necesitas cancelar tu segunda cita, tendrás que hacer un **pago adicional del 25%** (que no se descuenta del precio final) para poder reprogramar de nuevo.",
+          "Solicito un **depósito de 50€, no reembolsable**, al reservar, que se descuenta del precio final. Si necesitas reprogramar, intenta hacerlo con **72h de antelación**.",
         preCare: "Cuidados pre-tatuaje",
         preCareText:
           "En los días previos a la sesión, hidrata la zona a diario con una buena crema corporal, bebe mucha agua, evita la exposición solar directa en el lugar y usa protector solar. **No consumas alcohol en las 24h previas a la sesión.**",
@@ -375,11 +375,11 @@ const resources = {
         after: "Después de la sesión",
         afterParagraphs: [
           "Al final de la sesión aplico una **película especial** para proteger tu tatuaje. **Cámbiala después de 24h**, asegurándote de que el tatuaje esté limpio y seco, y mantén la segunda película **otras 48h**.",
-          "Aplica la pomada **con moderación, 2 veces al día**, y solo cuando el tatuaje esté **seco y descamando**. Evita el exceso de producto, ya que puede facilitar infecciones y retrasar la cicatrización. Mis pomadas favoritas son **Bepanthen Plus** y **Cicalfate**.",
+          "Aplica la pomada **con moderación, 2 veces al día**, y solo cuando el tatuaje esté **seco y descamando**. Evita el exceso de producto, ya que puede facilitar infecciones y retrasar la cicatrización. Mis pomadas favoritas son **Cicaplast** (La Roche-Posay), **Cicalfate** (Avène) y **Cicabio** (Bioderma).",
           "Resiste la tentación de **rascar o arrancar las costras** - puede perjudicar mucho el resultado final.",
           "En la primera semana, evita actividades que estiren en exceso la zona tatuada (como el gimnasio), así como el sudor y la fricción. Evita la exposición solar directa y la inmersión en agua (piscina, mar, etc.) durante **dos semanas**. **¡Ducharse sí, y debes!**",
           "Puedes comer y beber con normalidad, pero **evita excesos** y presta atención a posibles alergias o antecedentes de mala cicatrización.",
-          "Puede que necesites un retoque, y **ese servicio es gratuito**. No obstante, pido una pequeña contribución de **10€** para el material si no se hace ningún tatuaje adicional. Si te haces otro tatuaje en la misma sesión que el retoque, el retoque es **100% gratuito**. :)",
+          "Si es necesario un retoque, **el servicio es gratuito**. No obstante, pido una pequeña contribución de **10€** para el material si no se hace ningún tatuaje adicional. Si te haces otro tatuaje en la misma sesión que el retoque, el retoque es **100% gratuito**. :)",
           "¡Tu **feedback** es muy bienvenido! Comparte tu experiencia y proceso de cicatrización para que pueda mejorar el servicio y el espacio.",
         ],
       },

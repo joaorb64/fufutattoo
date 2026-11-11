@@ -46,7 +46,7 @@ export default function Footer() {
           {INSTAGRAM_HANDLE}
         </FooterLink>
         <FooterLink href={WHATSAPP_URL} icon="whatsapp.svg">
-          +351 915 204 911
+          +34 642 26 96 86
         </FooterLink>
         <FooterLink href={`mailto:${EMAIL}`} icon="email.svg">
           {EMAIL}

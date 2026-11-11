@@ -174,7 +174,7 @@ export default function Hero() {
               className="flex items-center gap-2 text-home-accent hover:text-home-accent-dark transition-colors"
             >
               <MaskIcon src="whatsapp.svg" className="w-7 h-7 shrink-0" />
-              <span className="tracking-wider text-lg">+351 915 204 911</span>
+              <span className="tracking-wider text-lg">+34 642 26 96 86</span>
             </a>
             <a
               href={`mailto:${EMAIL}`}
