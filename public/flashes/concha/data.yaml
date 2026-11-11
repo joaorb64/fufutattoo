@@ -1,0 +1,16 @@
+name: Concha
+tags: []
+price: 120
+size_min:
+  - 5
+  - 5
+size_max:
+  - 7
+  - 7
+translations:
+  en:
+    name: shell
+    name_locked: true
+  es:
+    name: concha
+    name_locked: true
