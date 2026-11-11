@@ -9,6 +9,9 @@
 # machine translation (refine them afterwards), and tags no flash uses any
 # more are removed.
 
+arte:
+  en: []
+  es: []
 azul:
   en: [blue]
   es: [azul]
@@ -54,6 +57,9 @@ picnic:
 pássaro:
   en: [bird]
   es: [pájaro]
+releitura:
+  en: []
+  es: []
 vaso:
   en: [vase]
   es: [florero]
