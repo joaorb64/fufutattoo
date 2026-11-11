@@ -1,0 +1,17 @@
+name: carimbo
+tags: []
+price: 80
+size_min:
+  - 2
+  - 3
+size_max:
+  - 3
+  - 5
+description: preço por unidade! fazendo mais de um, os próximos tem 10% off.
+translations:
+  en:
+    name: stamp
+    name_locked: true
+  es:
+    name: sello
+    name_locked: true
