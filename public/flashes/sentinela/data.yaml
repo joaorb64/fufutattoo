@@ -5,6 +5,7 @@ tags:
   - fauna
   - lua
   - noite
+  - colorido
 price: 85
 size_min:
   - 4
@@ -12,3 +13,4 @@ size_min:
 size_max:
   - 6
   - 8
+description: os detalhes em vermelho também podem ser pretos :)
