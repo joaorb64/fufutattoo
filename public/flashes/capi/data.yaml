@@ -1,6 +1,9 @@
 name: Capi
 tags:
   - florestinha
+  - colorido
+  - preto
+  - preto e cinza
 price: 120
 size_min:
   - 5
@@ -8,12 +11,11 @@ size_min:
 size_max:
   - 7
   - 7
+description: detalhes também podem ser pretos.
 translations:
   en:
     name: Capy
     name_locked: true
-    _sourceHash: 1d51c3a6d61bf6c3
   es:
     name: Capi
     name_locked: true
-    _sourceHash: 1d51c3a6d61bf6c3
