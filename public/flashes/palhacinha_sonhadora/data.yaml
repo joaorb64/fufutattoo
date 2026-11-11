@@ -10,3 +10,7 @@ size_max:
 description: |-
   valor para a versão sem amarelo.
   com amarelo se acrescentam 15 euros :)
+translations:
+  es:
+    name: payasita soñadora
+    name_locked: true
