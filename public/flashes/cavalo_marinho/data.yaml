@@ -1,0 +1,17 @@
+name: cavalo marinho
+tags: []
+price: 130
+size_min:
+  - 4
+  - 5
+size_max:
+  - 6
+  - 7
+description: As cores são uma sugestão, mas podem ser outras! :)
+translations:
+  en:
+    name: seahorse
+    name_locked: true
+  es:
+    name: caballito del mar
+    name_locked: true
