@@ -1,6 +1,7 @@
 name: carimbo
 tags:
   - mini
+  - preto
 price: 80
 size_min:
   - 2
