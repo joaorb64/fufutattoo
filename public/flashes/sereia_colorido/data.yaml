@@ -1,0 +1,9 @@
+name: sereia (colorido)
+tags: []
+price: 150
+size_min:
+  - 5
+  - 12
+size_max:
+  - 6
+  - 16
