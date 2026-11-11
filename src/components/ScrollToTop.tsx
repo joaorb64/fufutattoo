@@ -1,10 +1,7 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { ScrollRestoration } from "react-router-dom";
 
+// New pages start at the top; going back/forward returns to where the visitor
+// was (e.g. the same spot in the flash list after viewing a flash).
 export default function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-  return null;
+  return <ScrollRestoration />;
 }

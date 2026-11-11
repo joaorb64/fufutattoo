@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { resolveLocale } from "../../i18n";
 
@@ -7,6 +7,14 @@ const FlashItem = (props: { flash: any; flashId: string }) => {
   const locale = resolveLocale(i18n.language);
   const images = props.flash.images || [];
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // How many history steps the opened flash page is from the flash list, so
+  // its back button can return there (with search and scroll intact). Opening
+  // a similar flash from a flash page adds one more step.
+  const fromDepth = (location.state as { listDepth?: number } | null)?.listDepth;
+  const listDepth =
+    location.pathname === "/flashes" ? 1 : fromDepth ? fromDepth + 1 : undefined;
 
   const src =
     images[0]?.watermarked ?? images[0]?.thumbnail ?? images[0]?.original ?? "";
@@ -16,7 +24,9 @@ const FlashItem = (props: { flash: any; flashId: string }) => {
   return (
     <div
       className="cursor-pointer group bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 p-3 pb-4"
-      onClick={() => navigate(`/flashes/${props.flashId}`)}
+      onClick={() =>
+        navigate(`/flashes/${props.flashId}`, { state: { listDepth } })
+      }
     >
       {/* Full image, no crop */}
       <div className="aspect-square overflow-hidden bg-[#ffeedc]">

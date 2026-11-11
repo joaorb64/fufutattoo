@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Fuse from "fuse.js";
 import FlashList from "./flashList";
 import TagList from "./tagList";
 import { resolveLocale } from "../../i18n";
-import { fetchFlashes } from "../../flashes";
+import { getCachedFlashes, loadFlashes } from "../../flashes";
 import { tagLabels, tagSynonyms, type LTag } from "./tagUtils";
 import StickerTitle from "../../components/StickerTitle";
 import Seo from "../../components/Seo";
@@ -21,16 +22,49 @@ export default function Flashes() {
     price?: number;
   };
 
-  const [flashes, setFlashes] = useState<Record<string, FlashType>>({});
-  const [search, setSearch] = useState("");
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [flashes, setFlashes] = useState<Record<string, FlashType>>(
+    () => getCachedFlashes() ?? {},
+  );
+
+  // Search text and selected tags live in the URL (?q=…&tag=…&tag=…) so they
+  // survive opening a flash and coming back, a reload, or a shared link.
+  // The input stays on local state (so typing is never laggy) and is mirrored
+  // into the URL.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState(() => searchParams.get("q") ?? "");
+  const [selectedTags, setSelectedTags] = useState<string[]>(() =>
+    searchParams.getAll("tag"),
+  );
+
+  const paramsRef = useRef(searchParams);
+  paramsRef.current = searchParams;
+
+  // URL changed from outside (e.g. the "Flashes" menu link clears it): follow it.
+  useEffect(() => {
+    const q = searchParams.get("q") ?? "";
+    const tags = searchParams.getAll("tag");
+    setSearch(q);
+    setSelectedTags((prev) =>
+      prev.length === tags.length && prev.every((t, i) => t === tags[i])
+        ? prev
+        : tags,
+    );
+  }, [searchParams]);
 
   useEffect(() => {
-    fetchFlashes()
-      .then((res) => res.json())
-      .then(async (data) => {
-        setFlashes(data);
-      });
+    const next = new URLSearchParams();
+    if (search) next.set("q", search);
+    selectedTags.forEach((tag) => next.append("tag", tag));
+    if (next.toString() === paramsRef.current.toString()) return;
+    // Replace (not push) so typing doesn't fill the history, and keep the
+    // current scroll position instead of jumping to the top.
+    setSearchParams(next, { replace: true, preventScrollReset: true });
+    // Only when the visitor changes the filters, not when the URL changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search, selectedTags]);
+
+  useEffect(() => {
+    loadFlashes().then(setFlashes);
   }, []);
 
   const allTags = useMemo(() => {

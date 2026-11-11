@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Tag from "../tag";
 import Carousel from "../../../components/Carousel";
@@ -8,7 +8,7 @@ import Seo from "../../../components/Seo";
 import { FlashStructuredData } from "../../../components/StructuredData";
 import { WHATSAPP_URL } from "../../../config";
 import { resolveLocale } from "../../../i18n";
-import { fetchFlashes } from "../../../flashes";
+import { loadFlashes } from "../../../flashes";
 import { tagLabels } from "../tagUtils";
 
 const FlashDetail = () => {
@@ -16,6 +16,11 @@ const FlashDetail = () => {
   const locale = resolveLocale(i18n.language);
   const { flashId } = useParams<{ flashId: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const listDepth = (location.state as { listDepth?: number } | null)?.listDepth;
+  // Came from the flash list: step back through history to it, so the search,
+  // tags and scroll position are restored. Otherwise (direct link) open it fresh.
+  const goBack = () => (listDepth ? navigate(-listDepth) : navigate("/flashes"));
   const [flash, setFlash] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [imageIndex, setImageIndex] = useState(0);
@@ -24,8 +29,7 @@ const FlashDetail = () => {
   const cmToInches = (cm: number) => (cm / 2.54).toFixed(2);
 
   useEffect(() => {
-    fetchFlashes()
-      .then((res) => res.json())
+    loadFlashes()
       .then((data) => {
         const foundFlash = data[flashId!];
         if (foundFlash) {
@@ -136,7 +140,7 @@ const FlashDetail = () => {
         flashbookLabel={t("nav.flashes")}
       />
       <button
-        onClick={() => navigate("/flashes")}
+        onClick={goBack}
         className="mb-4 hover:text-brand font-bold flex items-center gap-2 cursor-pointer"
       >
         {t("flashes.backButton")}
