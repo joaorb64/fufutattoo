@@ -10,53 +10,53 @@
 # more are removed.
 
 aquarius:
-  en: []
-  es: []
+  en: [aquarius]
+  es: [acuario]
 aries:
-  en: []
-  es: []
+  en: [aries]
+  es: [aries]
 arte:
-  en: []
-  es: []
+  en: [art]
+  es: [arte]
 azul:
   en: [blue]
   es: [azul]
 baleia:
-  en: []
-  es: []
+  en: [whale]
+  es: [ballena]
 botânico:
   en: [botanical]
   es: [botánico]
 bruxa:
-  en: []
-  es: []
+  en: [witch]
+  es: [bruja]
 café:
-  en: []
-  es: []
+  en: [coffee]
+  es: [café]
 circo:
-  en: []
-  es: []
+  en: [circus]
+  es: [circo]
 cogumelo:
-  en: []
-  es: []
+  en: [mushroom]
+  es: [seta, hongo]
 colorido:
   en: [colorful]
   es: [colorido]
 comida:
-  en: []
-  es: []
+  en: [food]
+  es: [comida]
 coruja:
-  en: []
-  es: []
+  en: [owl]
+  es: [búho]
 creepy:
-  en: []
-  es: []
+  en: [creepy]
+  es: [espeluznante]
 estrela:
   en: [star]
   es: [estrella]
 fauna:
-  en: []
-  es: []
+  en: [fauna]
+  es: [fauna]
 flor:
   en: [flower]
   es: [flor]
@@ -64,23 +64,23 @@ florestinha:
   en: [forest friend]
   es: [bosquecito]
 folclore:
-  en: []
-  es: []
+  en: [folklore]
+  es: [folklore]
 fruta:
-  en: []
-  es: []
+  en: [fruit]
+  es: [fruta]
 gato:
-  en: []
-  es: []
+  en: [cat]
+  es: [gato]
 gêmeos:
   en: [gemini]
   es: [geminis]
 halloween:
-  en: []
-  es: []
+  en: [halloween]
+  es: [halloween]
 inverno:
-  en: []
-  es: []
+  en: [winter]
+  es: [invierno]
 kintsugi:
   en: [kintsugi]
   es: [kintsugi]
@@ -88,35 +88,35 @@ lua:
   en: [moon]
   es: [luna]
 mar:
-  en: []
-  es: []
+  en: [sea]
+  es: [mar]
 mini:
-  en: []
-  es: []
+  en: [mini]
+  es: [mini]
 mitologia:
-  en: []
-  es: []
+  en: [mythology]
+  es: [mitología]
 natureza:
-  en: []
-  es: []
+  en: [nature]
+  es: [naturaleza]
 noite:
-  en: []
-  es: []
+  en: [night]
+  es: [noche]
 oceano:
-  en: []
-  es: []
+  en: [ocean]
+  es: [océano]
 ouro:
   en: [gold]
   es: [oro]
 outono:
-  en: []
-  es: []
+  en: [autumn, fall]
+  es: [otoño]
 palhaço:
-  en: []
-  es: []
+  en: [clown]
+  es: [payaso]
 passaro:
-  en: []
-  es: []
+  en: [bird]
+  es: [pájaro]
 peixes:
   en: [pisces]
   es: [piscis]
@@ -124,50 +124,44 @@ picnic:
   en: [picnic]
   es: [picnic]
 preto:
-  en: []
-  es: []
+  en: [black]
+  es: [negro]
 preto e cinza:
-  en: []
-  es: []
+  en: [black and gray]
+  es: [negro y gris]
 primavera:
-  en: []
-  es: []
+  en: [spring]
+  es: [primavera]
 pássaro:
   en: [bird]
   es: [pájaro]
 releitura:
-  en: []
-  es: []
+  en: [reinterpretation]
+  es: [reinterpretación]
 sereia:
-  en: []
-  es: []
+  en: [mermaid]
+  es: [sirena]
 signo:
-  en: []
-  es: []
+  en: [star sign]
+  es: [signo]
 touro:
   en: [taurus]
   es: [tauro]
 trevo:
-  en: []
-  es: []
-valen:
-  en: []
-  es: []
-valent:
-  en: []
-  es: []
+  en: [clover]
+  es: [trébol]
 valentine's:
-  en: []
+  en: [valentine's]
   es: [san valentín]
 vaso:
   en: [vase]
   es: [florero]
 verão:
-  en: []
-  es: []
+  en: [summer]
+  es: [verano]
 vinho:
   en: [wine]
   es: [vino]
 zodiaco:
-  en: []
-  es: []
+  en: [zodiac]
+  es: [zodíaco]

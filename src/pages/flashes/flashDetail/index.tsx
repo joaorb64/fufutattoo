@@ -212,7 +212,6 @@ const FlashDetail = () => {
 
           {flash.description && (
             <div>
-              <h2 className="text-xl font-bold">{t("flashes.description")}</h2>
               <p className="leading-relaxed">
                 {flash.description[locale] ||
                   flash.description.en ||

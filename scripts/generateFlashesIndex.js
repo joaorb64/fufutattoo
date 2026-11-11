@@ -154,28 +154,29 @@ function saveTagsDict(dict) {
   fs.writeFileSync(tagsDictFile, TAGS_HEADER + body);
 }
 
-// Add missing tags with a machine translation, drop tags no flash uses.
+// Fill in missing translations (new tags, or tags the flash editor added with
+// empty fields) with a machine translation; drop tags no flash uses.
 async function syncTagsDict(dict, tags) {
   const used = new Set(tags.map((t) => String(t).toLowerCase()));
   let changed = false;
 
   for (const key of used) {
-    if (dict[key]) continue;
-    const entry = {};
-    let ok = true;
+    const entry = dict[key] || {};
     for (const lang of TARGET_LANGS) {
+      const cur = entry[lang];
+      const has = Array.isArray(cur) ? cur.some(Boolean) : !!cur;
+      if (has) continue;
       const tr = await translateText(key, lang);
-      if (tr == null) {
-        ok = false;
-        break;
-      }
+      // No translation: leave it empty so the next build tries again. The
+      // chip shows the Portuguese word meanwhile (see tagChips).
+      if (tr == null) continue;
       entry[lang] = [tr.toLowerCase()];
+      changed = true;
     }
-    // No translation: leave it out so the next build tries again. The chip
-    // shows the Portuguese word meanwhile (see tagChips).
-    if (!ok) continue;
-    dict[key] = entry;
-    changed = true;
+    if (!dict[key]) {
+      dict[key] = entry;
+      changed = true;
+    }
   }
 
   for (const key of Object.keys(dict)) {
