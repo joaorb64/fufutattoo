@@ -1,4 +1,4 @@
-name: Touro (colorido)
+name: Touro
 tags:
   - zodiaco
   - signo
@@ -10,10 +10,15 @@ size_min:
 size_max:
   - 9
   - 10
+description: >-
+  As estrelas também podem ser pretas.
+
+  A coleção do zodíaco ainda não está completa, se não encontrou o seu, volte em
+  breve!
 translations:
   en:
-    name: Taurus (color)
+    name: Taurus
     name_locked: true
   es:
-    name: Tauro (color)
+    name: Tauro
     name_locked: true
