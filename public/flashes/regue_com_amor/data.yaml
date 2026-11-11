@@ -14,3 +14,6 @@ translations:
   en:
     name: water with love
     name_locked: true
+  es:
+    name: riega con amor
+    name_locked: true
