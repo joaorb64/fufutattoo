@@ -7,3 +7,10 @@ size_min:
 size_max:
   - 9
   - 18
+translations:
+  en:
+    name: Humpback (color)
+    name_locked: true
+  es:
+    name: Jorobada (color)
+    name_locked: true
