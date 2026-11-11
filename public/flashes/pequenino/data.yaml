@@ -1,5 +1,9 @@
 name: pequenino
-tags: []
+tags:
+  - colorido
+  - florestinha
+  - cogumelo
+  - outono
 price: 90
 size_min:
   - 4
