@@ -1,4 +1,4 @@
-name: Touro
+name: Touro (colorido)
 tags:
   - zodiaco
   - signo
@@ -12,8 +12,8 @@ size_max:
   - 10
 translations:
   en:
-    name: Taurus
+    name: Taurus (color)
     name_locked: true
   es:
-    name: Tauro
+    name: Tauro (color)
     name_locked: true
