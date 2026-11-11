@@ -1,5 +1,6 @@
 name: palhacinha sonhadora
-tags: []
+tags:
+  - colorido
 price: 120
 size_min:
   - 5
