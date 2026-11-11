@@ -1,0 +1,13 @@
+name: Jubarte (preto e cinza)
+tags: []
+price: 140
+size_min:
+  - 7
+  - 15
+size_max:
+  - 9
+  - 18
+translations:
+  es:
+    name: Jorobada (negro y gris)
+    name_locked: true
