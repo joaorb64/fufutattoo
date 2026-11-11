@@ -1,5 +1,9 @@
 name: cavalo marinho
-tags: []
+tags:
+  - oceano
+  - mar
+  - fauna
+  - colorido
 price: 130
 size_min:
   - 4
