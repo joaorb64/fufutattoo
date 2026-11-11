@@ -1,4 +1,4 @@
-name: Áries
+name: Áries (colorido)
 tags:
   - zodiaco
   - signo
@@ -10,3 +10,10 @@ size_min:
 size_max:
   - 11
   - 10
+translations:
+  en:
+    name: Áries (color)
+    name_locked: true
+  es:
+    name: Aries (color)
+    name_locked: true
