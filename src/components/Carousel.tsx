@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 type ImageItem = {
   thumbnail?: string;
@@ -15,6 +16,9 @@ export default function Carousel(props: {
   className?: string;
   alt?: string;
   onIndexChange?: (i: number) => void;
+  /** Desktop only: clicking the image opens it full-screen, where another
+   * click zooms in 2x around the mouse. */
+  zoomable?: boolean;
 }) {
   const {
     images = [],
@@ -25,9 +29,45 @@ export default function Carousel(props: {
     className = "",
     alt = "",
     onIndexChange,
+    zoomable = false,
   } = props;
   const [index, setIndex] = useState<number>(initialIndex);
   const touchStartX = useRef<number | null>(null);
+  const [lightbox, setLightbox] = useState(false);
+  const [zoomed, setZoomed] = useState(false);
+  const [origin, setOrigin] = useState("50% 50%");
+
+  // Phones already pinch-zoom, so only offer this with a mouse.
+  const canZoom =
+    zoomable &&
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  const closeLightbox = () => {
+    setLightbox(false);
+    setZoomed(false);
+  };
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [lightbox]);
+
+  const followMouse = (e: React.MouseEvent<HTMLImageElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width) * 100;
+    const y = ((e.clientY - r.top) / r.height) * 100;
+    setOrigin(`${x}% ${y}%`);
+  };
 
   // sync controlled index when provided
   useEffect(() => {
@@ -113,7 +153,8 @@ export default function Carousel(props: {
                   ? `${alt}${images.length > 1 ? ` (${index + 1}/${images.length})` : ""}`
                   : "current"
               }
-              className="max-w-full max-h-full object-contain"
+              className={`max-w-full max-h-full object-contain ${canZoom ? "cursor-zoom-in" : ""}`}
+              onClick={canZoom ? () => setLightbox(true) : undefined}
             />
           )}
         </div>
@@ -122,6 +163,65 @@ export default function Carousel(props: {
           <ArrowButton onClick={next} label="Next"><ChevronRight /></ArrowButton>
         )}
       </div>
+
+      {/* Portal: an animated (transformed) ancestor would otherwise trap the
+          fixed overlay inside the page. */}
+      {lightbox && createPortal(
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={alt}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 overflow-hidden"
+          onClick={closeLightbox}
+        >
+          <img
+            src={src}
+            alt={alt}
+            onClick={(e) => {
+              e.stopPropagation();
+              followMouse(e);
+              setZoomed((z) => !z);
+            }}
+            onMouseMove={zoomed ? followMouse : undefined}
+            style={{ transformOrigin: origin }}
+            className={`max-w-[92vw] max-h-[92vh] object-contain transition-transform duration-200 ${
+              zoomed ? "scale-[2.2] cursor-zoom-out" : "cursor-zoom-in"
+            }`}
+          />
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={(e) => {
+                  setZoomed(false);
+                  prev(e);
+                }}
+                aria-label="Previous"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white cursor-pointer p-2"
+              >
+                <ChevronLeft />
+              </button>
+              <button
+                onClick={(e) => {
+                  setZoomed(false);
+                  next(e);
+                }}
+                aria-label="Next"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white cursor-pointer p-2"
+              >
+                <ChevronRight />
+              </button>
+            </>
+          )}
+          <button
+            onClick={closeLightbox}
+            aria-label="Close"
+            className="absolute top-4 right-5 text-white/80 hover:text-white text-4xl leading-none cursor-pointer"
+          >
+            ×
+          </button>
+        </div>,
+        document.body,
+      )}
 
       {images.length > 1 && showDots && (
         <div className="flex justify-center gap-2 py-2">

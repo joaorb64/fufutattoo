@@ -126,6 +126,8 @@ const resources = {
         clearTags: "Clear",
         imageAlt: "{{name}}, tattoo flash",
         priceFrom: "from",
+        saleBanner: "{{percent}}% off all flashes!",
+        saleBadge: "-{{percent}}%",
         moreTags: "▼ more tags",
         fewerTags: "▲ fewer tags",
         pricingNote:
@@ -270,6 +272,8 @@ const resources = {
         clearTags: "Limpar",
         imageAlt: "{{name}}, flash de tatuagem",
         priceFrom: "a partir de",
+        saleBanner: "Todos os flashes com {{percent}}% de desconto!",
+        saleBadge: "-{{percent}}%",
         moreTags: "▼ mais tags",
         fewerTags: "▲ menos tags",
         pricingNote:
@@ -415,6 +419,8 @@ const resources = {
         clearTags: "Limpiar",
         imageAlt: "{{name}}, flash de tatuaje",
         priceFrom: "desde",
+        saleBanner: "¡Todos los flashes con {{percent}}% de descuento!",
+        saleBadge: "-{{percent}}%",
         moreTags: "▼ más etiquetas",
         fewerTags: "▲ menos etiquetas",
         pricingNote:

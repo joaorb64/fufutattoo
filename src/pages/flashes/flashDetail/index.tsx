@@ -6,7 +6,8 @@ import Carousel from "../../../components/Carousel";
 import FlashItem from "../flashItem";
 import Seo from "../../../components/Seo";
 import { FlashStructuredData } from "../../../components/StructuredData";
-import { WHATSAPP_URL } from "../../../config";
+import { WHATSAPP_URL, discountedPrice } from "../../../config";
+import FlashPrice from "../flashPrice";
 import { resolveLocale } from "../../../i18n";
 import { loadFlashes } from "../../../flashes";
 import { tagLabels } from "../tagUtils";
@@ -110,7 +111,7 @@ const FlashDetail = () => {
     flashDescription ||
     t("seo.flashDetail.descriptionFallback", {
       name: flashName,
-      price: flash.price,
+      price: discountedPrice(flash.price),
     });
   const flashUrl =
     typeof window !== "undefined"
@@ -135,7 +136,11 @@ const FlashDetail = () => {
         name={flashName}
         description={flashDescription || undefined}
         image={flashImage}
-        price={flash.price}
+        price={
+          typeof flash.price === "number"
+            ? discountedPrice(flash.price)
+            : undefined
+        }
         path={flashPath}
         flashbookLabel={t("nav.flashes")}
       />
@@ -161,6 +166,7 @@ const FlashDetail = () => {
                   controlledIndex={imageIndex}
                   showDots={false}
                   onIndexChange={(i) => setImageIndex(i)}
+                  zoomable
                   className="w-full h-96"
                 />
               </div>
@@ -199,7 +205,7 @@ const FlashDetail = () => {
 
         <div className="flex flex-col gap-4 p-2">
           <div>
-            <h1 className="text-6xl font-[BohoSans] tracking-wide">
+            <h1 className="text-5xl sm:text-6xl font-[BohoSans] tracking-wide">
               {flashName}
             </h1>
           </div>
@@ -289,9 +295,10 @@ const FlashDetail = () => {
             <span className="block text-sm text-zinc-500 lowercase">
               {t("flashes.priceFrom")}
             </span>
-            <span className="font-[BohoSans] text-4xl tracking-wide">
-              €{flash.price}
-            </span>
+            <FlashPrice
+              price={flash.price}
+              className="font-[BohoSans] text-4xl tracking-wide"
+            />
           </p>
 
           {flash.tags && flash.tags.length > 0 && (

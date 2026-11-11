@@ -17,8 +17,11 @@ import {
   deleteFlash,
   getStoredToken,
   repoPathFromImageUrl,
+  requestPersistentStorage,
   setStoredToken,
   verifyToken,
+  watchDeploy,
+  type DeployStatus,
 } from "./github";
 
 function slugify(text: string) {
@@ -89,6 +92,7 @@ export default function FlashEditor() {
   const [uploadMsg, setUploadMsg] = useState("");
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [commitUrl, setCommitUrl] = useState<string | null>(null);
+  const [deployStatus, setDeployStatus] = useState<DeployStatus | null>(null);
   const [deleteState, setDeleteState] = useState<
     "idle" | "confirm" | "deleting" | "done"
   >("idle");
@@ -97,6 +101,23 @@ export default function FlashEditor() {
   const [publishLocked, setPublishLocked] = useState(false);
   const feedbackRef = useRef<HTMLDivElement>(null);
   const tagDictInited = useRef(false);
+
+  // On open, check the saved key still works, so an expired one is caught
+  // here instead of failing halfway through a publish.
+  useEffect(() => {
+    const saved = getStoredToken();
+    if (!saved) return;
+    requestPersistentStorage();
+    verifyToken(saved).then((r) => {
+      if (r.ok || !r.rejected) return; // offline etc.: keep the key
+      setStoredToken("");
+      setToken("");
+      setTokenState("invalid");
+      setTokenError(
+        "A chave guardada expirou ou foi apagada no GitHub. Crie uma nova e cole aqui.",
+      );
+    });
+  }, []);
 
   useEffect(() => {
     if (!slugTouched) setSlug(slugify(name));
@@ -184,16 +205,29 @@ export default function FlashEditor() {
     return match ? match[0] : null;
   }, [name, allFlashes, originalSlug]);
 
+  // "flor, lua" adds two tags.
+  const splitTags = (raw: string) =>
+    raw
+      .split(",")
+      .map((t) => t.trim().toLowerCase())
+      .filter(Boolean);
+
   const addTag = (raw: string) => {
-    const clean = raw.trim().toLowerCase();
-    if (clean && !tags.includes(clean)) {
-      setTags((prev) => [...prev, clean]);
-      setTagDict((prev) =>
-        prev[clean] ? prev : { ...prev, [clean]: emptyEntry() },
-      );
+    const fresh = splitTags(raw).filter((t) => !tags.includes(t));
+    if (fresh.length) {
+      setTags((prev) => [...new Set([...prev, ...fresh])]);
+      setTagDict((prev) => {
+        const next = { ...prev };
+        for (const t of fresh) next[t] ??= emptyEntry();
+        return next;
+      });
     }
     setTagInput("");
   };
+
+  // Tags still sitting in the input (typed but never confirmed with Enter)
+  // are published too, so nothing typed gets silently dropped.
+  const finalTags = [...new Set([...tags, ...splitTags(tagInput)])];
 
   const removeTag = (tag: string) =>
     setTags((prev) => prev.filter((t) => t !== tag));
@@ -236,6 +270,7 @@ export default function FlashEditor() {
     setSizeMaxW(emptyForm.sizeMaxW);
     setSizeMaxH(emptyForm.sizeMaxH);
     setTags(emptyForm.tags);
+    setTagInput("");
     setNameEnOverride(emptyForm.nameEnOverride);
     setNameEsOverride(emptyForm.nameEsOverride);
     setDescEnOverride(emptyForm.descEnOverride);
@@ -268,6 +303,7 @@ export default function FlashEditor() {
     setSizeMaxW(flash.size_max?.[0] != null ? String(flash.size_max[0]) : "");
     setSizeMaxH(flash.size_max?.[1] != null ? String(flash.size_max[1]) : "");
     setTags((flash.tags || []).map((t: any) => t.pt).filter(Boolean));
+    setTagInput("");
     // Overrides start blank even when editing — pre-filling them with the
     // current (possibly just auto-translated) text would silently lock it
     // in as a manual override on next save. The current value is shown as
@@ -309,7 +345,7 @@ export default function FlashEditor() {
   const buildPayload = () => {
     const data: Record<string, unknown> = {
       name: name.trim(),
-      tags,
+      tags: finalTags,
       price: Number(price),
     };
     if (sizeMinW && sizeMinH) {
@@ -449,6 +485,8 @@ export default function FlashEditor() {
       setCommitUrl(url);
       if (tagDictDirty) setTagDictBaseline(tagDictText);
       setUploadState("done");
+      setDeployStatus("queued");
+      watchDeploy(token, url, setDeployStatus);
     } catch (e) {
       setUploadError((e as Error).message);
       setUploadState("error");
@@ -475,6 +513,8 @@ export default function FlashEditor() {
       });
       setCommitUrl(url);
       setDeleteState("done");
+      setDeployStatus("queued");
+      watchDeploy(token, url, setDeployStatus);
       resetForm();
     } catch (e) {
       setUploadError((e as Error).message);
@@ -746,21 +786,43 @@ export default function FlashEditor() {
               </ul>
             )}
 
-            <div className="relative">
+            {/* A form so the phone keyboard's Enter/OK button reliably adds
+                the tag (a bare keydown listener misses it on Android). */}
+            <form
+              className="relative flex gap-2"
+              onSubmit={(e) => {
+                e.preventDefault();
+                addTag(tagInput);
+              }}
+            >
               <input
                 className={inputClass}
                 value={tagInput}
-                onChange={(e) => setTagInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    addTag(tagInput);
+                onChange={(e) => {
+                  const v = e.target.value;
+                  // Typing a comma confirms the tag(s) before it.
+                  if (v.includes(",")) {
+                    const parts = v.split(",");
+                    const rest = parts.pop() ?? "";
+                    addTag(parts.join(","));
+                    setTagInput(rest.trimStart());
+                  } else {
+                    setTagInput(v);
                   }
                 }}
-                placeholder="Digite uma tag e aperte Enter"
+                enterKeyHint="done"
+                autoCapitalize="none"
+                placeholder="Digite uma tag e toque em Adicionar"
               />
+              <button
+                type="submit"
+                disabled={!tagInput.trim()}
+                className="shrink-0 bg-zinc-800 hover:bg-zinc-900 disabled:bg-zinc-300 text-white font-semibold rounded px-4 cursor-pointer"
+              >
+                Adicionar
+              </button>
               {tagSuggestions.length > 0 && (
-                <div className="absolute z-10 w-full bg-white border border-zinc-200 rounded shadow mt-1 max-h-40 overflow-auto">
+                <div className="absolute top-full left-0 z-10 w-full bg-white border border-zinc-200 rounded shadow mt-1 max-h-40 overflow-auto">
                   {tagSuggestions.map((s) => (
                     <button
                       type="button"
@@ -773,7 +835,7 @@ export default function FlashEditor() {
                   ))}
                 </div>
               )}
-            </div>
+            </form>
             <p className="text-xs text-zinc-400 mt-1">
               Escreva em português. Traduções com vírgula viram vários chips
               (ex. <code>rat, mouse</code>) que filtram os mesmos flashes.
@@ -853,28 +915,47 @@ export default function FlashEditor() {
                     >
                       token de acesso pessoal (classic)
                     </a>{" "}
-                    marcando o escopo <em>repo</em> e definindo uma validade
-                    (ex. 90 dias). Cole o token aqui — ele fica guardado só
-                    neste navegador.
+                    marcando o escopo <em>repo</em>. Em "Expiration" escolha{" "}
+                    <em>No expiration</em>, para não ter que criar outro de
+                    tempos em tempos. Cole o token aqui — ele fica guardado
+                    neste navegador, e se o navegador oferecer para guardar a
+                    senha, aceite: assim ele preenche sozinho se a chave se
+                    perder.
                   </p>
-                  <div className="flex gap-2">
+                  {/* A real login-style form so the browser's password
+                      manager offers to save the key and can autofill it. */}
+                  <form
+                    className="flex gap-2"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      saveToken();
+                    }}
+                  >
+                    <input
+                      type="text"
+                      name="username"
+                      autoComplete="username"
+                      value="fufuart flash editor"
+                      readOnly
+                      hidden
+                    />
                     <input
                       type="password"
+                      name="password"
                       className={inputClass}
                       value={tokenInput}
                       onChange={(e) => setTokenInput(e.target.value)}
                       placeholder="ghp_..."
-                      autoComplete="off"
+                      autoComplete="current-password"
                     />
                     <button
-                      type="button"
-                      onClick={saveToken}
+                      type="submit"
                       disabled={!tokenInput.trim() || tokenState === "checking"}
                       className="shrink-0 bg-zinc-800 hover:bg-zinc-900 disabled:bg-zinc-300 text-white font-semibold rounded px-4 cursor-pointer"
                     >
                       {tokenState === "checking" ? "Verificando…" : "Salvar"}
                     </button>
-                  </div>
+                  </form>
                   {tokenState === "invalid" && tokenError && (
                     <p className="text-red-600">{tokenError}</p>
                   )}
@@ -935,10 +1016,7 @@ export default function FlashEditor() {
             {uploadState === "done" && (
               <div className="bg-teal-50 border border-teal-200 rounded p-4 text-sm text-zinc-700 leading-relaxed">
                 <p className="font-bold mb-1">Publicado! 🎉</p>
-                <p>
-                  O site atualiza sozinho em alguns minutos (as traduções para
-                  inglês e espanhol são geradas nesse processo).
-                </p>
+                <DeployStatusLine status={deployStatus} />
                 {commitUrl && (
                   <p className="mt-1">
                     <a
@@ -1002,7 +1080,7 @@ export default function FlashEditor() {
           {deleteState === "done" && (
             <div className="bg-teal-50 border border-teal-200 rounded p-4 text-sm text-zinc-700 leading-relaxed">
               <p className="font-bold mb-1">Flash apagado</p>
-              <p>O site atualiza sozinho em alguns minutos.</p>
+              <DeployStatusLine status={deployStatus} />
               {commitUrl && (
                 <p className="mt-1">
                   <a
@@ -1063,5 +1141,26 @@ export default function FlashEditor() {
         </div>
       </div>
     </div>
+  );
+}
+
+function DeployStatusLine({ status }: { status: DeployStatus | null }) {
+  if (status === "live")
+    return <p className="text-teal-700 font-semibold">✓ Já está no site!</p>;
+  if (status === "failed")
+    return (
+      <p className="text-red-600">
+        A atualização do site falhou. Avise o Joao.
+      </p>
+    );
+  if (status === "unknown")
+    return <p>O site deve atualizar em alguns minutos.</p>;
+  return (
+    <p className="flex items-center gap-2">
+      <span className="inline-block w-3 h-3 shrink-0 border-2 border-teal-300 border-t-teal-600 rounded-full animate-spin" />
+      {status === "building"
+        ? "A atualizar o site… (menos de 1 minuto)"
+        : "Na fila para atualizar o site…"}
+    </p>
   );
 }

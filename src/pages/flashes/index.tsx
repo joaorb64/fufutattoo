@@ -9,6 +9,7 @@ import { getCachedFlashes, loadFlashes } from "../../flashes";
 import { tagLabels, tagSynonyms, type LTag } from "./tagUtils";
 import StickerTitle from "../../components/StickerTitle";
 import Seo from "../../components/Seo";
+import { FLASH_DISCOUNT } from "../../config";
 import mushroomsSticker from "../../assets/images/sticker_mushrooms.webp";
 
 export default function Flashes() {
@@ -178,6 +179,14 @@ export default function Flashes() {
           {t("flashes.title")}
         </StickerTitle>
       </div>
+
+      {FLASH_DISCOUNT > 0 && (
+        <div className="mx-auto mb-5 w-fit max-w-full -rotate-1 rounded-full bg-red-800 px-6 py-2 text-center font-[BohoSans] text-2xl sm:text-3xl tracking-wide uppercase text-[#ffeedc] shadow-md">
+          {t("flashes.saleBanner", {
+            percent: Math.round(FLASH_DISCOUNT * 100),
+          })}
+        </div>
+      )}
 
       <p className="mx-auto max-w-2xl text-center text-sm sm:text-base text-zinc-600 leading-relaxed mb-6">
         {t("flashes.pricingNote")}

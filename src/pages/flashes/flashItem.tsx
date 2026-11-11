@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { resolveLocale } from "../../i18n";
+import FlashPrice from "./flashPrice";
 
 const FlashItem = (props: { flash: any; flashId: string }) => {
   const { t, i18n } = useTranslation();
@@ -52,9 +53,10 @@ const FlashItem = (props: { flash: any; flashId: string }) => {
           <span className="block text-xs text-zinc-500 uppercase tracking-wide font-semibold">
             {t("flashes.priceFrom")}
           </span>
-          <span className="font-[BohoSans] text-2xl text-zinc-900 font-medium">
-            €{props.flash.price}
-          </span>
+          <FlashPrice
+            price={props.flash.price}
+            className="font-[BohoSans] text-2xl text-zinc-900 font-medium"
+          />
         </p>
       </div>
     </div>

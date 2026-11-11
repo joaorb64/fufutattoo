@@ -161,10 +161,20 @@ async function syncTagsDict(dict, tags) {
 
   for (const key of used) {
     if (dict[key]) continue;
-    dict[key] = {};
+    const entry = {};
+    let ok = true;
     for (const lang of TARGET_LANGS) {
-      dict[key][lang] = [(await translateText(key, lang)).toLowerCase()];
+      const tr = await translateText(key, lang);
+      if (tr == null) {
+        ok = false;
+        break;
+      }
+      entry[lang] = [tr.toLowerCase()];
     }
+    // No translation: leave it out so the next build tries again. The chip
+    // shows the Portuguese word meanwhile (see tagChips).
+    if (!ok) continue;
+    dict[key] = entry;
     changed = true;
   }
 
@@ -186,14 +196,24 @@ function tagChips(dict, lang, key) {
   return cleaned.length ? cleaned : [key];
 }
 
+// Returns null when the translation service can't be reached (offline,
+// rate-limited). Callers must not cache that: the Portuguese fallback would
+// otherwise stick forever, even once the network is back.
 async function translateText(text, lang) {
-  try {
-    const result = await translatte(text, { from: "pt", to: lang });
-    return result.text;
-  } catch (e) {
-    console.log(e);
-    return text; // fall back to the Portuguese source rather than leaving it blank
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const result = await translatte(text, { from: "pt", to: lang });
+      if (result?.text) return result.text;
+    } catch (e) {
+      if (attempt === 3) {
+        console.warn(
+          `[tradução] falhou "${text}" -> ${lang}: ${e?.message || JSON.stringify(e)}`,
+        );
+      }
+    }
+    await new Promise((r) => setTimeout(r, 500 * attempt));
   }
+  return null;
 }
 
 async function translateFlash(data) {
@@ -216,6 +236,20 @@ async function translateFlash(data) {
         ? existing.description
         : await translateText(data.description, lang)
       : undefined;
+
+    if (name == null || description === null) {
+      // Service unreachable: keep what we had (or show Portuguese) and don't
+      // record the hash, so the next run retries.
+      translations[lang] = {
+        ...existing,
+        name: name ?? existing?.name ?? data.name,
+        ...(data.description
+          ? { description: description ?? existing?.description ?? data.description }
+          : {}),
+      };
+      delete translations[lang]._sourceHash;
+      continue;
+    }
 
     translations[lang] = {
       name,

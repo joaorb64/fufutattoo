@@ -30,9 +30,22 @@ export function getStoredToken(): string {
   }
 }
 
+// Ask the browser not to clear this site's storage on its own (e.g. when the
+// disk fills up). Harmless where unsupported.
+export function requestPersistentStorage() {
+  try {
+    navigator.storage?.persist?.().catch(() => {});
+  } catch {
+    // not supported
+  }
+}
+
 export function setStoredToken(token: string) {
   try {
-    if (token) localStorage.setItem(TOKEN_KEY, token);
+    if (token) {
+      localStorage.setItem(TOKEN_KEY, token);
+      requestPersistentStorage();
+    }
     else localStorage.removeItem(TOKEN_KEY);
   } catch {
     // Private mode / storage disabled — the token just won't persist.
@@ -41,6 +54,11 @@ export function setStoredToken(token: string) {
 
 async function gh(token: string, path: string, init?: RequestInit) {
   const res = await fetch(`https://api.github.com${path}`, {
+    // GitHub's API answers with `Cache-Control: max-age=60`, so without this
+    // the browser can hand back a branch head from a minute ago. Committing on
+    // top of that stale head is rejected ("not a fast forward") — the reason
+    // publishing several flashes in a row used to fail until retried.
+    cache: "no-store",
     ...init,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -70,7 +88,7 @@ async function gh(token: string, path: string, init?: RequestInit) {
 
 export async function verifyToken(
   token: string,
-): Promise<{ ok: boolean; error?: string }> {
+): Promise<{ ok: boolean; error?: string; rejected?: boolean }> {
   try {
     const repo = await gh(token, `/repos/${REPO_SLUG}`);
     if (!repo?.permissions?.push) {
@@ -83,7 +101,9 @@ export async function verifyToken(
     }
     return { ok: true };
   } catch (e) {
-    return { ok: false, error: (e as Error).message };
+    const error = (e as Error).message;
+    // `rejected`: GitHub said no (expired/revoked), not just a network blip.
+    return { ok: false, error, rejected: error.startsWith("Token recusado") };
   }
 }
 
@@ -112,8 +132,30 @@ export function repoPathFromImageUrl(url: string): string | null {
 type TreeEntry = { path: string; mode: "100644"; type: "blob"; sha: string | null };
 
 // Push one commit built from an explicit list of tree entries (a null `sha`
-// deletes that path) on top of the current branch head.
+// deletes that path) on top of the current branch head. If the branch moves
+// while we work (another publish just landed), rebuild on the new head and
+// try again.
 async function pushCommit(
+  token: string,
+  message: string,
+  tree: TreeEntry[],
+  onProgress: (msg: string) => void,
+): Promise<{ commitUrl: string }> {
+  const MAX_ATTEMPTS = 4;
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await pushCommitOnce(token, message, tree, onProgress);
+    } catch (e) {
+      const msg = (e as Error).message;
+      const retryable = /GitHub (409|422|5\d\d)/.test(msg) || /fetch/i.test(msg);
+      if (!retryable || attempt >= MAX_ATTEMPTS) throw e;
+      onProgress(`O GitHub recusou, a tentar de novo (${attempt + 1}/${MAX_ATTEMPTS})…`);
+      await new Promise((r) => setTimeout(r, 1500 * attempt));
+    }
+  }
+}
+
+async function pushCommitOnce(
   token: string,
   message: string,
   tree: TreeEntry[],
@@ -127,10 +169,18 @@ async function pushCommit(
     `/repos/${REPO_SLUG}/git/commits/${baseCommitSha}`,
   );
 
+  // Deleting a path that isn't in the repo makes GitHub reject the whole
+  // tree, so only keep deletions of files that actually exist.
+  let entries = tree;
+  if (tree.some((t) => t.sha === null)) {
+    const existing = await listPaths(token, baseCommit.tree.sha);
+    entries = tree.filter((t) => t.sha !== null || existing.has(t.path));
+  }
+
   onProgress("Criando o commit…");
   const newTree = await gh(token, `/repos/${REPO_SLUG}/git/trees`, {
     method: "POST",
-    body: JSON.stringify({ base_tree: baseCommit.tree.sha, tree }),
+    body: JSON.stringify({ base_tree: baseCommit.tree.sha, tree: entries }),
   });
   const commit = await gh(token, `/repos/${REPO_SLUG}/git/commits`, {
     method: "POST",
@@ -146,6 +196,19 @@ async function pushCommit(
   });
 
   return { commitUrl: `https://github.com/${REPO_SLUG}/commit/${commit.sha}` };
+}
+
+// Every file path under public/flashes in the given tree.
+async function listPaths(token: string, rootTreeSha: string): Promise<Set<string>> {
+  const res = await gh(
+    token,
+    `/repos/${REPO_SLUG}/git/trees/${rootTreeSha}?recursive=1`,
+  );
+  return new Set(
+    (res.tree as { path: string; type: string }[])
+      .filter((e) => e.type === "blob" && e.path.startsWith(`${FLASHES_DIR}/`))
+      .map((e) => e.path),
+  );
 }
 
 async function uploadBlob(token: string, content: string): Promise<string> {
@@ -268,4 +331,37 @@ export async function commitTextFile({
     },
   ];
   return pushCommit(token, message, tree, onProgress);
+}
+
+export type DeployStatus = "queued" | "building" | "live" | "failed" | "unknown";
+
+// Follow the "Deploy to GitHub Pages" run started by a commit, calling
+// `onStatus` as it moves along, until the site is live (or the run fails).
+export async function watchDeploy(
+  token: string,
+  commitUrl: string,
+  onStatus: (s: DeployStatus) => void,
+): Promise<void> {
+  const sha = commitUrl.split("/").pop();
+  const deadline = Date.now() + 10 * 60 * 1000;
+  while (Date.now() < deadline) {
+    try {
+      const res = await gh(
+        token,
+        `/repos/${REPO_SLUG}/actions/runs?head_sha=${sha}&per_page=1`,
+      );
+      const run = res?.workflow_runs?.[0];
+      if (!run) onStatus("queued");
+      else if (run.status !== "completed")
+        onStatus(run.status === "in_progress" ? "building" : "queued");
+      else {
+        onStatus(run.conclusion === "success" ? "live" : "failed");
+        return;
+      }
+    } catch {
+      // Network blip — keep polling.
+    }
+    await new Promise((r) => setTimeout(r, 5000));
+  }
+  onStatus("unknown");
 }
