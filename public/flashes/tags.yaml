@@ -30,6 +30,9 @@ colorido:
 comida:
   en: []
   es: []
+coruja:
+  en: []
+  es: []
 estrela:
   en: [star]
   es: [estrella]
@@ -52,6 +55,9 @@ mar:
   en: []
   es: []
 mini:
+  en: []
+  es: []
+noite:
   en: []
   es: []
 oceano:

@@ -1,0 +1,14 @@
+name: Sentinela
+tags:
+  - coruja
+  - pássaro
+  - fauna
+  - lua
+  - noite
+price: 85
+size_min:
+  - 4
+  - 6
+size_max:
+  - 6
+  - 8
