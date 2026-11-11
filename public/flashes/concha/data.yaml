@@ -1,5 +1,8 @@
 name: Concha
-tags: []
+tags:
+  - mar
+  - oceano
+  - colorido
 price: 120
 size_min:
   - 5
