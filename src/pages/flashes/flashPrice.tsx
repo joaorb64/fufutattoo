@@ -12,14 +12,13 @@ export default function FlashPrice({
   if (!FLASH_DISCOUNT) {
     return <span className={className}>€{price}</span>;
   }
+  // `className` (font, size) goes on the wrapper so both prices share it.
   return (
-    <span className="inline-flex items-baseline gap-2">
-      <s className="text-zinc-400 text-[0.65em] decoration-red-800 decoration-2">
+    <span className={`inline-flex items-baseline gap-2 ${className}`}>
+      <s className="text-[0.8em] text-zinc-500 decoration-red-800 decoration-2">
         €{price}
       </s>
-      <span className={`${className} text-red-800`}>
-        €{discountedPrice(price)}
-      </span>
+      <span className="text-red-800">€{discountedPrice(price)}</span>
     </span>
   );
 }

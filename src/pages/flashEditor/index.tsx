@@ -22,7 +22,15 @@ import {
   verifyToken,
   watchDeploy,
   type DeployStatus,
+  listFlashSlugs,
+  readFlashFolder,
+  readRepoText,
+  lastCommitFor,
+  flashDir,
+  TAGS_DICT_PATH,
+  type CommitInfo,
 } from "./github";
+import { parseTagDict } from "./tagDict";
 
 function slugify(text: string) {
   return text
@@ -100,6 +108,13 @@ export default function FlashEditor() {
   // double-click can't fire a second commit.
   const [publishLocked, setPublishLocked] = useState(false);
   const feedbackRef = useRef<HTMLDivElement>(null);
+  // Folders that exist in the repo (read live when a key is saved), so a
+  // flash published a moment ago can be edited before the site catches up.
+  const [repoSlugs, setRepoSlugs] = useState<string[]>([]);
+  // Last commit touching the open flash when it was loaded, to notice edits
+  // made elsewhere in the meantime.
+  const [loadedCommit, setLoadedCommit] = useState<string | null>(null);
+  const [conflict, setConflict] = useState<CommitInfo | null>(null);
   const tagDictInited = useRef(false);
 
   // On open, check the saved key still works, so an expired one is caught
@@ -130,12 +145,43 @@ export default function FlashEditor() {
       .catch(() => {});
   }, []);
 
+  useEffect(() => {
+    if (!token) return;
+    listFlashSlugs(token).then(setRepoSlugs).catch(() => {});
+  }, [token]);
+
+  // While a flash is open, check every 30s (only with the tab visible) whether
+  // it was changed elsewhere, and warn right away instead of at publish time.
+  useEffect(() => {
+    if (!token || !originalSlug || !loadedCommit) return;
+    const check = async () => {
+      if (document.hidden || uploadState === "uploading") return;
+      try {
+        const latest = await lastCommitFor(token, flashDir(originalSlug));
+        if (latest && latest.sha !== loadedCommit) setConflict(latest);
+      } catch {
+        // offline — try again next tick
+      }
+    };
+    const id = setInterval(check, 30_000);
+    document.addEventListener("visibilitychange", check);
+    return () => {
+      clearInterval(id);
+      document.removeEventListener("visibilitychange", check);
+    };
+  }, [token, originalSlug, loadedCommit, uploadState]);
+
   // Load the shared tag dictionary once, folding in any tag already used by a
   // flash so every tag has a row even before it's in tags.yaml.
   useEffect(() => {
     if (tagDictInited.current || Object.keys(allFlashes).length === 0) return;
     tagDictInited.current = true;
-    loadTagDict().then((dict) => {
+    const loadDict = token
+      ? readRepoText(token, TAGS_DICT_PATH)
+          .then(parseTagDict)
+          .catch(() => loadTagDict())
+      : loadTagDict();
+    loadDict.then((dict) => {
       const merged: TagDict = { ...dict };
       for (const flash of Object.values(allFlashes) as any[]) {
         for (const tag of flash.tags || []) {
@@ -191,8 +237,11 @@ export default function FlashEditor() {
   }, [tagInput, tagFuse, tagCounts, tags]);
 
   const slugConflict = useMemo(
-    () => !!slug && Object.keys(allFlashes).some((k) => k === slug && k !== originalSlug),
-    [slug, allFlashes, originalSlug],
+    () =>
+      !!slug &&
+      slug !== originalSlug &&
+      (slug in allFlashes || repoSlugs.includes(slug)),
+    [slug, allFlashes, originalSlug, repoSlugs],
   );
 
   const nameConflictSlug = useMemo(() => {
@@ -259,6 +308,8 @@ export default function FlashEditor() {
 
   const resetForm = () => {
     setOriginalSlug(null);
+    setLoadedCommit(null);
+    setConflict(null);
     setLoadedFlash(null);
     setName(emptyForm.name);
     setSlug(emptyForm.slug);
@@ -280,44 +331,112 @@ export default function FlashEditor() {
     setDownloaded(false);
   };
 
+  // Fill the form from a flash's data.yaml (the source of truth, rather than
+  // the generated index).
+  const fillFromYaml = (data: any) => {
+    setName(String(data.name ?? ""));
+    setDescription(String(data.description ?? ""));
+    setPrice(data.price != null ? String(data.price) : "");
+    setSizeMinW(data.size_min?.[0] != null ? String(data.size_min[0]) : "");
+    setSizeMinH(data.size_min?.[1] != null ? String(data.size_min[1]) : "");
+    setSizeMaxW(data.size_max?.[0] != null ? String(data.size_max[0]) : "");
+    setSizeMaxH(data.size_max?.[1] != null ? String(data.size_max[1]) : "");
+    setTags(
+      (Array.isArray(data.tags) ? data.tags : [])
+        .map((t: unknown) => String(t).trim().toLowerCase())
+        .filter(Boolean),
+    );
+    // Pre-fill only the translations typed by hand (locked). Machine ones
+    // stay blank (shown as placeholders) so saving doesn't lock them in.
+    // Leaving the hand-written ones blank used to wipe them on every edit.
+    const tr = data.translations || {};
+    const locked = (lang: string, field: "name" | "description") => {
+      const t = tr[lang];
+      return t && (t.locked || t[`${field}_locked`]) ? String(t[field] ?? "") : "";
+    };
+    setNameEnOverride(locked("en", "name"));
+    setNameEsOverride(locked("es", "name"));
+    setDescEnOverride(locked("en", "description"));
+    setDescEsOverride(locked("es", "description"));
+  };
+
   const loadExisting = async (existingSlug: string) => {
     setDeleteState("idle");
     setUploadState("idle");
+    setConflict(null);
     if (!existingSlug) {
       resetForm();
       return;
     }
-    const flash = allFlashes[existingSlug];
-    if (!flash) return;
+    const indexed = allFlashes[existingSlug];
 
     setDownloaded(false);
     setOriginalSlug(existingSlug);
-    setLoadedFlash(flash);
     setSlug(existingSlug);
     setSlugTouched(true);
-    setName(flash.name?.pt || "");
-    setDescription(flash.description?.pt || "");
-    setPrice(flash.price != null ? String(flash.price) : "");
-    setSizeMinW(flash.size_min?.[0] != null ? String(flash.size_min[0]) : "");
-    setSizeMinH(flash.size_min?.[1] != null ? String(flash.size_min[1]) : "");
-    setSizeMaxW(flash.size_max?.[0] != null ? String(flash.size_max[0]) : "");
-    setSizeMaxH(flash.size_max?.[1] != null ? String(flash.size_max[1]) : "");
-    setTags((flash.tags || []).map((t: any) => t.pt).filter(Boolean));
     setTagInput("");
-    // Overrides start blank even when editing — pre-filling them with the
-    // current (possibly just auto-translated) text would silently lock it
-    // in as a manual override on next save. The current value is shown as
-    // a placeholder hint instead.
-    setNameEnOverride(emptyForm.nameEnOverride);
-    setNameEsOverride(emptyForm.nameEsOverride);
-    setDescEnOverride(emptyForm.descEnOverride);
-    setDescEsOverride(emptyForm.descEsOverride);
-
     images.forEach((img) => URL.revokeObjectURL(img.url));
     setImages([]);
     setLoadingImages(true);
+    setLoadedCommit(null);
+
+    // With a key: read the folder straight from the repo (always current).
+    if (token) {
+      try {
+        const [folder, commit] = await Promise.all([
+          readFlashFolder(token, existingSlug),
+          lastCommitFor(token, flashDir(existingSlug)),
+        ]);
+        const data = (yaml.load(folder.yamlText) as any) || {};
+        fillFromYaml(data);
+        setLoadedCommit(commit?.sha ?? null);
+        setLoadedFlash({
+          name: {
+            pt: data.name,
+            en: data.translations?.en?.name ?? indexed?.name?.en,
+            es: data.translations?.es?.name ?? indexed?.name?.es,
+          },
+          description: {
+            en: data.translations?.en?.description ?? indexed?.description?.en,
+            es: data.translations?.es?.description ?? indexed?.description?.es,
+          },
+          images: folder.images.map((f) => ({
+            original: `/flashes/${existingSlug}/${f.name}`,
+          })),
+        });
+        setImages(
+          folder.images.map((file) => ({ file, url: URL.createObjectURL(file) })),
+        );
+        setLoadingImages(false);
+        return;
+      } catch {
+        // fall through to the site copy
+      }
+    }
+
+    if (!indexed) {
+      setLoadingImages(false);
+      return;
+    }
+    setLoadedFlash(indexed);
+    try {
+      const text = await fetch(
+        `${import.meta.env.BASE_URL}flashes/${existingSlug}/data.yaml`,
+        { cache: "no-store" },
+      ).then((r) => (r.ok ? r.text() : ""));
+      fillFromYaml((yaml.load(text) as any) || {});
+    } catch {
+      fillFromYaml({
+        name: indexed.name?.pt,
+        description: indexed.description?.pt,
+        price: indexed.price,
+        size_min: indexed.size_min,
+        size_max: indexed.size_max,
+        tags: (indexed.tags || []).map((t: any) => t.pt),
+      });
+    }
     const loaded: ImageEntry[] = [];
-    for (const img of flash.images || []) {
+    for (const img of indexed.images || []) {
       try {
         const res = await fetch(img.original);
         const blob = await res.blob();
@@ -443,8 +562,27 @@ export default function FlashEditor() {
     setTimeout(() => setPublishLocked(false), 5000);
   };
 
-  const handleUpload = async () => {
+  const handleUpload = async (force = false) => {
     if (uploadState === "uploading" || publishLocked) return;
+
+    // Was this flash changed somewhere else since it was opened (or, for a new
+    // flash, did its folder appear meanwhile)?
+    if (!force) {
+      try {
+        const latest = await lastCommitFor(token, flashDir(originalSlug ?? slug));
+        const changed = originalSlug
+          ? !!latest && latest.sha !== loadedCommit && loadedCommit !== null
+          : !!latest;
+        if (changed && latest) {
+          setConflict(latest);
+          return;
+        }
+      } catch {
+        // can't check (network) — go ahead
+      }
+    }
+    setConflict(null);
+
     lockPublishBriefly();
     const { yamlText, files } = buildPayload();
 
@@ -485,6 +623,16 @@ export default function FlashEditor() {
       setCommitUrl(url);
       if (tagDictDirty) setTagDictBaseline(tagDictText);
       setUploadState("done");
+      // The form now matches what's in the repo: further edits update this
+      // same flash, and our own commit isn't mistaken for someone else's.
+      setOriginalSlug(slug);
+      setLoadedCommit(url.split("/").pop() ?? null);
+      setLoadedFlash((prev: any) => ({
+        ...prev,
+        name: { ...prev?.name, pt: name.trim() },
+        images: files.map((f) => ({ original: `/flashes/${slug}/${f.name}` })),
+      }));
+      if (!repoSlugs.includes(slug)) setRepoSlugs((p) => [...p, slug]);
       setDeployStatus("queued");
       watchDeploy(token, url, setDeployStatus);
     } catch (e) {
@@ -528,9 +676,15 @@ export default function FlashEditor() {
     "w-full border border-zinc-200 rounded px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500";
   const labelClass = "block text-sm font-semibold text-zinc-700 mb-1";
 
-  const sortedFlashOptions = Object.entries(allFlashes).sort((a, b) =>
-    (a[1].name?.pt || "").localeCompare(b[1].name?.pt || ""),
-  );
+  const sortedFlashOptions = [
+    ...Object.entries(allFlashes).filter(
+      ([k]) => repoSlugs.length === 0 || repoSlugs.includes(k),
+    ),
+    // In the repo but not on the site yet (just published).
+    ...repoSlugs
+      .filter((k) => !allFlashes[k])
+      .map((k) => [k, { name: { pt: k } }] as [string, any]),
+  ].sort((a, b) => (a[1].name?.pt || "").localeCompare(b[1].name?.pt || ""));
 
   return (
     <div className="min-h-dvh bg-zinc-50 text-zinc-900 py-10 px-4">
@@ -973,7 +1127,7 @@ export default function FlashEditor() {
                 publishLocked ||
                 deleteState === "deleting"
               }
-              onClick={handleUpload}
+              onClick={() => handleUpload()}
               className="flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 disabled:bg-zinc-300 disabled:cursor-not-allowed text-white font-bold rounded-full py-3 cursor-pointer transition-colors"
             >
               {uploadState === "uploading" && (
@@ -1004,6 +1158,48 @@ export default function FlashEditor() {
           >
             Baixar .zip
           </button>
+
+          {conflict && (
+            <div className="bg-amber-50 border border-amber-300 rounded p-4 text-sm text-zinc-700 leading-relaxed">
+              <p className="font-bold mb-1">
+                {originalSlug
+                  ? "Este flash foi alterado depois que você o abriu"
+                  : `Já existe um flash na pasta "${slug}"`}
+              </p>
+              <p>
+                "{conflict.message}" por {conflict.author},{" "}
+                {new Date(conflict.date).toLocaleString("pt-PT")}.{" "}
+                {originalSlug
+                  ? "Publicar agora apaga essas mudanças."
+                  : "Publicar agora substitui esse flash."}
+              </p>
+              <div className="flex flex-wrap gap-2 mt-3">
+                {originalSlug && (
+                  <button
+                    type="button"
+                    onClick={() => loadExisting(originalSlug)}
+                    className="bg-zinc-800 hover:bg-zinc-900 text-white font-semibold rounded-full px-4 py-2 cursor-pointer"
+                  >
+                    Recarregar o flash
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => handleUpload(true)}
+                  className="border border-amber-400 text-amber-800 rounded-full px-4 py-2 cursor-pointer"
+                >
+                  Publicar mesmo assim
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setConflict(null)}
+                  className="text-zinc-500 underline px-2 cursor-pointer"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          )}
 
           <div ref={feedbackRef} className="scroll-mt-4">
             {(uploadState === "uploading" || deleteState === "deleting") && (

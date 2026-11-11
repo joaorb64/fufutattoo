@@ -365,3 +365,94 @@ export async function watchDeploy(
   }
   onStatus("unknown");
 }
+
+// --- Reading straight from the repository --------------------------------
+//
+// The site only reflects a change after its ~1 minute deploy (plus caching),
+// so with a key saved the editor reads flashes from the repo itself and always
+// sees the latest version.
+
+async function ghRaw(token: string, path: string): Promise<Response> {
+  const res = await fetch(
+    `https://api.github.com/repos/${REPO_SLUG}/contents/${encodeURI(path)}?ref=${BRANCH}`,
+    {
+      cache: "no-store",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/vnd.github.raw",
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+    },
+  );
+  if (!res.ok) throw new Error(`GitHub ${res.status} ao ler ${path}`);
+  return res;
+}
+
+export async function readRepoText(token: string, path: string): Promise<string> {
+  return (await ghRaw(token, path)).text();
+}
+
+/** Folder names under public/flashes. */
+export async function listFlashSlugs(token: string): Promise<string[]> {
+  const items = await gh(
+    token,
+    `/repos/${REPO_SLUG}/contents/${FLASHES_DIR}?ref=${BRANCH}`,
+  );
+  return (items as { name: string; type: string }[])
+    .filter((i) => i.type === "dir")
+    .map((i) => i.name);
+}
+
+const IMAGE_RE = /\.(png|jpe?g|webp)$/i;
+
+/** A flash folder as it is in the repo right now: data.yaml text + images. */
+export async function readFlashFolder(
+  token: string,
+  slug: string,
+): Promise<{ yamlText: string; images: File[]; paths: string[] }> {
+  const dir = `${FLASHES_DIR}/${slug}`;
+  const items = (await gh(
+    token,
+    `/repos/${REPO_SLUG}/contents/${dir}?ref=${BRANCH}`,
+  )) as { name: string; path: string; type: string }[];
+  const imageItems = items
+    .filter((i) => i.type === "file" && IMAGE_RE.test(i.name))
+    .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+  const [yamlText, ...images] = await Promise.all([
+    readRepoText(token, `${dir}/data.yaml`),
+    ...imageItems.map(async (i) => {
+      const blob = await (await ghRaw(token, i.path)).blob();
+      const ext = i.name.split(".").pop()!.toLowerCase();
+      const type = ext === "png" ? "image/png" : ext === "webp" ? "image/webp" : "image/jpeg";
+      return new File([blob], i.name, { type });
+    }),
+  ]);
+  return {
+    yamlText: yamlText as string,
+    images: images as File[],
+    paths: items.filter((i) => i.type === "file").map((i) => i.path),
+  };
+}
+
+export type CommitInfo = { sha: string; date: string; author: string; message: string };
+
+/** Latest commit on main that touched `path` (file or folder), or null. */
+export async function lastCommitFor(
+  token: string,
+  path: string,
+): Promise<CommitInfo | null> {
+  const list = await gh(
+    token,
+    `/repos/${REPO_SLUG}/commits?sha=${BRANCH}&path=${encodeURIComponent(path)}&per_page=1`,
+  );
+  const c = list?.[0];
+  if (!c) return null;
+  return {
+    sha: c.sha,
+    date: c.commit.author.date,
+    author: c.author?.login || c.commit.author.name,
+    message: c.commit.message.split("\n")[0],
+  };
+}
+
+export const flashDir = (slug: string) => `${FLASHES_DIR}/${slug}`;
