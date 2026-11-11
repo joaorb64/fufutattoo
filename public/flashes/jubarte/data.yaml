@@ -1,5 +1,9 @@
 name: Jubarte (colorido)
-tags: []
+tags:
+  - oceano
+  - mar
+  - fauna
+  - baleia
 price: 160
 size_min:
   - 7
@@ -8,9 +12,6 @@ size_max:
   - 9
   - 18
 translations:
-  en:
-    name: Humpback (color)
-    name_locked: true
   es:
     name: Jorobada (color)
     name_locked: true

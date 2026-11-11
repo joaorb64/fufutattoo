@@ -12,6 +12,9 @@
 azul:
   en: [blue]
   es: [azul]
+baleia:
+  en: []
+  es: []
 botânico:
   en: [botanical]
   es: [botánico]
@@ -21,6 +24,9 @@ colorido:
 estrela:
   en: [star]
   es: [estrella]
+fauna:
+  en: []
+  es: []
 flor:
   en: [flower]
   es: [flor]
@@ -33,6 +39,12 @@ kintsugi:
 lua:
   en: [moon]
   es: [luna]
+mar:
+  en: []
+  es: []
+oceano:
+  en: []
+  es: []
 ouro:
   en: [gold]
   es: [oro]
@@ -42,9 +54,6 @@ picnic:
 pássaro:
   en: [bird]
   es: [pájaro]
-rato:
-  en: [rat, mouse]
-  es: [rata, ratón]
 vaso:
   en: [vase]
   es: [florero]
