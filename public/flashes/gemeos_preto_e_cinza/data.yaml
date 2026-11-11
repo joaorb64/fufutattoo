@@ -1,0 +1,19 @@
+name: Gêmeos (preto e cinza)
+tags: []
+price: 120
+size_min:
+  - 6
+  - 10
+size_max:
+  - 9
+  - 12
+description: >-
+  este desenho é inspirado no signo de gêmeos, mas não é um símbolo oficial. se
+  gostar do desenho, é seu!
+translations:
+  en:
+    name: Gemini (black and gray)
+    name_locked: true
+  es:
+    name: Géminis (negro y gris)
+    name_locked: true
