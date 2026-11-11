@@ -1,0 +1,18 @@
+name: ramo
+tags:
+  - natureza
+  - colorido
+price: 100
+size_min:
+  - 3
+  - 7
+size_max:
+  - 5
+  - 9
+translations:
+  en:
+    name: branch
+    name_locked: true
+  es:
+    name: rama
+    name_locked: true
