@@ -1,4 +1,4 @@
-name: Áries (colorido)
+name: Áries
 tags:
   - zodiaco
   - signo
@@ -10,10 +10,15 @@ size_min:
 size_max:
   - 11
   - 10
+description: >-
+  As estrelas também podem ser pretas.
+
+  A coleção do zodíaco ainda não está completa, se não encontrou o seu, volte em
+  breve!
 translations:
   en:
-    name: Áries (color)
+    name: Áries
     name_locked: true
   es:
-    name: Aries (color)
+    name: Aries
     name_locked: true
