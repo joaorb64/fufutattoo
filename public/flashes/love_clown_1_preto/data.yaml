@@ -1,0 +1,16 @@
+name: Love clown 1 (preto)
+tags: []
+price: 120
+size_min:
+  - 6
+  - 8
+size_max:
+  - 8
+  - 11
+translations:
+  en:
+    name: Love clown 1 (black)
+    name_locked: true
+  es:
+    name: Love clown 1 (negro)
+    name_locked: true
