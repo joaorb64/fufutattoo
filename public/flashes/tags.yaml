@@ -9,6 +9,9 @@
 # machine translation (refine them afterwards), and tags no flash uses any
 # more are removed.
 
+aquarius:
+  en: []
+  es: []
 arte:
   en: []
   es: []
@@ -78,6 +81,9 @@ pássaro:
 releitura:
   en: []
   es: []
+signo:
+  en: []
+  es: []
 valentine's:
   en: []
   es: [san valentín]
@@ -87,3 +93,6 @@ vaso:
 vinho:
   en: [wine]
   es: [vino]
+zodiaco:
+  en: []
+  es: []

@@ -1,0 +1,20 @@
+name: aquarius
+tags:
+  - zodiaco
+  - signo
+  - aquarius
+price: 140
+size_min:
+  - 5
+  - 7
+size_max:
+  - 8
+  - 10
+description: o detalhe em vermelho também pode ser preto ou de outra cor.
+translations:
+  en:
+    name: aquarius
+    name_locked: true
+  es:
+    name: aquarius
+    name_locked: true
