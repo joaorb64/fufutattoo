@@ -11,3 +11,7 @@ size_max:
   - 6
   - 10
 description: pode ser adaptada para preto e cinza.
+translations:
+  es:
+    description: se puede adaptar a negro y gris
+    description_locked: true
