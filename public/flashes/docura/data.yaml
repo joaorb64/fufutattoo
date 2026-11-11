@@ -1,5 +1,7 @@
 name: Doçura
-tags: []
+tags:
+  - comida
+  - colorido
 price: 110
 size_min:
   - 4
