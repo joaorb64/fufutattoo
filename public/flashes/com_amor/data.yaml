@@ -1,5 +1,7 @@
 name: com amor
-tags: []
+tags:
+  - colorido
+  - valentine's
 price: 120
 size_min:
   - 5
