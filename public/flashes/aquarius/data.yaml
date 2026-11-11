@@ -13,7 +13,11 @@ size_min:
 size_max:
   - 8
   - 10
-description: o detalhe em vermelho também pode ser preto ou de outra cor.
+description: >-
+  o detalhe em vermelho também pode ser preto ou de outra cor.
+
+  A coloção do zodíaco ainda não está completa. Se não encontrou o seu, volte em
+  breve!
 translations:
   en:
     name: aquarius
