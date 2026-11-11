@@ -1,5 +1,6 @@
 name: carimbo
-tags: []
+tags:
+  - mini
 price: 80
 size_min:
   - 2
