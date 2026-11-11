@@ -27,6 +27,9 @@ baleia:
 botânico:
   en: [botanical]
   es: [botánico]
+bruxa:
+  en: []
+  es: []
 circo:
   en: []
   es: []
@@ -37,6 +40,9 @@ comida:
   en: []
   es: []
 coruja:
+  en: []
+  es: []
+creepy:
   en: []
   es: []
 estrela:
@@ -51,6 +57,9 @@ flor:
 florestinha:
   en: [forest friend]
   es: [bosquecito]
+halloween:
+  en: []
+  es: []
 kintsugi:
   en: [kintsugi]
   es: [kintsugi]
