@@ -1,5 +1,10 @@
 name: abraço quentinho
-tags: []
+tags:
+  - café
+  - outono
+  - inverno
+  - colorido
+  - preto
 price: 80
 size_min:
   - 4
@@ -7,6 +12,7 @@ size_min:
 size_max:
   - 7
   - 7
+description: o coração também pode ser preto :)
 translations:
   en:
     name: warm hug
