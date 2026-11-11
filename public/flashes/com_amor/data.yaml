@@ -1,0 +1,16 @@
+name: com amor
+tags: []
+price: 120
+size_min:
+  - 5
+  - 8
+size_max:
+  - 7
+  - 9
+translations:
+  en:
+    name: with love
+    name_locked: true
+  es:
+    name: con amor
+    name_locked: true
