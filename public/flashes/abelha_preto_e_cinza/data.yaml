@@ -1,0 +1,19 @@
+name: Abelha (preto e cinza)
+tags:
+  - inseto
+  - primavera
+  - preto e cinza
+price: 100
+size_min:
+  - 4
+  - 4.5
+size_max:
+  - 6
+  - 6.5
+translations:
+  en:
+    name: Bee (black and gray)
+    name_locked: true
+  es:
+    name: Abeja (negro y gris)
+    name_locked: true
