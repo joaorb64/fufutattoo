@@ -1,0 +1,14 @@
+name: Besouro
+tags:
+  - inseto
+  - primavera
+  - colorido
+  - preto e cinza
+price: 100
+size_min:
+  - 4
+  - 6
+size_max:
+  - 6
+  - 8
+description: Os detalhes em vermelho podem ser qualquer cor, inclusive preto :)
