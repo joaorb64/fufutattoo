@@ -1,0 +1,12 @@
+name: Borboleta 1
+tags:
+  - inseto
+  - preto e cinza
+  - primavera
+price: 120
+size_min:
+  - 8
+  - 6
+size_max:
+  - 10
+  - 8
