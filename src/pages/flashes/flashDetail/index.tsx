@@ -36,17 +36,40 @@ const FlashDetail = () => {
         if (foundFlash) {
           setFlash(foundFlash);
 
-          const similar = Object.entries(data)
-            .filter(([id, flash]: [string, any]) => {
-              return (
-                id !== flashId &&
-                flash.tags?.some((tag: any) =>
-                  foundFlash.tags?.some((t: any) => t.pt === tag.pt),
-                )
+          // Rank by shared tags, weighting rare tags higher (IDF) so ubiquitous
+          // ones like "colorido" don't make every flash look equally similar.
+          const entries = Object.entries(data) as [string, any][];
+          const tagCount = new Map<string, number>();
+          for (const [, f] of entries)
+            for (const t of new Set<string>(f.tags?.map((t: any) => t.pt)))
+              tagCount.set(t, (tagCount.get(t) ?? 0) + 1);
+          const weight = (t: string) =>
+            Math.log(entries.length / (tagCount.get(t) ?? 1));
+          const ownTags = new Set<string>(
+            foundFlash.tags?.map((t: any) => t.pt),
+          );
+          // Stable per-page tie-break so equal scores don't always fall back
+          // to file order.
+          const hash = (s: string) => {
+            let h = 0;
+            for (const c of s + flashId) h = (h * 31 + c.charCodeAt(0)) | 0;
+            return h;
+          };
+
+          const similar = entries
+            .filter(([id]) => id !== flashId)
+            .map(([id, f]) => {
+              const shared = new Set<string>(
+                f.tags?.map((t: any) => t.pt).filter((t: string) => ownTags.has(t)),
               );
+              let score = 0;
+              shared.forEach((t) => (score += weight(t)));
+              return { id, f, score };
             })
-            .map(([id, flash]) => ({ ...(flash as object), id }))
-            .slice(0, 4);
+            .filter((s) => s.score > 0)
+            .sort((a, b) => b.score - a.score || hash(a.id) - hash(b.id))
+            .slice(0, 4)
+            .map(({ id, f }) => ({ ...f, id }));
 
           setSimilarFlashes(similar);
         } else {
