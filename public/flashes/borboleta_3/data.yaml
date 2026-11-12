@@ -1,0 +1,12 @@
+name: Borboleta 3
+tags:
+  - inseto
+  - primavera
+  - preto e cinza
+price: 110
+size_min:
+  - 4
+  - 5.5
+size_max:
+  - 6
+  - 7.5
