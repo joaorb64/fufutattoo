@@ -1,0 +1,19 @@
+name: Abelha (colorido)
+tags:
+  - inseto
+  - primavera
+  - colorido
+price: 120
+size_min:
+  - 4
+  - 4.5
+size_max:
+  - 6
+  - 6.5
+translations:
+  en:
+    name: Bee (color)
+    name_locked: true
+  es:
+    name: Abeja (color)
+    name_locked: true
