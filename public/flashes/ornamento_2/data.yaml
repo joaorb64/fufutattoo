@@ -1,0 +1,13 @@
+name: Ornamento 2
+tags:
+  - ornamento
+  - colorido
+  - preto
+price: 90
+size_min:
+  - 3
+  - 5
+size_max:
+  - 5
+  - 7
+description: Pode ser preto ou qualquer cor!
