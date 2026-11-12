@@ -1,0 +1,13 @@
+name: Borboleta 2
+tags:
+  - inseto
+  - preto e cinza
+  - primavera
+price: 110
+size_min:
+  - 6
+  - 4
+size_max:
+  - 8
+  - 6
+description: Se quiser acrescentar cores, podemos conversar! :)
