@@ -1,0 +1,19 @@
+name: Leque 1
+tags:
+  - madrid
+  - espanha
+  - colorido
+price: 100
+size_min:
+  - 5
+  - 4
+size_max:
+  - 7
+  - 6
+translations:
+  en:
+    name: Fan 1
+    name_locked: true
+  es:
+    name: Abanico 1
+    name_locked: true

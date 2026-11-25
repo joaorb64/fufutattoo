@@ -39,6 +39,9 @@ circo:
 cogumelo:
   en: [mushroom]
   es: [seta, hongo]
+col:
+  en: []
+  es: []
 colorido:
   en: [colorful]
   es: [colorido]
