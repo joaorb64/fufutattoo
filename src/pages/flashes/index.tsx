@@ -97,11 +97,18 @@ export default function Flashes() {
 
   const allFlashesArray = useMemo(
     () =>
-      Object.entries(flashes).map(([id, flash]) => ({
-        id,
-        ...flash,
-      })),
-    [flashes],
+      Object.entries(flashes)
+        .map(([id, flash]) => ({ id, ...flash }))
+        // Alphabetical by the name in the visitor's language (the JSON keys
+        // are Portuguese slugs, so their order only fits Portuguese).
+        .sort((a, b) =>
+          (a.name?.[locale] ?? a.name?.pt ?? a.id).localeCompare(
+            b.name?.[locale] ?? b.name?.pt ?? b.id,
+            locale,
+            { sensitivity: "base", numeric: true },
+          ),
+        ),
+    [flashes, locale],
   );
 
   // Fuzzy, weighted search across every language regardless of the active UI

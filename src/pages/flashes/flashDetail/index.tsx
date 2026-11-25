@@ -329,7 +329,15 @@ const FlashDetail = () => {
               <div className="flex flex-wrap gap-2">
                 {flash.tags.flatMap((tag: any, i: number) =>
                   tagLabels(tag, locale).map((label, j) => (
-                    <Tag key={`${i}-${j}`} label={label} />
+                    <Tag
+                      key={`${i}-${j}`}
+                      label={label}
+                      onClick={() =>
+                        navigate(
+                          `/flashes?${new URLSearchParams({ tag: String(tag.pt) })}`,
+                        )
+                      }
+                    />
                   )),
                 )}
               </div>
