@@ -51,6 +51,9 @@ coruja:
 creepy:
   en: [creepy]
   es: [espeluznante]
+espanha:
+  en: []
+  es: []
 estrela:
   en: [star]
   es: [estrella]
@@ -93,6 +96,9 @@ kintsugi:
 lua:
   en: [moon]
   es: [luna]
+madrid:
+  en: []
+  es: []
 mar:
   en: [sea]
   es: [mar]

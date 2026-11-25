@@ -1,0 +1,18 @@
+name: Corazón Madrileño (preto)
+tags:
+  - madrid
+  - espanha
+price: 130
+size_min:
+  - 7
+  - 10
+size_max:
+  - 9
+  - 12
+translations:
+  en:
+    name: Corazón Madrileño
+    name_locked: true
+  es:
+    name: Corazón Madrileño
+    name_locked: true
